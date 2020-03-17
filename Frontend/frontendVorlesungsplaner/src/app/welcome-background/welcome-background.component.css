@@ -1,0 +1,20 @@
+.header {
+    height: 15vh;
+    display: table;
+    width: 100%;
+}
+
+h1 {
+    vertical-align: middle;
+    display: table-cell;
+    padding-left: 30px;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+.background-image {
+    background-image: url('src/assets/img/dhbw_forschung.jpg');
+    background-size: cover;
+    height: 70vh;
+}
