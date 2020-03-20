@@ -1,4 +1,9 @@
 package Backend.Fallstudie.Termin;
 
-public interface TerminRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface TerminRepository extends JpaRepository<Termin, Integer> {
+    ;
 }

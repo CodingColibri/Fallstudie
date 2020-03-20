@@ -1,4 +1,9 @@
 package Backend.Fallstudie.Dozent;
 
-public interface DozentRepository {
+import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+@Repository
+public interface DozentRepository extends JpaRepository<Dozent, Integer> {
+    ;
 }

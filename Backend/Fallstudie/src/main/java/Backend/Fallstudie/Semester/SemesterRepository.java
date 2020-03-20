@@ -1,4 +1,9 @@
 package Backend.Fallstudie.Semester;
 
-public interface SemesterRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface SemesterRepository extends JpaRepository<Semester, Integer> {
+    ;
 }
