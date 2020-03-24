@@ -8,7 +8,10 @@ import java.util.Date;
 
 @Entity
 public class Termin {
-    @Id @GeneratedValue private Integer ter_id;
+    @Id
+    @GeneratedValue
+    private Integer ter_id;
+
     private Integer mod_id;
     private Date ter_datum;
     private Time ter_start;

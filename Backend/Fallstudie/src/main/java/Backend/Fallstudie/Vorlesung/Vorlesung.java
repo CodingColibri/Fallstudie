@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 public class Vorlesung {
     @Id @GeneratedValue private Integer mod_id;
-    @Id @GeneratedValue private Date ter_datum;
+    private Date ter_datum;
     private Integer vor_terminanzahl;
     private Integer ter_id;
 

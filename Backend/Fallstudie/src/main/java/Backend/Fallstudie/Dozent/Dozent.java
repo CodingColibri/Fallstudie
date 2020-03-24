@@ -6,7 +6,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Dozent {
-    @Id @GeneratedValue private int doz_id; //primary key
+    @Id @GeneratedValue private Integer doz_id; //primary key
     private String doz_first_name;
     private String doz_last_name;
     private String doz_email;
