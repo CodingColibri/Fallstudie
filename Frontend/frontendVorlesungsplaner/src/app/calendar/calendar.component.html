@@ -1,0 +1,46 @@
+
+<div class="header"><h1>Kalender</h1>
+    <div class="previous-monat-next">
+        <p id="previous" (click)="previous()">&#8249;</p>
+        <h4 class="monatstitel"> {{currentMonth}} {{currentYear}} </h4>
+        <p id="next" (click)="next()">&#8250;</p>
+    </div>
+</div>
+<div class="kalender-container">
+    <!--<div class="monatsansicht">-->
+
+
+        <table class="monats-tabelle">
+            <tr>
+                <th *ngFor="let weekDayName of weekDayNames">{{weekDayName}}</th>
+            </tr>
+            <tr *ngFor="let week of calenderData.weeks">
+                <td *ngFor="let day of week.days"(click)="openDialog()">
+                    <div>{{day.dayNumber}}</div>
+                    <!--Funktion Vorlesung Vormittag-->
+                    <div></div>
+                    <!--Funktion Vorlesung Nachmittag-->
+
+                </td>
+            </tr>
+        </table>
+
+        <mat-form-field class="select-month-year">
+            <mat-label>Jahr</mat-label>
+            <mat-select [ngModel]="changedYear" (ngModelChange)="changedYear($event)">
+                <mat-option *ngFor="let year of years" [value]="year.name"> 
+                    {{year.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="select-month-year">
+            <mat-label>Monat</mat-label>
+            <mat-select [ngModel]="changedYear" (ngModelChange)="changedMonth($event)">
+                <mat-option *ngFor="let month of months" [value]="month.number">
+                    {{month.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br/>
+    </div>

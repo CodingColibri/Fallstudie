@@ -1,0 +1,31 @@
+<div class="pop-up-calendar">
+    <h3 id="monats-titel">März <span class="text-grey">2020<br>Mittwoch, den 18.03.2020</span></h3>
+
+    <h4 id="titel-der-vorlesung">Titel der Vorlesung</h4>
+    <div class="select-vorlesung">
+        <mat-form-field>
+            <mat-label>Vorlesung wählen</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
+                    {{vorlesung.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="vorlesungsblock">
+        <h4>Vormittags</h4>
+        <p><span class="text-grey">09:00-12:15</span></p>
+        <mat-slide-toggle [checked]="useDefaultMorning" (change)="toggleMorning($event)"></mat-slide-toggle>
+    </div>
+    <div class="vorlesungsblock">
+        <h4>Nachmittags</h4>
+        <p><span class="text-grey">13:10-16:30</span></p>
+        <mat-slide-toggle [checked]="useDefaultAfternoon" (change)="toggleAfternoon($event)"></mat-slide-toggle>
+    </div>
+    <div class="time-frame-box">
+        <input type="time" class="time-box">
+        <p>-</p><input type="time" class="time-box">
+    </div>
+    <p id="Hinzufuegen"><span class="text-grey">Hinzufügen</span></p>
+
+</div>

@@ -1,11 +1,32 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BackgroundComponent } from './welcome-background/welcome-background.component';
+import { HeaderComponent } from './shared-header/header.component';
+import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component'; 
+import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
+import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
+import { DashboardbuttonsComponent } from './adminsicht/dashboard-buttons/dashboard-buttons.component';
+import { Kursanlegen1Component } from './adminsicht/kurs-anlegen1/kurs-anlegen1.component';
+import { Kursanlegen2Component } from './adminsicht/kurs-anlegen2/kurs-anlegen2.component';
+import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester-anlegen.component';
+import { KalenderComponent } from './calendar/calendar.component';
+import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
 
-
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'dashboard', component: DashboardbuttonsComponent }, 
+  { path: 'Kursneuanlegen', component: Kursanlegen1Component },
+  { path: 'Semesterneuanlegen', component: SemesteranlegenComponent },
+  { path: 'Dozenten', component: Kursanlegen2Component }, 
+  { path: 'willkommen', component: WelcomebuttonsComponent, }, 
+  { path: 'zurück', component: Kursanlegen1Component, }, 
+  { path: 'kalenderansicht', component: KalenderComponent }
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, 
+    {enableTracing: true })
+  
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

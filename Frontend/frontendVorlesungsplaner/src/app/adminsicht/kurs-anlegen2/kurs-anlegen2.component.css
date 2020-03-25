@@ -1,0 +1,127 @@
+h2 {
+    color: red;
+    margin-left:60px;
+    margin-bottom: 10x;
+    margin-top: 50px;
+}
+p {
+   color: grey;
+   margin-left: 0px;
+}
+
+h3 {
+    color: red;
+    float: left;
+    clear: left;
+    margin-left:60px;
+    margin-bottom: 20px;
+}
+
+.header {
+    height: 15vh;
+    display: table;
+    width: 100%;
+}
+
+#titel {
+    float: left;
+    clear: left;
+    margin-left: 60px;
+}
+.titel {
+    width: 70%;
+}
+#vorname {
+    float: left;
+}
+.vorname {
+    width: 70%;
+    margin-right: 6px;  
+}
+
+#nachname {
+    float: left;
+    margin-right: 6px;
+}
+.nachname {
+    width: 65%;
+    margin-right: 6px;  
+}
+
+#email {
+    float: left;
+    margin-right: 30px;
+}
+.email {
+    width: 95%;
+    margin-right: 10px;  
+}
+
+#vorlesung {
+    float: left;
+    margin-right: 30px;
+}
+.vorlesung {
+    width: 95%;
+    margin-right: 10px;  
+}
+
+#vorlesungco {
+    float: left;
+    margin-right: 30px;
+}
+.vorlesungco {
+    width: 95%;
+    margin-right: 10px;  
+}
+
+#vorlesungco2 {
+    float: left;
+    margin-right: 30px;
+}
+.vorlesungco2 {
+    width: 95%;
+    margin-right: 10px;  
+}
+.zurück {
+    float: left;
+    margin-top: 70px;
+    margin-left: 10px;
+    font-size: 18px;
+}
+.zurück a {
+    color: black;
+    text-decoration: none;
+}
+
+#pfeil {
+    float: left;
+    clear: left;
+    height: 1.5em;
+    width: 1.5em;
+    margin-top: 70px;
+    margin-left: 60px;
+}
+#pfeil2 {
+    float: left;
+    clear: left;
+    height: 1.5em;
+    width: 1.5em;
+    margin-top: 20px;
+    margin-left: 60px;
+    transform: rotate(180deg);
+}
+.kursanlegen {
+    float: left;
+    margin-top: 20px;
+    float:left;
+    margin-left: 10px;
+    font-size: 18px;
+    margin-bottom: 60px;
+}
+.kursanlegen a {
+    color: black;
+    text-decoration: none;
+}
+
+

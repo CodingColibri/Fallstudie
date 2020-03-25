@@ -1,0 +1,60 @@
+.header {
+    height: 15vh;
+    display: table;
+    width: 100%;
+}
+
+h1 {
+    vertical-align: middle;
+    display: table-cell;
+    padding-left: 40px;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+
+.background-image {
+    background-image: url('src/assets/img/dhbw_forschung.jpg');
+    background-size: cover;
+    height: 70vh;
+
+}
+
+.box {
+    width: 340px;
+    height: 170px;
+    text-align: center;
+    padding: 70px;
+    background: white;
+    opacity: 0.6;
+    box-sizing: border-box;
+    font-weight: bold;
+    clear: left;
+    float: left;
+    margin-left: 200px;
+    margin-top: 135px;
+}
+
+.box1 {
+    width: 340px;
+    height: 170px;
+    text-align: center;
+    padding: 70px;
+    background: white;
+    opacity: 0.6;
+    box-sizing: border-box;
+    float: right;
+    clear:right;
+    font-weight: bold;
+    margin-right: 200px;
+    margin-top: 135px;
+}
+
+.box:hover {
+    background-color: indianred;
+  }
+.box1:hover {
+    background-color: indianred;
+  }
+
