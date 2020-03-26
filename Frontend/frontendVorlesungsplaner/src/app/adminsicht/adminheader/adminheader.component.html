@@ -1,29 +1,29 @@
 <div class="overheader">
-
-<div> <a routerLink="/willkommen" routerLinkActive="active"><img id="logo" src="https://wwwlehre.dhbw-stuttgart.de/~sschulz/IMAGES/dh-logo.png"></a> </div>
-
-<!-- <mat-form-field> 
-    <mat-label>  Kurs auswählen </mat-label>
-        <mat-select> 
-            <mat-option *ngFor="let kurs of kurse" [value]="kurs.value"> 
-                {{kurs.viewValue}}
-            </mat-option>
-        </mat-select>
-</mat-form-field>     -->
+<div> 
+    <a routerLink="/willkommen" routerLinkActive="active">
+        <img src="../../assets/img/dh-logo.png" id="header-logo">
+    </a>
+</div>
 
 <div id="rechts"> 
-    <label class="kurs" >Kurs</label>
-    <input type="text" class="wählen"  placeholder="Bitte wählen"> 
-    <label class="admin"> Administrator </label>
+    <mat-form-field> 
+        <mat-label class="wählen">  Kurs auswählen </mat-label>
+            <mat-select> 
+                <mat-option *ngFor="let kurs of kurse" [value]="kurs.value"> 
+                    {{kurs.viewValue}}
+                </mat-option>
+            </mat-select>
+    </mat-form-field>   
+    <label class="admin">Administrator</label>
     <div class="profil"> <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">  </div> 
 </div>
     
 </div>  
     
-<div class="header-content">
-    <div class="head"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></div>
-    <div class="head"><a routerLink="/kalenderansicht" routerLinkActive="active">Kalenderansicht</a></div>
-    <div class="head"> Vorlesungsplanansicht </div>
+<div class="menu-content">
+    <div class="navi"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></div>
+    <div class="navi"><a routerLink="/kalenderansicht" routerLinkActive="active">Kalenderansicht</a></div>
+    <div class="navi">Vorlesungsplanansicht</div>
  </div>
     
     

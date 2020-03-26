@@ -19,14 +19,24 @@
     padding-top: 7px;
     float: left;
     margin-right: 100px;
+
+
 }
+.head a {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+}
+.head a:focus { 
+    background-color: rosybrown;
+ }
 
 #logo {
     padding-left: 45px;
-    height: 60px;
+    height: 43px;
     display: block;
     max-width: 100%;
-    padding-top: 12px;
+    padding-top: 17px;
     float: left;
     clear:left;
 }
@@ -47,7 +57,11 @@ input::placeholder {
 .wählen {
     width: 20%;
     margin-right: 50px; 
+  
+}
+.admin {
     color: grey;
+    margin-left: 20px;
 }
 
 #rechts {
@@ -64,8 +78,3 @@ input::placeholder {
      margin-bottom: 2em;
     
  }
- 
-
-
-
-

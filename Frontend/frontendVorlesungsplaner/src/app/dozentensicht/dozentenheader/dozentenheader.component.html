@@ -1,0 +1,30 @@
+<div class="overheader">
+
+<div> 
+    <a routerLink="/dwelcome" routerLinkActive="active">
+        <img src="../../assets/img/dh-logo.png" id="header-logo">
+    </a>
+</div>
+
+<div id="rechts">
+    <mat-form-field> 
+    <mat-label class="wählen">  Kurs auswählen </mat-label>
+    <mat-select> 
+        <mat-option *ngFor="let kurs of kurse" [value]="kurs.value"> 
+            {{kurs.viewValue}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<label class="wählen"> Prof. Reimond Bimazubute</label>
+<div class="profil"> <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">  </div>
+</div>
+
+</div> 
+
+<div class="menu-content">
+    <div class="navi">Meine Vorlesungen</div>
+    <div class="navi"><a routerLink="/kalenderansicht" routerLinkActive="active">Kalenderansicht</a></div>
+</div>
+
+
+      

@@ -21,10 +21,6 @@ input::placeholder {
     margin-right: 50px; 
     color: grey; 
 }
-.admin {
-    color: grey;
-    margin-left: 20px;
-}
 
 #rechts {
     margin-left: 55em;
@@ -38,7 +34,10 @@ input::placeholder {
      margin-left: 24em;
      margin-top: -4.2em;
      margin-bottom: 2em;
+    
  }
  
+
+
 
 

@@ -9,7 +9,7 @@ import { number } from 'prop-types';
 import { MatIconRegistry } from '@angular/material/icon';
 import { CalenderData, Week, CalenderDay } from '../models/calender-models';
 import { WEEKDAYNAMES, MONTHS, YEARS } from '../utils/constants';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { VorlesungEintragenComponent } from '../dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
 
 @Component({

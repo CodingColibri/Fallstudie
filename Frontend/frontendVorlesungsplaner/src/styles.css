@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-
+/* Global styles*/
 * {
     font-family: 'Lato', sans-serif;
 }
@@ -12,4 +11,89 @@ body {
 body {
     margin: 0;
     /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
+}
+/*Titel auf jeder Unterseite*/
+.title h1 {
+    height: 15vh;
+    vertical-align: middle;
+    display: table-cell;
+    padding-left: 40px;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    color: #2c2c2c;
+    font-size: 1.6em;
+}
+/*Styles für Buttons auf Hintergrundbild*/
+.wrapper-buttons{
+    margin: auto;
+}
+.main-box-button {
+    width: 300px;
+    height: 170px;
+    background: white;
+    opacity: 0.85;
+    box-sizing: border-box;
+    float: left;
+    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main-box-button a{
+    text-decoration: none;
+    color: black;
+}
+.main-box-button h3{
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    display: table-cell;
+    margin: auto;
+}
+.main-box-button:hover {
+    background-color: indianred;
+}
+/*Background der Seiten*/
+.background-image {
+    background-image: url('src/assets/img/dhbw_forschung.jpg');
+    background-size: cover;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+}
+/*Logo Header auf jeder Unterseite*/
+#header-logo {
+    padding-left: 45px;
+    height: 43px;
+    display: block;
+    max-width: 100%;
+    padding-top: 17px;
+    float: left;
+    clear:left;
+}
+/*Menü-Leiste dunkelgrau als Navigation*/
+.menu-content {
+    height: 15vh;
+    background-color: #505050;
+    min-height: 32px;
+    padding-left: 42px;
+    max-height: 32px;  
+    margin-top: 5em;
+}
+
+.navi {
+    color:white;
+    padding-right: .6rem;
+    padding-left: .2rem; 
+    padding-top: 7px;
+    float: left;
+    margin-right: 100px;
+
+}
+.navi a {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
 }

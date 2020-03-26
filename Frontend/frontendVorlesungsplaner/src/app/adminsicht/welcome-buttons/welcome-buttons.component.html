@@ -1,14 +1,22 @@
-<div> 
-<div class="header">
+<adminheader></adminheader>
+<div class="title">
     <h1>Herzlich Willkommen beim Vorlesungsplaner</h1>
 </div>
 
 <div class="background-image"> 
-
-<a routerLink="/dashboard" routerLinkActive="active"> <h3 class="boxlinks"> Dashboard </h3> </a>
-<a routerLink="/kalenderansicht" routerLinkActive="active"><h3 class="boxmittel"> Kalenderansicht</h3></a>
-<h3 class="boxrechts"> Vorlesungsplanansicht </h3>
-
-</div>
-
+    <div class="wrapper-buttons">
+        <div class="main-box-button">
+            <a routerLink="/dashboard" routerLinkActive="active"> 
+                <h3>Dashboard</h3> 
+            </a>
+        </div>
+        <div class="main-box-button">
+            <a routerLink="/kalenderansicht" routerLinkActive="active">
+                <h3>Kalenderansicht</h3>
+            </a>
+        </div>
+        <div class="main-box-button">
+                <h3>Vorlesungsplanansicht</h3>
+        </div>
+    </div>
 </div>

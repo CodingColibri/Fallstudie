@@ -17,7 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 //Import Komponenten Vorlesungsplaner
 import { BackgroundComponent } from './welcome-background/welcome-background.component';
-import { HeaderComponent } from './shared-header/header.component';
+import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
 import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component'; 
 import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
 import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
@@ -27,11 +27,14 @@ import { Kursanlegen2Component } from './adminsicht/kurs-anlegen2/kurs-anlegen2.
 import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester-anlegen.component';
 import { KalenderComponent } from './calendar/calendar.component';
 import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
-
+import { LoginComponent } from './login/login.component';
+import { MenuNavigationComponent } from './adminsicht/menu-navigation/menu-navigation.component';
+import { SharedHeaderComponent } from './shared-header/shared-header.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    LoginComponent,
+    DozentenheaderComponent,
     BackgroundComponent,
     AdminheaderComponent,
     WelcomebuttonsComponent,
@@ -42,8 +45,9 @@ import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen
     SemesteranlegenComponent,
     KalenderComponent,
     VorlesungEintragenComponent,
-    
-    DashboardbuttonsComponent
+    DashboardbuttonsComponent,
+    MenuNavigationComponent,
+    SharedHeaderComponent
   ],
   imports: [
     BrowserModule,
