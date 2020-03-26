@@ -24,7 +24,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Backend/Fallstudie" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="SvnConfiguration">
@@ -39,6 +39,7 @@
       <updated>1583843352301</updated>
       <workItem from="1583843356263" duration="307000" />
       <workItem from="1584466330362" duration="2128000" />
+      <workItem from="1585247948646" duration="189000" />
     </task>
     <servers />
   </component>
@@ -50,10 +51,10 @@
       <screen x="0" y="0" width="1463" height="783" />
     </state>
     <state x="501" y="195" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1463.783@0.0.1463.783" timestamp="1583843794992" />
-    <state x="512" y="150" key="FileChooserDialogImpl" timestamp="1584531720458">
+    <state x="512" y="150" key="FileChooserDialogImpl" timestamp="1585248013206">
       <screen x="0" y="0" width="1463" height="783" />
     </state>
-    <state x="512" y="150" key="FileChooserDialogImpl/0.0.1463.783@0.0.1463.783" timestamp="1584531720458" />
+    <state x="512" y="150" key="FileChooserDialogImpl/0.0.1463.783@0.0.1463.783" timestamp="1585248013206" />
     <state x="240" y="34" key="SettingsEditor" timestamp="1583843666649">
       <screen x="0" y="0" width="1463" height="783" />
     </state>
