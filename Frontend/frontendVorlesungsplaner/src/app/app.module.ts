@@ -4,25 +4,63 @@ import { HttpClientModule }    from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatInputModule} from '@angular/material/input';
+import { MatIconModule} from '@angular/material/icon';
+import { RouterModule, Routes } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 //Import Komponenten Vorlesungsplaner
 import { BackgroundComponent } from './welcome-background/welcome-background.component';
 import { HeaderComponent } from './shared-header/header.component';
-
+import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component'; 
+import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
+import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
+import { DashboardbuttonsComponent } from './adminsicht/dashboard-buttons/dashboard-buttons.component';
+import { Kursanlegen1Component } from './adminsicht/kurs-anlegen1/kurs-anlegen1.component';
+import { Kursanlegen2Component } from './adminsicht/kurs-anlegen2/kurs-anlegen2.component';
+import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester-anlegen.component';
+import { KalenderComponent } from './calendar/calendar.component';
+import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    BackgroundComponent
+    BackgroundComponent,
+    AdminheaderComponent,
+    WelcomebuttonsComponent,
+    DwelcomebuttonsComponent,
+    DashboardbuttonsComponent,
+    Kursanlegen1Component,
+    Kursanlegen2Component,
+    SemesteranlegenComponent,
+    KalenderComponent,
+    VorlesungEintragenComponent,
+    
+    DashboardbuttonsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
-
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatSlideToggleModule,
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class AppModule { }

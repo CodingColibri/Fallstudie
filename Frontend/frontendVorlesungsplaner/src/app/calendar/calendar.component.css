@@ -1,0 +1,137 @@
+.header {
+    height: 8vh;
+    display: table;
+    width: 100%;
+}
+
+h1 {
+    vertical-align: middle;
+    display: table-cell;
+    padding-left: 40px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    color: #2c2c2c;
+    font-size: 1.6em;
+}
+
+.kalender-container {
+    width: 70%;
+    margin: auto;
+}
+
+.monats-tabelle {
+    width: 90%;
+    border-spacing: 0px;
+}
+
+.monats-tabelle td {
+    border: 0.1px solid #ccc;
+    height: 55px;
+    margin: 0;
+    text-align: left;
+    vertical-align: top;
+    padding: 8px;
+    font-size: 10px;
+}
+
+.monats-tabelle tr {
+    border: 0.1px solid #ccc;
+}
+
+th:hover {
+    background-color: df0019;
+}
+
+.highlight-today {
+    background-color: #df0019;
+    font-weight: bold;
+    color: white;
+}
+
+.monatstitel {
+    display: inline;
+    font-weight: normal;
+}
+
+.previous-monat-next {
+    float: right;
+    margin-right: 265px;
+    margin-top: 40px;
+}
+
+
+/*Previous-Button*/
+
+#previous {
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    padding: 7px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+/*Next-Button*/
+
+#next {
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    padding: 7px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.monat-button {
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    padding: 3px 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.jahr-button {
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    padding: 3px 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.th-display-none {
+    visibility: hidden;
+}
+
+td:hover {
+    background-color: #df0019;
+    color: white;
+}
+
+.select-month-year {
+    width: 80px;
+}

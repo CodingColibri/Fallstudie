@@ -1,0 +1,101 @@
+.header {
+    height: 15vh;
+    display: table;
+    width: 100%;
+}
+
+h2 {
+     color: red;
+     margin-left:60px;
+     margin-bottom: 20px;
+     margin-top: 50px;
+}
+p {
+    color: grey;
+    margin-left: 60px;
+}
+
+#kurs {
+    float: left;
+    
+}
+#jahr {
+    float: left;
+}
+#semester {
+    float: left;
+}
+
+input {
+    float: left;
+    margin-left: 60px;
+}
+.kurs {
+    width: 80%;
+    margin-right: 50px; 
+   
+}
+.jahr {
+    width: 80%;
+    margin-right: 50px; 
+}
+
+.semester {
+    width: 80%;
+    margin-right: 50px; 
+}
+h3 {
+    color: red;
+    float: left;
+    clear: left;
+    margin-left:60px;
+    margin-bottom: 20px;
+    margin-top: 36px;
+}
+
+#name {
+    float: left;
+    clear: left;
+}
+#stunden {
+    float: left;
+}
+.name{
+    width: 80%;
+    margin-right: 50px; 
+}
+.stunden {
+    width: 80%;
+    margin-right: 50px; 
+}
+#plus {
+    float: left;
+    clear: left;
+    height: 1.5em;
+    width: 1.5em;
+    margin-top: 10px;
+    margin-left: 60px;
+}
+
+.weiter {
+    float: left;
+    margin-top: 35px;
+    margin-left: 10px;
+    font-size: 18px;
+}
+.weiter a {
+    text-decoration: none;
+    color:black;
+}
+
+#pfeil {
+    float: left;
+    clear: left;
+    height: 1.5em;
+    width: 1.5em;
+    margin-top: 35px;
+    margin-left: 60px;
+}
+
+
+
