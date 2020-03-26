@@ -29,7 +29,7 @@ import { KalenderComponent } from './calendar/calendar.component';
 import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
 import { LoginComponent } from './login/login.component';
 import { MenuNavigationComponent } from './adminsicht/menu-navigation/menu-navigation.component';
-import { SharedHeaderComponent } from './shared-header/shared-header.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,8 +46,7 @@ import { SharedHeaderComponent } from './shared-header/shared-header.component';
     KalenderComponent,
     VorlesungEintragenComponent,
     DashboardbuttonsComponent,
-    MenuNavigationComponent,
-    SharedHeaderComponent
+    MenuNavigationComponent
   ],
   imports: [
     BrowserModule,
