@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'willkommen', component: WelcomebuttonsComponent, }, 
   { path: 'dwelcome', component: DwelcomebuttonsComponent },
   { path: 'zurück', component: Kursanlegen1Component, }, 
-  { path: 'kalenderansicht', component: KalenderComponent, loadChildren: '/adminsicht/adminheader' },
+  { path: 'kalenderansicht', component: KalenderComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
 
