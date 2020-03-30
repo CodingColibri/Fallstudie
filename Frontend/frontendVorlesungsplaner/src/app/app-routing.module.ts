@@ -12,6 +12,8 @@ import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester
 import { KalenderComponent } from './calendar/calendar.component';
 import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
 import { LoginComponent } from './login/login.component';
+import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersicht/vorlesungsuebersicht.component';
+import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden-warnung.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -23,7 +25,9 @@ const routes: Routes = [
   { path: 'dwelcome', component: DwelcomebuttonsComponent },
   { path: 'zurück', component: Kursanlegen1Component, }, 
   { path: 'kalenderansicht', component: KalenderComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full'}
+  { path: 'vorlesungsuebersicht', component: VorlesungsuebersichtComponent },
+  { path: 'stunden-warnung', component: StundenWarnungComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
 ];
 
 @NgModule({

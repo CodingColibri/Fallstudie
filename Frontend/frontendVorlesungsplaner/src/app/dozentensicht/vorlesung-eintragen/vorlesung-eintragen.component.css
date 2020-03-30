@@ -67,3 +67,18 @@
     padding-top: 50px;
     padding-right: 0px;
 }
+
+.add-vorlesung button {
+    background-color: white;
+    border: none;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 45px;
+    cursor: pointer;
+    outline: none;
+}
+.add-vorlesung button:active {
+   outline: none;
+   border: none;
+}

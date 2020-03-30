@@ -8,23 +8,33 @@
     border-spacing: 0px;
     margin-bottom: 10px;
 }
-
+/*Table-Cells in zwei divs unterteilt (2 Vorlesungsblöcke)*/
 .monats-tabelle td {
     border: 0.1px solid #ccc;
     height: 55px;
     margin: 0;
     text-align: left;
     vertical-align: top;
-    padding: 8px;
+    /* padding: 8px; */
     font-size: 10px;
+    cursor: pointer;
 }
-
+.monats-tabelle td div {
+    height: 50%;
+}
+.tdContent {
+    padding: 8px;
+}
 .monats-tabelle tr {
     border: 0.1px solid #ccc;
 }
 
 th:hover {
     background-color: df0019;
+}
+
+.tdRed {
+    background-color: #df0019;
 }
 
 .highlight-today {

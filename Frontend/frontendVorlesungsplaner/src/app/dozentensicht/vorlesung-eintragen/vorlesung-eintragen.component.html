@@ -1,11 +1,12 @@
 <div class="pop-up-calendar">
-    <h3 id="monats-titel">März <span class="text-grey">2020<br>Mittwoch, den 18.03.2020</span></h3>
+    <h3 id="monats-titel">{{calenderDay.date | date:'MMMM'}} <span class="text-grey">{{calenderDay.date | date:'yyyy'}}<br>
+        {{calenderDay.date | date: 'EEEE, dd.MM.y'}}</span></h3>
 
     <h4 id="titel-der-vorlesung">Titel der Vorlesung</h4>
     <div class="select-vorlesung">
         <mat-form-field>
             <mat-label>Vorlesung wählen</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="selectedVorlesung">
                 <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
                     {{vorlesung.name}}
                 </mat-option>
@@ -15,17 +16,20 @@
     <div class="vorlesungsblock">
         <h4>Vormittags</h4>
         <p><span class="text-grey">09:00-12:15</span></p>
-        <mat-slide-toggle [checked]="useDefaultMorning" (change)="toggleMorning($event)"></mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="calenderDay.morning" (change)="toggleMorning($event)"></mat-slide-toggle>
     </div>
     <div class="vorlesungsblock">
         <h4>Nachmittags</h4>
-        <p><span class="text-grey">13:10-16:30</span></p>
-        <mat-slide-toggle [checked]="useDefaultAfternoon" (change)="toggleAfternoon($event)"></mat-slide-toggle>
+        <p><span class="text-grey">13:15-16:30</span></p>
+        <mat-slide-toggle [(ngModel)]="calenderDay.afternoon" (change)="toggleAfternoon($event)"></mat-slide-toggle>
     </div>
     <div class="time-frame-box">
         <input type="time" class="time-box">
         <p>-</p><input type="time" class="time-box">
     </div>
-    <p id="Hinzufuegen"><span class="text-grey">Hinzufügen</span></p>
-
+    <div class="add-vorlesung" mat-dialog-actions>
+        <!-- <p id="Hinzufuegen"><span class="text-grey">Hinzufügen</span></p> -->
+        <button mat-button (click)="addVorlesung()" cdkFocusInitial>Hinzufügen</button>
+        <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Hinzufügen</button> -->
+    </div>
 </div>

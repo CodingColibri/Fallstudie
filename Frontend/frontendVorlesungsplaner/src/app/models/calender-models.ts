@@ -1,12 +1,17 @@
+import { Vorlesung } from './module-models';
+
 export class CalenderDay {
-    public dayNumber: number;
+    public date: Date; //Startdatum mit Startuhrzeit
     public morning: boolean;
     public afternoon: boolean;
-
-    constructor (daynumber: number, morning: boolean =false, afternoon: boolean =false){
-        this.dayNumber = daynumber;
+    public uneditable: boolean;
+    public vorlesung: Vorlesung[];
+    //Array Vorlesungen
+    constructor (date: Date, morning: boolean =false, afternoon: boolean =false, vorlesung: Vorlesung[]){
+        this.date = date;
         this.morning = morning;
         this.afternoon = afternoon;
+        this.vorlesung = [];
     }
 }
 

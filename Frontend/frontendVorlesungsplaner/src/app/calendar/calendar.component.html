@@ -1,5 +1,6 @@
-<adminheader></adminheader>
-<div class="title"><h1>Kalender</h1>
+<dozentenheader></dozentenheader>
+<div class="title">
+    <h1>Kalender</h1>
     <div class="previous-monat-next">
         <p id="previous" (click)="previous()">&#8249;</p>
         <h4 class="monatstitel"> {{currentMonth}} {{currentYear}} </h4>
@@ -7,40 +8,39 @@
     </div>
 </div>
 <div class="kalender-container">
-    <!--<div class="monatsansicht">-->
 
+    <table class="monats-tabelle">
+        <tr>
+            <th *ngFor="let weekDayName of weekDayNames">{{weekDayName}}</th>
+        </tr>
+        <tr *ngFor="let week of calenderData.weeks">
+            <td *ngFor="let day of week.days" (click)="openDialog(day)">
+                <div [ngClass]="{'tdRed': blockedTrue}"><span class="tdContent">{{day.date|date:'d'}}
+                        {{day.morning}}</span>
+                </div>
+                <div [ngClass]="{'tdRed': blockedTrue}"></div>
+            </td>
+        </tr>
+    </table>
 
-        <table class="monats-tabelle">
-            <tr>
-                <th *ngFor="let weekDayName of weekDayNames">{{weekDayName}}</th>
-            </tr>
-            <tr *ngFor="let week of calenderData.weeks">
-                <td *ngFor="let day of week.days"(click)="openDialog()">
-                    <div>{{day.dayNumber}}</div>
-                    <!--Funktion Vorlesung Vormittag-->
-                    <div></div>
-                    <!--Funktion Vorlesung Nachmittag-->
+    <mat-form-field class="select-month-year">
+        <mat-label>Jahr</mat-label>
+        <mat-select [ngModel]="changedYear" (ngModelChange)="changedYear($event)">
+            <mat-option *ngFor="let year of years" [value]="year.name">
+                {{year.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="select-month-year">
+        <mat-label>Monat</mat-label>
+        <mat-select [ngModel]="changedYear" (ngModelChange)="changedMonth($event)">
+            <mat-option *ngFor="let month of months" [value]="month.number">
+                {{month.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <h4 (click)="openWarning()">Test Popup Stundenwarnung</h4>
+    <!-- <a (click)="openWarning()" routerLink="/stunden-warnung" routerLinkActive="active">Test Popup Stundenwarnung</a> -->
 
-                </td>
-            </tr>
-        </table>
-
-        <mat-form-field class="select-month-year">
-            <mat-label>Jahr</mat-label>
-            <mat-select [ngModel]="changedYear" (ngModelChange)="changedYear($event)">
-                <mat-option *ngFor="let year of years" [value]="year.name"> 
-                    {{year.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="select-month-year">
-            <mat-label>Monat</mat-label>
-            <mat-select [ngModel]="changedYear" (ngModelChange)="changedMonth($event)">
-                <mat-option *ngFor="let month of months" [value]="month.number">
-                    {{month.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <br/>
-    </div>
+    <br />
+</div>

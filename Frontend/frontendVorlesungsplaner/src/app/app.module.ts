@@ -13,7 +13,8 @@ import { MatInputModule} from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
 import { RouterModule, Routes } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 //Import Komponenten Vorlesungsplaner
 import { BackgroundComponent } from './welcome-background/welcome-background.component';
@@ -28,7 +29,8 @@ import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester
 import { KalenderComponent } from './calendar/calendar.component';
 import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
 import { LoginComponent } from './login/login.component';
-import { MenuNavigationComponent } from './adminsicht/menu-navigation/menu-navigation.component';
+import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersicht/vorlesungsuebersicht.component';
+import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden-warnung.component';
 
 @NgModule({
   declarations: [
@@ -46,8 +48,9 @@ import { MenuNavigationComponent } from './adminsicht/menu-navigation/menu-navig
     KalenderComponent,
     VorlesungEintragenComponent,
     DashboardbuttonsComponent,
-    MenuNavigationComponent
-  ],
+    VorlesungsuebersichtComponent,
+    StundenWarnungComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -58,12 +61,15 @@ import { MenuNavigationComponent } from './adminsicht/menu-navigation/menu-navig
     MatFormFieldModule,
     MatSlideToggleModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule, 
+    MatCheckboxModule, 
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
-  ]
+  ],
+  entryComponents: [VorlesungEintragenComponent]
 })
 export class AppModule { }

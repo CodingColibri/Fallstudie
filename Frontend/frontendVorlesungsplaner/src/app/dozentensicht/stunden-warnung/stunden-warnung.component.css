@@ -1,0 +1,10 @@
+.pop-up-warnung {
+    width: 250px;
+    background-color: white;
+    border-radius: 15px;
+    text-align: center;
+}
+.selectYesNo {
+    margin-right: 25px;
+    display: inline;
+}
