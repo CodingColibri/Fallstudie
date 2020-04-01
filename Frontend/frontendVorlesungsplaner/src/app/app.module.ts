@@ -15,6 +15,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 
 //Import Komponenten Vorlesungsplaner
 import { BackgroundComponent } from './welcome-background/welcome-background.component';
@@ -67,7 +69,10 @@ import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender
     MatInputModule,
     MatDialogModule, 
     MatCheckboxModule, 
-    MatRadioModule
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRippleModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { KalenderComponent } from '../../calendar/calendar.component';
 import { CalenderData, Week, CalenderDay } from '../../models/calender-models';
-import { VorlesungenService } from 'src/app/vorlesungen.service';
+import { VorlesungenService } from 'src/app/services/vorlesungen.service';
 
 @Component({
     selector: 'vorlesungsuebersicht',

@@ -2,25 +2,61 @@
 <div>
 
 <h2>Neues Semester anlegen</h2>
+ 
+<div> 
+<mat-form-field appearance="legacy" id="semestername">
+    <mat-label>Semestername</mat-label>
+    <input matInput placeholder="Placeholder">
+</mat-form-field>
+
+<mat-form-field id="beginn"> 
+        <mat-label>Chose first date</mat-label> 
+        <input matInput [matDatepicker]="myDatepicker">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+</mat-form-field>
 
 
-<div id="semestername"> 
-    <p> Semestername: </p>
-    <input type="text" class="semestername"> 
+<mat-form-field id="ende">
+    <mat-label>Chose last date </mat-label>
+    <input matInput [matDatepicker]="myDatepicker2">
+    <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepicker2></mat-datepicker>
+  </mat-form-field>
+
 </div>
 
-<div id="beginn"> 
-    <p> Beginn: </p>
-    <input type="text" class="beginn" placeholder="Bitte wählen (Kalender)"> 
-</div>
+<div> 
+    <form [formGroup]='formName'>
+        <div formArrayName="controllerArray" >
+        <div *ngFor="let item of formName['controls'].controllerArray['controls']; let i=index" [formGroupName]="i">
+       <!-- <input formControlName="controlerInputName1" type="text">  -->
 
-<div id="ende"> 
-    <p> Ende: </p>
-    <input type="text" class="ende" placeholder="Bittw wählen (Kalender)"> 
-</div> 
+        <mat-form-field formControlName="controlerInputName1" appearance="legacy" id="semestername">
+            <mat-label>Semestername</mat-label>
+            <input matInput placeholder="Placeholder">
+        </mat-form-field>
 
-<div>
-<img id="plus" src="https://i.ya-webdesign.com/images/white-plus-png-5.png"> 
+        <mat-form-field id="beginn"> 
+            <mat-label>Chose first date</mat-label> 
+            <input matInput [matDatepicker]="myDatepicker">
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker></mat-datepicker>
+        </mat-form-field>
+           
+        <mat-form-field id="ende">
+            <mat-label>Chose last date </mat-label>
+            <input matInput [matDatepicker]="myDatepicker2">
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker2></mat-datepicker>
+        </mat-form-field>
+     
+        <div (click)='removeInput(i)'><img id="müll" width="20em" height="20em" src="https://image.flaticon.com/icons/png/512/25/25008.png"></div> 
+    </div> </div>
+    </form>
+    <!-- <p> validation: {{ formName.status }}</p> -->
+        <div (click)='addInput()'><img id="plus" src="https://i.ya-webdesign.com/images/white-plus-png-5.png"></div>
+
 </div>
 
 <div class="header"> 

@@ -12,7 +12,7 @@ import { WEEKDAYNAMES, MONTHS, YEARS } from '../utils/constants';
 import { MatDialog, MatDialogRef, MatDialogConfig} from '@angular/material/dialog';
 import { VorlesungEintragenComponent } from '../dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
 import { StundenWarnungComponent } from '../dozentensicht/stunden-warnung/stunden-warnung.component';
-import { VorlesungenService } from '../vorlesungen.service';
+import { VorlesungenService } from '../services/vorlesungen.service';
 import { Time } from '@angular/common';
 
 @Component({
@@ -86,11 +86,13 @@ export class KalenderComponent {
             }
             if (data.morning.morningOrAfternoon ==="morning") {
                 this.vlService.vorlesungen.push(updateMorning);
-            } else {
-                this.vlService.vorlesungen.push(updateAfternoon)
+            } else if (data.afternoon.morningOrAfternoon ==="afternoon"){
+                debugger;
+                this.vlService.vorlesungen.push(updateAfternoon);
             }
-            
-            console.log(this.vlService);
+            debugger;
+            this.vlService.vorlesungen.push(data);
+        console.log(this.vlService);
         //=>this.vlService.updateVl(data); //TODO
         console.log(data);
         console.log('The dialog was closed');

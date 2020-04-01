@@ -20,7 +20,7 @@
 
 <h3>Vorlesungen </h3> 
 
- <div id="name"> 
+<div id="name"> 
     <p> Name: </p>
     <input type="text" class="name"> 
  </div>
@@ -30,7 +30,31 @@
     <input type="text" class="stunden"> 
 </div> 
 
-<div> <img id="plus" src="https://i.ya-webdesign.com/images/white-plus-png-5.png"> </div>
+<div>  
+    <form [formGroup]='formName'>
+        <div formArrayName="controllerArray" >
+        <div *ngFor="let item of formName['controls'].controllerArray['controls']; let i=index" [formGroupName]="i">
+       <!-- <input formControlName="controlerInputName1" type="text">  -->
+
+ <div id="name"> 
+    <p> Name: </p>
+    <input type="text" class="name"> 
+ </div>
+    
+ <div id="stunden"> 
+    <p> Anzahl in Stunden: </p>
+    <input type="text" class="stunden"> 
+  
+</div> 
+  <div (click)='removeInput(i)'><img id="müll" width="20em" height="20em" src="https://image.flaticon.com/icons/png/512/25/25008.png"></div> 
+    </div> </div>
+    </form>
+    <!-- <p> validation: {{ formName.status }}</p> -->
+        <div (click)='addInput()'><img id="plus" src="https://i.ya-webdesign.com/images/white-plus-png-5.png"></div>
+
+</div> 
+
+<!-- <div> <img id="plus" src="https://i.ya-webdesign.com/images/white-plus-png-5.png"> </div> -->
       
 <div class="header"> 
     <img id="pfeil" src="https://cdn.pixabay.com/photo/2012/04/24/13/58/arrow-40166_960_720.png">   

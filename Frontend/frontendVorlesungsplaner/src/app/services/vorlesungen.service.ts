@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Vorlesung } from './models/module-models';
+import { Vorlesung } from '../models/module-models';
 
 export interface VorlesungDTO {
   date: Date; //e.g.  02.03.2020
