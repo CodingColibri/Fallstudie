@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { KalenderComponent } from '../../calendar/calendar.component';
 import { CalenderData, Week, CalenderDay } from '../../models/calender-models';
+import { VorlesungenService } from 'src/app/vorlesungen.service';
 
 @Component({
     selector: 'vorlesungsuebersicht',
@@ -11,9 +12,9 @@ import { CalenderData, Week, CalenderDay } from '../../models/calender-models';
 
 export class VorlesungsuebersichtComponent {
 
-    calenderData: CalenderData = {
-        weeks: []
-    }
+    constructor(
+        public vlService: VorlesungenService
+    ) {
 
-    calenderDay: CalenderDay;
+    }
 }

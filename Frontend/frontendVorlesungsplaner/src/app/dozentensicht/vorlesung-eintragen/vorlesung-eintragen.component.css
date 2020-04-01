@@ -1,6 +1,5 @@
 .pop-up-calendar {
     width: 250px;
-    height: 330px;
     background-color: white;
     border-radius: 15px;
 }
@@ -23,6 +22,7 @@
 #monats-titel {
     margin: 0px;
     line-height: 1.5em;
+    color: #df0019;
 }
 
 #titel-der-vorlesung {
@@ -31,6 +31,9 @@
 
 .select-vorlesung {
     height: 55px;
+}
+.select-vorlesung .mat-form-field {
+    width: 230px;
 }
 
 .vorlesungsblock {
@@ -43,12 +46,21 @@
 
 .time-frame-box {
     float: left;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .time-box {
-    width: 70px;
-    border-radius: 8px;
+    width:66px;
+    border: 1px solid #ccc;
+    /* border: none; */
+    padding: 2px;
+    padding-left: 10px;
+    text-align: center;
+    /* background-color: #666; */
+    /* border-left: none;
+    border-right: none;
+    border-top: none; */
+    color: #666;
 }
 
 .time-frame-box input {
@@ -57,8 +69,9 @@
 
 .time-frame-box p {
     display: inline;
-    padding-right: 10px;
-    padding-left: 10px;
+    color: #4B4B4B;
+    padding-right: 6px;
+    padding-left: 6px;
 }
 
 #Hinzufuegen {
@@ -71,12 +84,27 @@
 .add-vorlesung button {
     background-color: white;
     border: none;
+    padding: 5px 15px;
     color: #ccc;
     text-decoration: none;
     font-size: 14px;
-    margin-top: 45px;
+    margin-top: 10px;
     cursor: pointer;
     outline: none;
+    float: right;
+}
+.add-vorlesung .add-button {
+    background-color: #df0019;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    outline: none;
+    float: right;
 }
 .add-vorlesung button:active {
    outline: none;

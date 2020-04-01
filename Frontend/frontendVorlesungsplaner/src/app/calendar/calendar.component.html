@@ -1,4 +1,3 @@
-<dozentenheader></dozentenheader>
 <div class="title">
     <h1>Kalender</h1>
     <div class="previous-monat-next">
@@ -15,10 +14,9 @@
         </tr>
         <tr *ngFor="let week of calenderData.weeks">
             <td *ngFor="let day of week.days" (click)="openDialog(day)">
-                <div [ngClass]="{'tdRed': blockedTrue}"><span class="tdContent">{{day.date|date:'d'}}
-                        {{day.morning}}</span>
+                <div [ngClass]="{'tdRed': day.morning.name }"><span class="tdContent">{{day.date|date:'d'}}</span>
                 </div>
-                <div [ngClass]="{'tdRed': blockedTrue}"></div>
+                <div [ngClass]="{'tdRed': day.afternoon.name }"></div>
             </td>
         </tr>
     </table>

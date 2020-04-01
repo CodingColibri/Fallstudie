@@ -2,16 +2,25 @@ import { Vorlesung } from './module-models';
 
 export class CalenderDay {
     public date: Date; //Startdatum mit Startuhrzeit
-    public morning: boolean;
-    public afternoon: boolean;
+    public morning: Vorlesung;
+    public afternoon: Vorlesung;
     public uneditable: boolean;
-    public vorlesung: Vorlesung[];
+    //public vorlesung: Vorlesung[];
     //Array Vorlesungen
-    constructor (date: Date, morning: boolean =false, afternoon: boolean =false, vorlesung: Vorlesung[]){
+    constructor (date: Date){
         this.date = date;
-        this.morning = morning;
-        this.afternoon = afternoon;
-        this.vorlesung = [];
+        date = new Date()
+        this.morning = {
+            startDate: new Date(2020,1,1,9,),
+            endDate: new Date(2020,1,1,12,15),
+            morningOrAfternoon: 'morning'
+        };
+        this.afternoon = {
+            startDate: new Date(2020,1,1,13,15),
+            endDate: new Date(2020,1,1,16,30),
+            morningOrAfternoon: 'afternoon'
+        };
+        // this.vorlesung = [];
     }
 }
 

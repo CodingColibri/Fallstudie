@@ -14,6 +14,8 @@ import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen
 import { LoginComponent } from './login/login.component';
 import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersicht/vorlesungsuebersicht.component';
 import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden-warnung.component';
+import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
+import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,7 +29,10 @@ const routes: Routes = [
   { path: 'kalenderansicht', component: KalenderComponent },
   { path: 'vorlesungsuebersicht', component: VorlesungsuebersichtComponent },
   { path: 'stunden-warnung', component: StundenWarnungComponent },
+  { path: 'dozentenkalender', component: DozentenKalenderComponent },
+  { path: 'adminkalender', component: AdminKalenderComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full'},
+  // [canActivate => Implementieren, Prüfung Admin/ Berechtigung das zu sehen]
 ];
 
 @NgModule({

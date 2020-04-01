@@ -31,6 +31,8 @@ import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen
 import { LoginComponent } from './login/login.component';
 import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersicht/vorlesungsuebersicht.component';
 import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden-warnung.component';
+import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
+import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden
     VorlesungEintragenComponent,
     DashboardbuttonsComponent,
     VorlesungsuebersichtComponent,
-    StundenWarnungComponent
+    StundenWarnungComponent,
+    DozentenKalenderComponent,
+    AdminKalenderComponent
     ],
   imports: [
     BrowserModule,

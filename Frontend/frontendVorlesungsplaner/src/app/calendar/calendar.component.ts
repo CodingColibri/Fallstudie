@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, AfterViewInit, ViewChild, Input } from '@angular/core';
+import { Component, Inject, OnInit, AfterViewInit, ViewChild, Input, ChangeDetectorRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppComponent } from '../app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,6 +12,8 @@ import { WEEKDAYNAMES, MONTHS, YEARS } from '../utils/constants';
 import { MatDialog, MatDialogRef, MatDialogConfig} from '@angular/material/dialog';
 import { VorlesungEintragenComponent } from '../dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
 import { StundenWarnungComponent } from '../dozentensicht/stunden-warnung/stunden-warnung.component';
+import { VorlesungenService } from '../vorlesungen.service';
+import { Time } from '@angular/common';
 
 @Component({
     selector: 'calendar',
@@ -57,38 +59,41 @@ export class KalenderComponent {
     }
 
     //Öffnet Dialog-Fenster "Vorlesung eintragen"
-    blockedTrue = false;
     openDialog(day): void {
-        let tdDayObject = day.date;
-        console.log("Ausgewählter Tag: "+tdDayObject); //day von table-cell mitgegeben
+        //console.log("Ausgewählter Tag: " + day.date); //day von table-cell mitgegeben
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true; //Dialog kann nicht durch außerhalb klicken geschlossen werden
-        dialogConfig.data = tdDayObject; //Daten über das dialogConfig object übergeben
-        console.log("(KalenderComponent) Übergebene Daten: "+ dialogConfig.data);
+        dialogConfig.data = day; //Daten über das dialogConfig object übergeben
+        //console.log("(KalenderComponent) Übergebene Daten: " + dialogConfig.data);
         let dialogRef = this.dialog.open(VorlesungEintragenComponent, dialogConfig); 
         
-        
-        //Objekt tdDayObject der Klasse VorlesungEintragenComponent mitgeben....=> 
         dialogRef.afterClosed().subscribe(data => {
-
-        this.calenderDay = data; //übergebene Daten werden in this.calenderDay geschrieben
-        day = this.calenderDay; //übergebene Daten werden in day geschrieben (table-cell)
-
-        // if (day.morning= true) {
-        //     this.blockedTrue = true;
-        // } else {
-        //     this.blockedTrue = false;
-        // }
-        // if (day.afternoon= true) {
-        //     this.blockedTrue = true;
-        // } else {
-        //     this.blockedTrue = false;
-        // }
-
-        console.log("table-cell aktualisiert:"+day);
-        console.log(this.calenderDay);
+            //this.vlService.vorlesungen = data;
+            console.log(data);
+            let updateMorning = {
+                date: data.date,
+                morningOrAfternoon: data.morning.morningOrAfternoon,
+                name: data.morning.name,
+                startDate: data.morning.startDate,
+                endDate: data.morning.endDate
+            }
+            let updateAfternoon = {
+                date: data.date,
+                morningOrAfternoon: data.afternoon.morningOrAfternoon,
+                name: data.afternoon.name,
+                startDate: data.afternoon.startDate,
+                endDate: data.afternoon.endDate
+            }
+            if (data.morning.morningOrAfternoon ==="morning") {
+                this.vlService.vorlesungen.push(updateMorning);
+            } else {
+                this.vlService.vorlesungen.push(updateAfternoon)
+            }
+            
+            console.log(this.vlService);
+        //=>this.vlService.updateVl(data); //TODO
+        console.log(data);
         console.log('The dialog was closed');
-        //console.log('Dialog sent:' +this.calenderDay) //=> [object Object]
         });
       }
       openWarning(): void {
@@ -98,23 +103,22 @@ export class KalenderComponent {
       });
     }
 
-    constructor(public dialog: MatDialog) {
+    constructor(
+        public dialog: MatDialog,
+        public vlService: VorlesungenService) {
         this.date = new Date(); //aktuelles Datum
 
         let year = this.date.getFullYear(); //Rückgabe 2020
         this.selectedYear = year;
         this.currentYear = this.selectedYear; //wird oben bei Previous/Next angezeigt
-        //console.log(year);
         let month = this.date.getMonth(); //Rückgabe 2
         this.selectedMonth = month;
         this.currentMonth = this.months[this.selectedMonth].name; //wird oben bei Previous/Next angezeigt
-        //console.log(month);
 
         let day = this.date.getDate(); //heutiger Tag als number => 23
-        //console.log(day);
         this.generateCalenderData(year,month);
         //CalenderDay initialisieren
-        this.calenderDay = new CalenderDay(new Date(null), false, false, null);
+        this.calenderDay = new CalenderDay(new Date(null));
     }
 
     generateCalenderData(year:number, month:number) {
@@ -128,11 +132,12 @@ export class KalenderComponent {
         console.log(firstDay.getUTCDay()); //=> 6 für Sonntag
 
         var currentDay = new Date(year, month, firstDay.getDate());
+        var currentDayCounter = 0;
         var weekNumber = 1;
-        this.calenderDay = new CalenderDay(null, false, false, null);
+        this.calenderDay = new CalenderDay(null);
         console.log(currentDay.getDate()); //=>1
         console.log(currentDay.getUTCDay());
-        while (currentDay.getDate() < daysInMonth) {
+        while (currentDayCounter < daysInMonth) {
             
             let temp: Week = {
                 weeknumber: weekNumber++,
@@ -140,20 +145,41 @@ export class KalenderComponent {
             }
             for (var j = 0; j <= 6; j++) {
                 //if 1 ==1 && 0 < 6
-                if (currentDay.getDate() == 1 && j < firstDay.getUTCDay()) {
+                if (currentDayCounter == 0 && j < firstDay.getUTCDay()) {
                     temp.days.push(this.calenderDay);
                 } else {
                     //if 1 < 31
-                    if (currentDay.getDate() < daysInMonth) {
-                        temp.days.push(new CalenderDay(new Date(currentDay), false, false, null));
-                        this.calenderDay = new CalenderDay(new Date(currentDay), false, false, null);
+                    if (currentDayCounter < daysInMonth) {
+                        currentDayCounter = currentDayCounter+1;
+                        this.calenderDay = new CalenderDay(new Date(currentDay));
+                        this.vlService.vorlesungen.filter(vl => //gibt neues gefiltertes Array aus vlService zurück
+                            vl.date.getFullYear() == currentDay.getFullYear()
+                            && vl.date.getMonth() == currentDay.getMonth()
+                            && vl.date.getDate() == currentDay.getDate()
+                        ).forEach(vl => {
+                            if (vl.morningOrAfternoon === "morning") {
+                                this.calenderDay.morning = {
+                                    date: vl.date,
+                                    name: vl.name,
+                                    endDate: vl.endDate,
+                                    startDate: vl.startDate
+                                }
+                            } else {
+                                this.calenderDay.afternoon = {
+                                    date: vl.date,
+                                    name: vl.name,
+                                    endDate: vl.endDate,
+                                    startDate: vl.startDate
+                                }
+                            } 
+                        });
+                        temp.days.push(this.calenderDay);
                         currentDay.setDate(currentDay.getDate()+1); //set CurrentDay +1
                     } else {
-                        this.calenderDay = new CalenderDay(null, false, false, null);
+                        this.calenderDay = new CalenderDay(null);
                         temp.days.push(this.calenderDay)
                     }
                 } //close else
-
             } //close for
             this.calenderData.weeks.push(temp);
         }// close while

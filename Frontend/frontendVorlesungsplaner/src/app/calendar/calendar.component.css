@@ -11,7 +11,7 @@
 /*Table-Cells in zwei divs unterteilt (2 Vorlesungsblöcke)*/
 .monats-tabelle td {
     border: 0.1px solid #ccc;
-    height: 55px;
+    height: 65px;
     margin: 0;
     text-align: left;
     vertical-align: top;
@@ -35,6 +35,7 @@ th:hover {
 
 .tdRed {
     background-color: #df0019;
+    color: white;
 }
 
 .highlight-today {

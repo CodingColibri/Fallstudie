@@ -1,35 +1,57 @@
 <div class="pop-up-calendar">
-    <h3 id="monats-titel">{{calenderDay.date | date:'MMMM'}} <span class="text-grey">{{calenderDay.date | date:'yyyy'}}<br>
-        {{calenderDay.date | date: 'EEEE, dd.MM.y'}}</span></h3>
+    <h3 id="monats-titel">{{calenderDay.date | date:'MMMM'}} <span
+            class="text-grey">{{calenderDay.date | date:'yyyy'}}<br>
+            {{calenderDay.date | date: 'EEEE, dd.MM.y'}}</span></h3>
 
-    <h4 id="titel-der-vorlesung">Titel der Vorlesung</h4>
-    <div class="select-vorlesung">
-        <mat-form-field>
-            <mat-label>Vorlesung wählen</mat-label>
-            <mat-select [(ngModel)]="selectedVorlesung">
-                <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
-                    {{vorlesung.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+    <!-- <h4 id="titel-der-vorlesung">Titel der Vorlesung</h4> -->
+
+    <div class="vorlesungsblock">
+        <h4>Vorlesung vormittags</h4>
+        <p>
+            <span class="text-grey">
+                <div class="time-frame-box">
+                    <input type="time" class="time-box" [ngModel]="calenderDay.morning.startDate | date: 'hh:mm'" (ngModelChange)="handleTimeStartMorning($event)">
+                    <p>-</p><input type="time" class="time-box" [ngModel]="calenderDay.morning.endDate | date: 'hh:mm'" (ngModelChange)="handleTimeEndMorning($event)">
+                </div>
+            </span>
+        </p>
+        <div class="select-vorlesung">
+            <mat-form-field>
+                <mat-label>Vorlesung wählen</mat-label>
+                <mat-select [(ngModel)]="calenderDay.morning.name">
+                    <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
+                        {{vorlesung.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
     <div class="vorlesungsblock">
-        <h4>Vormittags</h4>
-        <p><span class="text-grey">09:00-12:15</span></p>
-        <mat-slide-toggle [(ngModel)]="calenderDay.morning" (change)="toggleMorning($event)"></mat-slide-toggle>
+        <h4>Vorlesung nachmittags</h4>
+        <p>
+            <span class="text-grey">
+                <div class="time-frame-box">
+                    <input type="time" class="time-box" [ngModel]="calenderDay.afternoon.startDate | date: 'HH:mm'" (ngModelChange)="handleTimeStartAfternoon($event)">
+                    <p>-</p>
+                    <input type="time" class="time-box" [ngModel]="calenderDay.afternoon.endDate | date: 'HH:mm'" (ngModelChange)="handleTimeEndAfternoon($event)">
+                </div>
+            </span>
+        </p>
+        <div class="select-vorlesung">
+            <mat-form-field>
+                <mat-label>Vorlesung wählen</mat-label>
+                <mat-select [(ngModel)]="calenderDay.afternoon.name">
+                    <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
+                        {{vorlesung.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
-    <div class="vorlesungsblock">
-        <h4>Nachmittags</h4>
-        <p><span class="text-grey">13:15-16:30</span></p>
-        <mat-slide-toggle [(ngModel)]="calenderDay.afternoon" (change)="toggleAfternoon($event)"></mat-slide-toggle>
-    </div>
-    <div class="time-frame-box">
-        <input type="time" class="time-box">
-        <p>-</p><input type="time" class="time-box">
-    </div>
-    <div class="add-vorlesung" mat-dialog-actions>
-        <!-- <p id="Hinzufuegen"><span class="text-grey">Hinzufügen</span></p> -->
-        <button mat-button (click)="addVorlesung()" cdkFocusInitial>Hinzufügen</button>
+    <div class="add-vorlesung">
+
+        <button class="add-button" mat-button (click)="addVorlesung()" cdkFocusInitial>+</button>
+        <button mat-button (click)="close()" cdkFocusInitial>Schließen</button>
         <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Hinzufügen</button> -->
     </div>
 </div>

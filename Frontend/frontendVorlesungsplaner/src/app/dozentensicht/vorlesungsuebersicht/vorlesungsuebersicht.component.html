@@ -4,6 +4,13 @@
 </div>
 
 <div class="vorlesungsliste">
-    <p>Mo, 10.03. | 9:00 - 12:15</p>
+    <div *ngFor="let vorlesung of vlService.vorlesungen">
+        <tr>
+            <td class="tdDate">{{vorlesung.date|date: 'EE, dd.MM.y'}}</td>
+            <td class="tdTimeframe">{{vorlesung.startDate|date: 'HH:mm'}} - {{vorlesung.endDate|date: 'HH:mm'}}</td>
+            <td class="tdNameVorlesung">{{vorlesung.name}}</td>
+        </tr>
+        <p> </p>
+    </div>
 </div>
     <!-- <div *ngFor="let day of calenderData.weeks.week">{{day.date|date:'d.m'}}</div> -->

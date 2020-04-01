@@ -1,3 +1,15 @@
 .vorlesungsliste {
     margin-left: 250px;
 }
+
+.tdDate {
+    width: 112px;
+    border-right: 2px solid #df0019;
+}
+.tdTimeframe {
+    width: 85px;
+    padding: 0 7px 0 7px;
+}
+.tdNameVorlesung {
+    width: 250px;
+}
