@@ -17,14 +17,20 @@ import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden
 import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
 import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender.component';
 import { KursuebersichtComponent } from './adminsicht/kursuebersicht/kursuebersicht.component';
+import { LoginViewsComponent } from './login-views/login-views.component';
+import { AuthGuard } from '../app/helpers'
 
 const routes: Routes = [
+  { path: '', component: WelcomebuttonsComponent, canActivate:[AuthGuard]},
   { path: 'login', component: LoginComponent },
+  { path: 'login-views', component: LoginViewsComponent },
+  //otherwise redirect to home
+  //  { path: '**', redirectTo: ''},
   { path: 'dashboard', component: DashboardbuttonsComponent }, 
   { path: 'Kursneuanlegen', component: Kursanlegen1Component },
   { path: 'Semesterneuanlegen', component: SemesteranlegenComponent },
   { path: 'Dozenten', component: Kursanlegen2Component }, 
-  { path: 'willkommen', component: WelcomebuttonsComponent, }, 
+  { path: 'willkommen', component: WelcomebuttonsComponent}, 
   { path: 'dwelcome', component: DwelcomebuttonsComponent },
   { path: 'zurück', component: Kursanlegen1Component, }, 
   { path: 'kalenderansicht', component: KalenderComponent },
@@ -33,9 +39,10 @@ const routes: Routes = [
   { path: 'dozentenkalender', component: DozentenKalenderComponent },
   { path: 'adminkalender', component: AdminKalenderComponent },
   { path: 'kursuebersicht', component: KursuebersichtComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: 'login-views', component: LoginViewsComponent },
   // [canActivate => Implementieren, Prüfung Admin/ Berechtigung das zu sehen]
 ];
+export const appRoutingModule = RouterModule.forRoot(routes);
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, 

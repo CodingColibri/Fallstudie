@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,7 +18,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 
+// used to create fake backend
+import { fakeBackendProvider } from './helpers';
+
 //Import Komponenten Vorlesungsplaner
+import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { BackgroundComponent } from './welcome-background/welcome-background.component';
 import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
 import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component'; 
@@ -36,6 +40,7 @@ import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden
 import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
 import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender.component';
 import { KursuebersichtComponent } from './adminsicht/kursuebersicht/kursuebersicht.component';
+import { LoginViewsComponent } from './login-views/login-views.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +62,8 @@ import { KursuebersichtComponent } from './adminsicht/kursuebersicht/kursuebersi
     StundenWarnungComponent,
     DozentenKalenderComponent,
     AdminKalenderComponent,
-    KursuebersichtComponent
+    KursuebersichtComponent,
+    LoginViewsComponent
     ],
   imports: [
     BrowserModule,
@@ -74,9 +80,16 @@ import { KursuebersichtComponent } from './adminsicht/kursuebersicht/kursuebersi
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatRippleModule
+    MatRippleModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+    // provider used to create fake backend
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

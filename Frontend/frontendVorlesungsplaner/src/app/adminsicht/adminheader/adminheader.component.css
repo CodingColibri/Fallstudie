@@ -32,13 +32,26 @@ input::placeholder {
     padding-top: 20px;
  }
 
- .profil img {
+.profil img {
      height: 45px;
      width: 45px;
      margin-left: 24em;
      margin-top: -4.2em;
      margin-bottom: 2em;
  }
+.logout{
+    position: absolute;
+    right: 20px;
+    top: 30px;
+    color: #ccc;
+    cursor: pointer;
+}
+.logout img{
+    max-width: 20px;
+    padding-left: 10px;
+    opacity: 40%;
+}
+
  
 
 

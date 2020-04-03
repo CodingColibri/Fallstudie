@@ -3,6 +3,7 @@
     <a routerLink="/willkommen" routerLinkActive="active">
         <img src="../../assets/img/dh-logo.png" id="header-logo">
     </a>
+
 </div>
 
 <div id="rechts"> 
@@ -15,9 +16,14 @@
             </mat-select>
     </mat-form-field>   
     <label class="admin">Administrator</label>
-    <div class="profil"> <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">  </div> 
+    <div class="profil"> 
+        <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">
+    </div> 
+    <div class="logout">
+        <a (click)="logout()">Logout<img src="../../assets/img/logout.png"></a>
+    </div>
 </div>
-    
+
 </div>  
     
 <div class="menu-content">

@@ -1,11 +1,5 @@
-/*Test Admin/ Dozentensicht*/
-#test-view{
-    max-width: 22px;
-    transform: rotate(45deg);
-    float: right;
-    margin-left: 368px;
-    opacity: 50%;
-    cursor: pointer
+.wrapper-login{
+    margin: auto;
 }
 .login-wrapper{
     margin: 50px;
@@ -34,7 +28,7 @@
 .login-main-box {
     width:350px;
     height: 180px;
-    padding: 40px 50px 60px 50px;
+    padding: 50px 50px;
     border-radius: 20px;
     background: white;
     opacity: 0.85;
@@ -43,29 +37,40 @@
     align-items: center;
     margin: auto;
 }
-.login-main-box p{
-    font-size: 12px;
-    margin: 0px;
-    color: #df0019;
-}
-input {
+.login-button {
+    margin: auto;
+    background-color:white;
+    border: 1px solid #ccc;
     height: 45px;
     width: 330px;
     border-radius: 6px;
-    border: 1px solid #ccc;
-    padding: 0px 0px 0px 10px;
-    margin: 7px 0 7px 0;
-    font-size: 15px;
+    display: flex;
 }
-button{
-    height: 47px;
-    width: 340px;
-    background-color: #df0019;
+.login-button-red{
+    margin: auto;
+    background-color:#df0019;
     border: 1px solid #ccc;
+    height: 45px;
+    width: 330px;
     border-radius: 6px;
-    color: white;
+    display: flex;
+}
+.login-button-red h3{
     font-weight: bold;
-    margin: 7px 0 7px 0;
-    font-size: 16px;
-    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    display: table-cell;
+    margin: auto;
+}
+.login-button h3{
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    display: table-cell;
+    margin: auto;
+}
+.login-button a{
+    color: black;
+    text-decoration: none;
+    margin: auto;
 }

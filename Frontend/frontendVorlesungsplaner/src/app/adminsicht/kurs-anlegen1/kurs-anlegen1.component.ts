@@ -23,57 +23,59 @@ export class Kursanlegen1Component {
   {value: 6, viewValue: 6}
 ]; 
 //Test//
-arrayInputs = [];
-// formVorlesungen =this.fb.group({
-//    controllerArray: this.fb.array([])
-//  }) 
+// arrayInputs = [];
  //TEST
 
- formKurs : FormGroup;
- formVorlesungen: FormGroup;
- Kursname: string;
- Jahr: number;
- Semester: number;
- Vorlesungstitel: string;
- StundenanzahlVl: number;
-
+formKurs : FormGroup;
+formVorlesungen: FormGroup;
+Kursname: string;
+Jahr: number;
+Semester: number;
+//Vorlesungstitel: string;
+//StundenanzahlVl: number;
+ 
  constructor(private fb: FormBuilder, 
   public kursService: KursAnlegenService) {
     this.formKurs = fb.group({
       'Kursname': [null, Validators.required],
       'Jahr': [null, Validators.required],
-      'Semester': [null, Validators.required],
-      // 'Vorlesungstitel': [null, Validators.required],
-      // 'StundenanzahlVl': [null, Validators.required]
-    })
-    this.formVorlesungen =fb.group({
-      'Vorlesungstitel': [null, Validators.required],
-      'StundenanzahlVl': [null, Validators.required]
+      'Semester': [null, Validators.required]
+    }),
+    this.formVorlesungen = this.fb.group({
+      vorlesungenStunden: this.fb.array([
+      ])
     })
    }
-
+   addInput(){
+     const vlStunden = this.formVorlesungen.controls.vorlesungenStunden as FormArray;
+     vlStunden.push(this.fb.group({
+       Vorlesungstitel: '',
+       StundenanzahlVl: '',
+     }))
+   }
+  
    onSubmit(form: NgForm) {
-     debugger;
+     
      console.log(form);
    }
    
-setArrayInputs(arrayInputs) {
-   const arrayFG = arrayInputs.map(address => this.fb.group(address));
-   const formArray = this.fb.array(arrayFG);
-   this.formVorlesungen.setControl('controllerArray', formArray);
- }
- ngOnInit() { 
-   this.setArrayInputs(this.arrayInputs) 
-  }
+// setArrayInputs(arrayInputs) {
+//    const arrayFG = arrayInputs.map(address => this.fb.group(address));
+//    const formArray = this.fb.array(arrayFG);
+//    this.formVorlesungen.setControl('controllerArray', formArray);
+//  }
+//  ngOnInit() { 
+//    this.setArrayInputs(this.arrayInputs) 
+//   }
 
- addInput() {
-   (this.formVorlesungen.get('controllerArray') as FormArray).push(this.fb.group(
-     {controlerInputName1:'',
-    }
-   )
-   ) 
-  }
+//  addInput() {
+//    (this.formVorlesungen.get('controllerArray') as FormArray).push(this.fb.group(
+//      {controlerInputName1:'',
+//     }
+//    )
+//    ) 
+//   }
 
- removeInput(index) { this.formVorlesungen.controls.controllerArray["controls"].splice(index,1) }
+//  removeInput(index) { this.formVorlesungen.controls.controllerArray["controls"].splice(index,1) }
 
 }

@@ -100,3 +100,15 @@ h3 {
     display: inline-block;
     color: white;
 }
+/*"Username or password is incorrect*/
+/* .alert alert-danger mt-3 mb-0 {
+    background-color: #333;
+    height: 34px;
+    width: 432px;
+    padding: 10px 10px 0px 10px;
+    text-align: center;
+    border-radius: 0px 0px 6px 6px;
+    margin-top: 11px;
+    margin-left: -51px;
+    color: white;
+} */

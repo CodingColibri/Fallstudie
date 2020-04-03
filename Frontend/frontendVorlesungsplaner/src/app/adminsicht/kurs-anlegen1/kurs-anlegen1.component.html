@@ -28,22 +28,27 @@
 <h3>Vorlesungen</h3>
 <!--Add dynamic rows-->
 <form [formGroup]='formVorlesungen' (ngSubmit)="onSubmit(formVorlesungen.value)" #submitVorlesungen="ngForm">
-        <div formArrayName="controllerArray" >
-        <div *ngFor="let item of formVorlesungen['controls'].controllerArray['controls']; let i=index" [formGroupName]="i">
+        <!-- <div formArrayName="controllerArray" > -->
+        <!-- <div *ngFor="let item of formVorlesungen['controls'].controllerArray['controls']; let i=index" [formGroupName]="i"> -->
+    <div formArrayName="vorlesungenStunden" *ngFor="let item of formVorlesungen.controls.vorlesungenStunden?.value; let i= index">
     <!---->
+    <ng-contaner [formGroupName]="i">
     <div class="formdataVorlesungen">
         <mat-form-field appearance="legacy">
             <mat-label>Titel der Vorlesung</mat-label>
-            <input matInput placeholder="Titel der Vorlesung">
+            <input matInput formControlName="Vorlesungstitel" placeholder="Titel der Vorlesung">
         </mat-form-field>
         <mat-form-field appearance="legacy">
             <mat-label>Anzahl der Stunden</mat-label>
-            <input matInput>
+            <input matInput formControlName="StundenanzahlVl" >
         </mat-form-field>
     </div>
-    
-</div> <!--End of formArray-->
+    </ng-contaner>
+    <!---->
 </div> <!--End of div *ngFor looping through formVorlesungen-->
+
+<!-- </div> End of formArray -->
+
 </form>
 
 <div (click)='addInput()'><p id="addKurs">+</p></div>
