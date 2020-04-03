@@ -14,6 +14,11 @@ Einrichten:
         3. Eingabe "\env\Scripts\activate.bat" (Möglicherweise muss der erste \ weg)
         4. Eingabe "pip3 install -r requirements.txt" (Kann etwas dauern)
 
+    4. MariaDB einrichten
+        1. Starte MariaDB z.B. über XAMPP
+        2. Erstelle eine Database mit dem Namen "vorlesungsplaner"
+        3. Stelle sicher, dass es einen Nutzer mit Zugriff auf die Datenbank gibt mit Username: root & password: root
+
 Flask starten:
         In Powershell:
         1. Zum Backend Pfad des Projekts wechseln Eingabe "cd <Pfad zum Projekt>/Backend"
