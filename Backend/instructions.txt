@@ -25,6 +25,8 @@ Flask starten:
         2. Eingabe "\env\Scripts\activate.bat" (Möglicherweise muss der erste \ weg)
         3. Eingabe "flask run"
 
+        4. Flask kann mit Strg + C beendet werden. (Die meisten anderen Methoden lassen den Socket belegt und Flask kann nicht mehr erneut starten)
+
         Natürlich kannst du auch die Integrierte CMD in deiner IDEA verwenden
 
 
