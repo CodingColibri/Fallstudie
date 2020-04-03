@@ -1,7 +1,7 @@
 from app import app, db
 from flask import request, jsonify, g
 from flask_jwt_extended import jwt_required, create_access_token,get_jwt_identity
-from app.models import Dozent, Kurs, Semester
+from app.models import Dozent, Kurs, Semester, Vorlesung
 from datetime import timedelta, date
 from sqlalchemy import and_
 
@@ -10,7 +10,7 @@ def add_vorlesung():
     pass
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET'])
 def login():
     if not request.is_json:
         return jsonify({"msg": "Missing JSON in request"}), 400
@@ -33,6 +33,7 @@ def login():
     return jsonify(access_token=access_token), 200
 
 @app.route('/sign_up', methods=['POST'])
+@app.route('/create/dozent', methods=['POST'])
 @jwt_required
 def sign_up():
     if not request.is_json:
@@ -58,6 +59,7 @@ def sign_up():
     dozent.set_password(password)
     db.session.add(dozent)
     db.session.commit()
+    #TODO: Beim erstellen Vorlesung hinzufügen
     return jsonify({"msg": "User created"}), 202
 
 @app.route('/create/kurs', methods=['POST'])
@@ -96,6 +98,20 @@ def create_semester():
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
     return jsonify({"msg": "Kurs created"}), 202
 
+@app.route('/create/vorlesung', methods=['POST'])
+@jwt_required
+def create_vorlesung():
+    if check_privileges(get_jwt_identity(), [1]):
+        std_anzahl = request.json.get("std_anzahl", None)
+        name = request.json.get("name", None)
+        kurs_name = request.json.get("kurs", None)
+        vorlesung = Vorlesung(std_anzahl=std_anzahl, name=name,kurs_name=kurs_name)
+        db.session.add(vorlesung)
+        db.session.commit()
+    else:
+        return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
+    return jsonify({"msg": "Vorlesung created"}), 202
+
 """
     Params:     current_user: mail of the user, making this request
                 check: list of vorlesungen, checking privileges for
@@ -109,8 +125,6 @@ def check_privileges(current_user, check):
     vorlesung_id = []
     for lesung in vorlesungen:
         vorlesung_id.append(lesung.id)
-    print (vorlesung_id)
-    print (check)
     return set(check).issubset(set(vorlesung_id))
 
 

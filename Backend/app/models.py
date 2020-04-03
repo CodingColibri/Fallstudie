@@ -56,7 +56,6 @@ class Dozent(db.Model):
 class Semester(db.Model):
     __tablename__='semester'
 
-    id = db.Column(db.Integer, )
     start = db.Column(db.Date, nullable=False)
     ende = db.Column(db.Date, nullable=False)
     name = db.Column(db.Integer, nullable=False, primary_key=True)
