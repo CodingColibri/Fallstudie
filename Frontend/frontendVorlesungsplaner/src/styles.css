@@ -24,6 +24,9 @@ body {
     color: #2c2c2c;
     font-size: 1.6em;
 }
+h3 {
+    color: #df0019;
+}
 /*Styles für Buttons auf Hintergrundbild*/
 .wrapper-buttons{
     margin: auto;

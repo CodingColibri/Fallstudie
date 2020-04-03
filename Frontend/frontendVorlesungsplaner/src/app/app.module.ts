@@ -35,6 +35,7 @@ import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersi
 import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden-warnung.component';
 import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
 import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender.component';
+import { KursuebersichtComponent } from './adminsicht/kursuebersicht/kursuebersicht.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender
     VorlesungsuebersichtComponent,
     StundenWarnungComponent,
     DozentenKalenderComponent,
-    AdminKalenderComponent
+    AdminKalenderComponent,
+    KursuebersichtComponent
     ],
   imports: [
     BrowserModule,

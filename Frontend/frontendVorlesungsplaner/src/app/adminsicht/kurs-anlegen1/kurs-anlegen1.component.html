@@ -1,65 +1,52 @@
 <adminheader></adminheader>
-<div>
-     
-<h2>Neuen Kurs anlegen</h2>
-
-<div id="kurs"> 
-    <p> Kursname: </p>
-    <input type="text" class="kurs"> 
+<div class="title">
+    <h1>Neuen Kurs anlegen</h1>
 </div>
+<div class="formWrapper">
 
-<div id="jahr"> 
-    <p> Jahr: </p>
-    <input type="text" class="jahr"> 
-</div>
+<form [formGroup]="formKurs" (ngSubmit)="onSubmit(formKurs.value)" #submitKurs="ngForm">
+    <div class="formdataKurs">
+        <mat-form-field appearance="legacy">
+            <mat-label>Kursname</mat-label>
+            <input matInput formControlName="Kursname" placeholder="Kursname">
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Jahr</mat-label>
+            <input matInput formControlName="Jahr" placeholder="Jahr">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Semester</mat-label>
+            <mat-select formControlName="Semester">
+                <mat-option *ngFor="let semester of semesterAuswahl" [value]="semester.value">
+                    {{semester.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div> 
+</form>
 
-<div id="semester"> 
-    <p> Semester: </p>
-    <input type="text" class="semester" placeholder="Bitte wählen"> 
-</div> 
-
-<h3>Vorlesungen </h3> 
-
-<div id="name"> 
-    <p> Name: </p>
-    <input type="text" class="name"> 
- </div>
-    
- <div id="stunden"> 
-    <p> Anzahl in Stunden: </p>
-    <input type="text" class="stunden"> 
-</div> 
-
-<div>  
-    <form [formGroup]='formName'>
+<h3>Vorlesungen</h3>
+<!--Add dynamic rows-->
+<form [formGroup]='formVorlesungen' (ngSubmit)="onSubmit(formVorlesungen.value)" #submitVorlesungen="ngForm">
         <div formArrayName="controllerArray" >
-        <div *ngFor="let item of formName['controls'].controllerArray['controls']; let i=index" [formGroupName]="i">
-       <!-- <input formControlName="controlerInputName1" type="text">  -->
-
- <div id="name"> 
-    <p> Name: </p>
-    <input type="text" class="name"> 
- </div>
+        <div *ngFor="let item of formVorlesungen['controls'].controllerArray['controls']; let i=index" [formGroupName]="i">
+    <!---->
+    <div class="formdataVorlesungen">
+        <mat-form-field appearance="legacy">
+            <mat-label>Titel der Vorlesung</mat-label>
+            <input matInput placeholder="Titel der Vorlesung">
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Anzahl der Stunden</mat-label>
+            <input matInput>
+        </mat-form-field>
+    </div>
     
- <div id="stunden"> 
-    <p> Anzahl in Stunden: </p>
-    <input type="text" class="stunden"> 
-  
-</div> 
-  <div (click)='removeInput(i)'><img id="müll" width="20em" height="20em" src="https://image.flaticon.com/icons/png/512/25/25008.png"></div> 
-    </div> </div>
-    </form>
-    <!-- <p> validation: {{ formName.status }}</p> -->
-        <div (click)='addInput()'><img id="plus" src="https://i.ya-webdesign.com/images/white-plus-png-5.png"></div>
+</div> <!--End of formArray-->
+</div> <!--End of div *ngFor looping through formVorlesungen-->
+</form>
 
-</div> 
+<div (click)='addInput()'><p id="addKurs">+</p></div>
+<button (click)="submitKurs.ngSubmit.emit()" (click)="submitVorlesungen.ngSubmit.emit()">Weiter</button>
 
-<!-- <div> <img id="plus" src="https://i.ya-webdesign.com/images/white-plus-png-5.png"> </div> -->
-      
-<div class="header"> 
-    <img id="pfeil" src="https://cdn.pixabay.com/photo/2012/04/24/13/58/arrow-40166_960_720.png">   
-    <p class="weiter"> <a routerLink="/Dozenten" routerLinkActive="active"> Weiter</a></p>
-</div> 
-
-
-</div>
+</div> <!--Ende-->

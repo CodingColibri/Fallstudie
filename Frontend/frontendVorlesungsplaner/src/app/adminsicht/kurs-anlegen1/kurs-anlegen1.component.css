@@ -1,19 +1,43 @@
-.header {
-    height: 15vh;
-    display: table;
-    width: 100%;
+.formWrapper {
+    padding-left: 40px;
+}
+.formdataKurs mat-form-field{
+    margin-right: 40px;
+}
+.formdataVorlesungen mat-form-field{
+    margin-right: 40px;
+}
+.formdataVorlesungen {
+    margin-right: 40px;
+    width: 470px;
+}
+button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+}
+.formWrapper input {
+    margin-left: 0px;
+}
+#addKurs {
+    color: #ccc;
+    font-weight: bold;
+    font-size: 30px;
+    cursor: pointer;
+}
+.deleteVl {
+    float: right;
+    margin-top: 15px;
+    color: #ccc;
+    cursor: pointer;
 }
 
-h2 {
-     color: red;
-     margin-left:60px;
-     margin-bottom: 20px;
-     margin-top: 50px;
-}
-p {
-    color: grey;
-    margin-left: 60px;
-}
+/* input {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+} */
 
 #kurs {
     float: left;
@@ -44,14 +68,6 @@ input {
     width: 80%;
     margin-right: 50px; 
 }
-h3 {
-    color: red;
-    float: left;
-    clear: left;
-    margin-left:60px;
-    margin-bottom: 20px;
-    margin-top: 36px;
-}
 
 #name {
     float: left;
@@ -68,14 +84,7 @@ h3 {
     width: 80%;
     margin-right: 50px; 
 }
-#plus {
-    float: left;
-    clear: left;
-    height: 1.5em;
-    width: 1.5em;
-    margin-top: 10px;
-    margin-left: 60px;
-}
+
 
 .weiter {
     float: left;

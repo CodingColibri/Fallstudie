@@ -16,6 +16,7 @@ import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersi
 import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden-warnung.component';
 import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
 import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender.component';
+import { KursuebersichtComponent } from './adminsicht/kursuebersicht/kursuebersicht.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'stunden-warnung', component: StundenWarnungComponent },
   { path: 'dozentenkalender', component: DozentenKalenderComponent },
   { path: 'adminkalender', component: AdminKalenderComponent },
+  { path: 'kursuebersicht', component: KursuebersichtComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   // [canActivate => Implementieren, Prüfung Admin/ Berechtigung das zu sehen]
 ];

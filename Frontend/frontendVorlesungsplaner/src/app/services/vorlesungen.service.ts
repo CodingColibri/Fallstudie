@@ -20,14 +20,14 @@ export class VorlesungenService {
       morningOrAfternoon: 'morning',
       name: 'Wissenschaftliches Arbeiten',
       startDate: new Date(2020,3,3,9,0),
-      endDate: new Date(2020,2,3,12,15),
+      endDate: new Date(2020,3,3,12,15),
     },
     {
       date: new Date(2020, 3, 2),
       morningOrAfternoon: 'afternoon',
       name: 'Web-Programmierung',
       startDate: new Date(2020,3,3,13,15),
-      endDate: new Date(2020,2,3,16,30),
+      endDate: new Date(2020,3,3,16,30),
     },
     {
       date: new Date(2020, 3, 24),
