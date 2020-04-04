@@ -72,18 +72,14 @@ h3 {
     height: 43px;
     display: block;
     max-width: 100%;
-    padding-top: 17px;
-    float: left;
-    clear:left;
+    /* float: left;
+    clear:left; */
 }
 /*Menü-Leiste dunkelgrau als Navigation*/
 .menu-content {
-    height: 15vh;
     background-color: #505050;
-    min-height: 32px;
+    height: 32px;
     padding-left: 42px;
-    max-height: 32px;  
-    margin-top: 5em;
 }
 
 .navi {

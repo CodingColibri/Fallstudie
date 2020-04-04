@@ -12,4 +12,5 @@ export interface Vorlesung {
     startDate?: Date;
     endDate?: Date;
     morningOrAfternoon?: String
+    //TODO: Kurs übergeben
 }

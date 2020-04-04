@@ -1,8 +1,18 @@
-.overheader {
-    max-height: 10px; 
-    min-height: 10px; 
+.header-wrapper {
+    height: 12.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-
+.user-kurse{
+    margin-left: 380px;
+}
+.user-kurse img {
+    height: 45px;
+    width: 45px;
+    padding-left: 15px;
+    margin-bottom: -1em;
+}
 .kurs {
     padding-right: .7rem;
     color: grey;
@@ -26,23 +36,8 @@ input::placeholder {
     margin-left: 20px;
 }
 
-#rechts {
-    margin-left: 55em;
-    text-align: center;
-    padding-top: 20px;
- }
-
-.profil img {
-     height: 45px;
-     width: 45px;
-     margin-left: 24em;
-     margin-top: -4.2em;
-     margin-bottom: 2em;
- }
 .logout{
-    position: absolute;
-    right: 20px;
-    top: 30px;
+    margin-right: 45px;
     color: #ccc;
     cursor: pointer;
 }
@@ -51,7 +46,4 @@ input::placeholder {
     padding-left: 10px;
     opacity: 40%;
 }
-
- 
-
 

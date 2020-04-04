@@ -1,4 +1,4 @@
-<div class="overheader">
+<div class="header-wrapper">
 
 <div> 
     <a routerLink="/dwelcome" routerLinkActive="active">
@@ -6,7 +6,7 @@
     </a>
 </div>
 
-<div id="rechts">
+<div class="user-kurse">
     <mat-form-field> 
     <mat-label class="wählen">  Kurs auswählen </mat-label>
     <mat-select> 
@@ -14,11 +14,13 @@
             {{kurs.viewValue}}
         </mat-option>
     </mat-select>
-</mat-form-field>
-<label class="wählen"> Prof. Reimond Bimazubute</label>
-<div class="profil"> <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">  </div>
+    </mat-form-field>
+    <label class="admin" *ngFor="let user of users">{{user.mail}}</label>
+    <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">
 </div>
-
+<div class="logout">
+    <a (click)="logout()">Logout<img src="../../assets/img/logout.png"></a>
+</div>
 </div> 
 
 <div class="menu-content">

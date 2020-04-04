@@ -6,7 +6,7 @@ export interface Kurs {
   } 
 
 export interface KursDTO {
-  name: string; //e.g.  02.03.2020
+  name: string; 
   year: number;
   semester: Semester[];
 }
