@@ -19,6 +19,7 @@ def create_admin_Vorlesung():
         db.create_all()
     except Exception as e:
         #print(e)
+        pass
     try:
         kurs = Kurs(name="admin")
         vorlesung = Vorlesung(id=1,std_anzahl=0,name="admin",kurs_name="admin")
