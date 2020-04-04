@@ -29,4 +29,7 @@ Flask starten:
 
         Natürlich kannst du auch die Integrierte CMD in deiner IDEA verwenden
 
+Weitere Anmerkungen:
+    - Dozenten können nur über einen HTTP Request in die Datenbank hinzugefügt werden, da ansonsten bei einer Abfrage ein Fehler mit dem gehashten Passwort auftritt.
+
 

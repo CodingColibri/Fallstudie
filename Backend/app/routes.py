@@ -1,14 +1,32 @@
 from app import app, db
-from flask import request, jsonify, g
+from flask import request, jsonify, abort
 from flask_jwt_extended import jwt_required, create_access_token,get_jwt_identity
-from app.models import Dozent, Kurs, Semester, Vorlesung
-from datetime import timedelta, date
+from app.models import Dozent, Kurs, Semester, Vorlesung, Termin
+from datetime import timedelta, date, datetime
 from sqlalchemy import and_
 
-@app.route('/vorlesung/add', methods=['POST'])
-def add_vorlesung():
-    pass
-
+@app.route('/create/termin', methods=['POST'])
+@jwt_required
+def add_termine():
+    json = request.get_json()
+    print(type(json["termine"][0]))
+    obj = json["termine"][0]
+    termin = termin_helper(obj, get_jwt_identity())
+    
+"""
+    termin_helper creates a Termin for a Vorlesung by the give Obj v and returns this Termin object
+    Params:     v: vorlesungsobject
+                jwt_token: JWT Access Token
+"""
+def termin_helper(v, jwt_token):
+    v_name = v["name"]
+    kurs = v["kurs"]
+    startDate = datetime(v["startDate"][0],v["startDate"][1], v["startDate"][2],v["startDate"][3],v["startDate"][4])
+    endDate = datetime(v["endDate"][0],v["endDate"][1],v["endDate"][2],v["endDate"][3],v["endDate"][4])
+    v_id = Vorlesung.query.filter_by(name=v_name, kurs_name=krus).first()
+    if not check_privileges(jwt_token, [v_id]):
+        abort(403)
+    return Termin(start=startDate, ende=endDate, vorlesung_id = v_id)
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -96,7 +114,7 @@ def create_semester():
                 return jsonify({"msg": 'A Semester with this number already exists'}), 400
     else:
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
-    return jsonify({"msg": "Kurs created"}), 202
+    return jsonify({"msg": "Semester created"}), 202
 
 @app.route('/create/vorlesung', methods=['POST'])
 @jwt_required
@@ -118,6 +136,8 @@ def create_vorlesung():
     Return:     True if the user "gibt" all the vorlesungen
 """
 def check_privileges(current_user, check):
+    if type(check) is not list:
+        raise ValueError("check has to be a list")
     user = Dozent.query.filter_by(mail=current_user).first()
     if user is None:
         return False

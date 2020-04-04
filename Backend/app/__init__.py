@@ -16,6 +16,10 @@ from app.models import Vorlesung, Kurs, Dozent
 @app.before_first_request
 def create_admin_Vorlesung():
     try:
+        db.create_all()
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
+    try:
         kurs = Kurs(name="admin")
         vorlesung = Vorlesung(id=1,std_anzahl=0,name="admin",kurs_name="admin")
         admin = Dozent(mail="dev")
