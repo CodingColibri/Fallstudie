@@ -23,7 +23,7 @@ def termin_helper(v, jwt_token):
     kurs = v["kurs"]
     startDate = datetime(v["startDate"][0],v["startDate"][1], v["startDate"][2],v["startDate"][3],v["startDate"][4])
     endDate = datetime(v["endDate"][0],v["endDate"][1],v["endDate"][2],v["endDate"][3],v["endDate"][4])
-    v_id = Vorlesung.query.filter_by(name=v_name, kurs_name=krus).first()
+    v_id = Vorlesung.query.filter_by(name=v_name, kurs_name=kurs).first()
     if not check_privileges(jwt_token, [v_id]):
         abort(403)
     return Termin(start=startDate, ende=endDate, vorlesung_id = v_id)
@@ -47,7 +47,6 @@ def login():
     # Identity can be any data that is json serializable
     expires = timedelta(days=3)
     access_token = create_access_token(identity=mail, expires_delta=expires)
-    g.mail = mail
     return jsonify(access_token=access_token), 200
 
 @app.route('/sign_up', methods=['POST'])
