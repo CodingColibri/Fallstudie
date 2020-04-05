@@ -5,28 +5,9 @@ from app.models import Dozent, Kurs, Semester, Vorlesung, Termin
 from datetime import timedelta, date, datetime
 from sqlalchemy import and_
 
-@app.route('/create/termin', methods=['POST'])
-@jwt_required
-def add_termine():
-    json = request.get_json()
-    print(type(json["termine"][0]))
-    obj = json["termine"][0]
-    termin = termin_helper(obj, get_jwt_identity())
-    
-"""
-    termin_helper creates a Termin for a Vorlesung by the give Obj v and returns this Termin object
-    Params:     v: vorlesungsobject
-                jwt_token: JWT Access Token
-"""
-def termin_helper(v, jwt_token):
-    v_name = v["name"]
-    kurs = v["kurs"]
-    startDate = datetime(v["startDate"][0],v["startDate"][1], v["startDate"][2],v["startDate"][3],v["startDate"][4])
-    endDate = datetime(v["endDate"][0],v["endDate"][1],v["endDate"][2],v["endDate"][3],v["endDate"][4])
-    v_id = Vorlesung.query.filter_by(name=v_name, kurs_name=kurs).first()
-    if not check_privileges(jwt_token, [v_id]):
-        abort(403)
-    return Termin(start=startDate, ende=endDate, vorlesung_id = v_id)
+
+#Getter
+############################################
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -48,6 +29,28 @@ def login():
     expires = timedelta(days=3)
     access_token = create_access_token(identity=mail, expires_delta=expires)
     return jsonify(access_token=access_token), 200
+
+
+
+@app.route('/get/vorlesung/fortimeandkurs')
+def vorlesung_fortimeandkrus():
+    #TODO: Gib Liste mit Vorlesungen zurück für Zeitraum x bis y und einen Kurs. 
+    # Dozenten ohne Admin bekommen Anonymisierte Rückgabe (ohne andere Vorlesungsnamen)
+
+#Creater
+###########################################
+
+@app.route('/create/termin', methods=['POST'])
+@jwt_required
+def add_termine():
+    json, token = request.get_json(), get_jwt_identity()
+    for obj in json["termine"]:
+        termin = termin_helper(obj, token)
+        db.session.add(termin)
+    db.session.commit()
+    return jsonify({"msg": "Termine erstellt"}), 202
+
+
 
 @app.route('/sign_up', methods=['POST'])
 @app.route('/create/dozent', methods=['POST'])
@@ -79,6 +82,8 @@ def sign_up():
     #TODO: Beim erstellen Vorlesung hinzufügen
     return jsonify({"msg": "User created"}), 202
 
+
+
 @app.route('/create/kurs', methods=['POST'])
 @jwt_required
 def create_kurs():
@@ -92,6 +97,7 @@ def create_kurs():
     else:
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
     return jsonify({"msg": "Kurs created"}), 202
+
 
 @app.route('/create/semester', methods=['POST'])
 @jwt_required
@@ -115,6 +121,7 @@ def create_semester():
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
     return jsonify({"msg": "Semester created"}), 202
 
+
 @app.route('/create/vorlesung', methods=['POST'])
 @jwt_required
 def create_vorlesung():
@@ -122,12 +129,19 @@ def create_vorlesung():
         std_anzahl = request.json.get("std_anzahl", None)
         name = request.json.get("name", None)
         kurs_name = request.json.get("kurs", None)
+
+        if Vorlesung.query.filter(and_(Vorlesung.name==name, Vorlesung.kurs_name==kurs_name)).first() is not None:
+            return jsonify({"msg": "Vorlesung with this name for this kurs already exists"}), 400
+
         vorlesung = Vorlesung(std_anzahl=std_anzahl, name=name,kurs_name=kurs_name)
         db.session.add(vorlesung)
         db.session.commit()
     else:
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
     return jsonify({"msg": "Vorlesung created"}), 202
+
+#Helper
+###########################################
 
 """
     Params:     current_user: mail of the user, making this request
@@ -144,7 +158,39 @@ def check_privileges(current_user, check):
     vorlesung_id = []
     for lesung in vorlesungen:
         vorlesung_id.append(lesung.id)
+    if 1 in vorlesung_id:
+        return True
     return set(check).issubset(set(vorlesung_id))
 
+
+"""
+    termin_helper creates a Termin for a Vorlesung by the give Obj v and returns this Termin object
+    Params:     v: vorlesungsobject
+                jwt_token: JWT Access Token
+    Return:     True if the Dozent has access to this Vorlesung
+"""
+def termin_helper(v, jwt_token):
+    v_name = v["name"]
+    kurs = v["kurs"]
+    startDate = datetime(v["startDate"][0],v["startDate"][1], v["startDate"][2],v["startDate"][3],v["startDate"][4])
+    endDate = datetime(v["endDate"][0],v["endDate"][1],v["endDate"][2],v["endDate"][3],v["endDate"][4])
+    v_id = Vorlesung.query.filter_by(name=v_name, kurs_name=kurs).first()
+    if v_id is None:
+        abort(400, {'message' : 'No Vorlesung found for '+v_name+' and ' + kurs})
+    if not check_privileges(jwt_token, [v_id]):
+        abort(403, {'message': 'No permissions to create Termin for ' + str(v_id.name)})
+    return Termin(start=startDate, ende=endDate, vorlesung_id = v_id.id)
+
+"""
+    is_period_occupied checks if and given period is blocked by another termin for the given kurs. 
+    Params:     kurs:   the kurs, which timetable will be checked
+                start:  start of the checking period
+                end:    end of the checking period
+    Return:     True if nothing is happening for the kurs form start to end
+"""
+def is_period_occupied(kurs, start, end):
+    #TODO: Check if a given period has any termin for this kurs
+    vorlesungen = Vorlesung.query.filter_by(kurs_name=kurs).all()
+    pass
 
     
