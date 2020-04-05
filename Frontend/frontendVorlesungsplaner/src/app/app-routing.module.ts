@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login-views', component: LoginViewsComponent },
   //otherwise redirect to home
-  //  { path: '**', redirectTo: ''},
+  // { path: '**', redirectTo: ''},
   { path: 'dashboard', component: DashboardbuttonsComponent }, 
   { path: 'Kursneuanlegen', component: Kursanlegen1Component },
   { path: 'Semesterneuanlegen', component: SemesteranlegenComponent },

@@ -76,6 +76,7 @@ export class KalenderComponent {
                 name: data.morning.name,
                 startDate: data.morning.startDate,
                 endDate: data.morning.endDate
+                //TODO: Kurs mit übergeben
             }
             let updateAfternoon = {
                 date: data.date,
@@ -83,6 +84,7 @@ export class KalenderComponent {
                 name: data.afternoon.name,
                 startDate: data.afternoon.startDate,
                 endDate: data.afternoon.endDate
+                //TODO: Kurs mit übergeben
             }
             if (data.morning.morningOrAfternoon ==="morning") {
                 this.vlService.vorlesungen.push(updateMorning);
