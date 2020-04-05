@@ -8,5 +8,6 @@ export interface Kurs {
 export interface KursDTO {
   name: string; 
   year: number;
-  semester: Semester[];
+  semester: Semester[]; //TODO: Macht das Sinn?
+  studiengangsleiter?: string;
 }

@@ -26,10 +26,10 @@ const routes: Routes = [
   { path: 'login-views', component: LoginViewsComponent },
   //otherwise redirect to home
   // { path: '**', redirectTo: ''},
-  { path: 'dashboard', component: DashboardbuttonsComponent }, 
-  { path: 'Kursneuanlegen', component: Kursanlegen1Component },
+  { path: 'dashboard', component: DashboardbuttonsComponent },
   { path: 'Semesterneuanlegen', component: SemesteranlegenComponent },
-  { path: 'Dozenten', component: Kursanlegen2Component }, 
+  { path: 'kurs-anlegen-1', component: Kursanlegen1Component },
+  { path: 'kurs-anlegen-2', component: Kursanlegen2Component }, 
   { path: 'willkommen', component: WelcomebuttonsComponent}, 
   { path: 'dwelcome', component: DwelcomebuttonsComponent },
   { path: 'zurück', component: Kursanlegen1Component, }, 

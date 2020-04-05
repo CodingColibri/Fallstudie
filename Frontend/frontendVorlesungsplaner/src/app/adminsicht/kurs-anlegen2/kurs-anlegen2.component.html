@@ -1,49 +1,75 @@
 <adminheader></adminheader>
-<div> 
-
-<h2>Neuen Kurs anlegen</h2>
-
-<h3>Dozenten </h3> 
-
-<div id="titel"> 
-    <p> Titel: </p>
-    <input type="text" class="titel"> 
+<div class="title">
+    <h1>Neuen Kurs anlegen</h1>
 </div>
 
-<div id="vorname"> 
-    <p> Vorname: </p>
-    <input type="text" class="vorname"> 
+<div class="formWrapper">
+    <h3>Dozenten</h3>
+
+    <!--Add dynamic rows-->
+    <form [formGroup]='formDozenten' (ngSubmit)="onSubmit(formDozenten.value)" #submitDozenten="ngForm">
+        <div formArrayName="dozentenDaten"
+            *ngFor="let item of formDozenten['controls'].dozentenDaten['controls']; let i= index">
+            <!---->
+            <ng-contaner [formGroupName]="i">
+                <div class="formdataDozenten">
+                    <mat-form-field appearance="legacy" id="form-titel">
+                        <mat-label>Titel</mat-label>
+                        <input matInput formControlName="Titel" placeholder="Titel">
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy" id="form-vorname">
+                        <mat-label>Vorname</mat-label>
+                        <input matInput formControlName="Vorname" placeholder="Vorname">
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy" id="form-nachname">
+                        <mat-label>Nachname</mat-label>
+                        <input matInput formControlName="Nachname" placeholder="Nachname">
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy" id="form-mail">
+                        <mat-label>E-Mail Adresse</mat-label>
+                        <input matInput formControlName="Mail" placeholder="E-Mail Adresse">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Vorlesung</mat-label>
+                        <mat-select formControlName="Vorlesung">
+                            <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
+                                {{vorlesung.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Vorlesung 2</mat-label>
+                        <mat-select formControlName="Vorlesung2">
+                            <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
+                                {{vorlesung.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Vorlesung 3</mat-label>
+                        <mat-select formControlName="Vorlesung3">
+                            <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
+                                {{vorlesung.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button id="removeDozent" (click)='removeInput(this.i)'>x</button>
+                </div>
+            </ng-contaner>
+            <!---->
+        </div>
+        <!--End of div *ngFor looping through formVorlesungen-->
+    </form>
+    <div (click)='addInput()'><p id="addDozent">+</p></div>
+    <div class="buttons">
+        <img id="icon-back" src="../../../assets/img/next-icon-dhbw.jpg"><button><a routerLink="/kurs-anlegen-1"
+                routerLinkActive="active">
+                <h3>Zurück</h3>
+            </a></button>
+        <br>
+        <img src="../../../assets/img/next-icon-dhbw.jpg"><button (click)="submitDozenten.ngSubmit.emit()">
+            <h3>Dozenten anlegen</h3>
+        </button>
+    </div>
 </div>
-
-<div id="nachname"> 
-    <p> Nachname: </p>
-    <input type="text" class="nachname"> 
-</div> 
-
-<div id="email"> 
-    <p> E-Mail Adresse: </p>
-    <input type="text" class="email"> 
-</div> 
-
-<div id="vorlesung"> 
-    <p> Vorlesung: </p>
-    <input type="text" class="vorlesung" placeholder="Bitte wählen"> 
-</div> 
-
-<div id="vorlesungco"> 
-    <p> Weitere Vorlesung: </p>
-    <input type="text" class="vorlesungco" placeholder="Bitte wählen"> 
-</div> 
-
-<div id="vorlesungco2"> 
-    <p> Weitere Vorlesung: </p>
-    <input type="text" class="vorlesungco2" placeholder="Bitte wählen"> 
-</div> 
-
-<div class="header"> 
-        <img id="pfeil" src="https://cdn.pixabay.com/photo/2012/04/24/13/58/arrow-40166_960_720.png">   
-        <p class="zurück"> <a routerLink="/zurück" routerLinkActive="active"> Zurück</a></p>
-        <img id="pfeil2" src="https://cdn.pixabay.com/photo/2012/04/24/13/58/arrow-40166_960_720.png">   
-        <p class="kursanlegen"> <a routerLink="/kursanlegen" routerLinkActive="active"> Kurs anlegen</a></p>
-</div>
-</div>
+<!--Ende formWrapper-->

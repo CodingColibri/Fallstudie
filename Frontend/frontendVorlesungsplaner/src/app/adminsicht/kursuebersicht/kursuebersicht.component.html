@@ -2,3 +2,20 @@
 <div class="title">
     <h1>Kursübersicht</h1>
 </div>
+
+<div class="kursliste">
+    <tr>
+        <th>Kursname</th>
+        <th class="kursJahr">Jahr</th>
+        <!-- <th>Semester</th> -->
+        <th class="kursSGL">Studiengangsleiter</th>
+    </tr>
+    <div *ngFor="let kurs of kursService.kurs">
+        <tr>
+            <td>{{kurs.name}}</td>
+            <td class="kursJahr">{{kurs.year}}</td>
+            <td class="kursSGL">{{kurs.studiengangsleiter}}</td>
+            <!-- <td>{{kurs.semester.value}}</td> TODO: Braucht man das?!-->
+        </tr>
+    </div>
+</div>

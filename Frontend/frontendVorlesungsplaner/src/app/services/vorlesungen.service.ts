@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Vorlesung } from '../models/module-models';
 
 export interface VorlesungDTO {
-  date: Date; //e.g.  02.03.2020
+  date: Date;
   name?: string;
-  startDate?: Date; // TODO: Date
-  endDate?: Date; // TODO: Date
+  startDate?: Date;
+  endDate?: Date;
   morningOrAfternoon: 'morning' | 'afternoon';
 }
 

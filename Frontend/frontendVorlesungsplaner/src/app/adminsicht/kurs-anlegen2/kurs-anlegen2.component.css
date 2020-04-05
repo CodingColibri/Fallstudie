@@ -1,126 +1,70 @@
-h2 {
-    color: red;
-    margin-left:60px;
-    margin-bottom: 10x;
-    margin-top: 50px;
+.formWrapper {
+    padding-left: 40px;
 }
-p {
-   color: grey;
-   margin-left: 0px;
+.formdataDozenten mat-form-field{
+    margin-right: 40px;
 }
-
-h3 {
-    color: red;
-    float: left;
-    clear: left;
-    margin-left:60px;
-    margin-bottom: 20px;
+/*Buttons "Kurs anlegen" und "Weiter"*/
+.buttons {
+    margin-top: 30px;
 }
-
-.header {
-    height: 15vh;
-    display: table;
-    width: 100%;
+.buttons button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
 }
-
-#titel {
-    float: left;
-    clear: left;
-    margin-left: 60px;
+button h3{
+    color: #666;
 }
-.titel {
-    width: 70%;
-}
-#vorname {
-    float: left;
-}
-.vorname {
-    width: 70%;
-    margin-right: 6px;  
-}
-
-#nachname {
-    float: left;
-    margin-right: 6px;
-}
-.nachname {
-    width: 65%;
-    margin-right: 6px;  
-}
-
-#email {
-    float: left;
-    margin-right: 30px;
-}
-.email {
-    width: 95%;
-    margin-right: 10px;  
-}
-
-#vorlesung {
-    float: left;
-    margin-right: 30px;
-}
-.vorlesung {
-    width: 95%;
-    margin-right: 10px;  
-}
-
-#vorlesungco {
-    float: left;
-    margin-right: 30px;
-}
-.vorlesungco {
-    width: 95%;
-    margin-right: 10px;  
-}
-
-#vorlesungco2 {
-    float: left;
-    margin-right: 30px;
-}
-.vorlesungco2 {
-    width: 95%;
-    margin-right: 10px;  
-}
-.zurück {
-    float: left;
-    margin-top: 70px;
-    margin-left: 10px;
-    font-size: 18px;
-}
-.zurück a {
-    color: black;
+button a{
     text-decoration: none;
 }
-
-#pfeil {
-    float: left;
-    clear: left;
-    height: 1.5em;
-    width: 1.5em;
-    margin-top: 70px;
-    margin-left: 60px;
+button:hover {
+    text-decoration: underline;
+    color: #666;
 }
-#pfeil2 {
-    float: left;
-    clear: left;
-    height: 1.5em;
-    width: 1.5em;
-    margin-top: 20px;
-    margin-left: 60px;
+.buttons img {
+    max-width: 7px;
+    padding-right: 6px;
+}
+#icon-back {
     transform: rotate(180deg);
+    padding-right: 0px;
+    padding-left: 6px;
 }
-.kursanlegen {
-    float: left;
-    margin-top: 20px;
-    float:left;
-    margin-left: 10px;
-    font-size: 18px;
-    margin-bottom: 60px;
+/*----------------------*/
+#form-titel {
+    width: 80px;
 }
-.kursanlegen a {
-    color: black;
+#form-vorname {
+    width: 110px;
+}
+#form-nachname {
+    width: 110px;
+}
+#form-mail {
+    width: 230px;
+}
+#addDozent {
+    color: #ccc;
+    font-weight: bold;
+    font-size: 30px;
+    cursor: pointer;
+}
+#removeDozent {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    color: #ccc;
+    font-weight: normal;
+    font-size: 20px;
+    cursor: pointer;
+}
+#removeDozent:hover {
     text-decoration: none;
 }
 

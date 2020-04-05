@@ -1,0 +1,17 @@
+.kursliste {
+    margin-left: 250px;
+}
+th {
+    width: 100px;
+    text-align: left;
+}
+td {
+    width: 100px;
+    text-align: left;
+}
+.kursJahr {
+    width: 70px;
+}
+.kursSGL {
+    width: 200px;
+}

@@ -37,7 +37,7 @@ export class KalenderComponent {
     calenderData: CalenderData = {
         weeks: []
     }
-
+//TODO: Previous + Next Methode Fehlerbehebung (Klicken funktioniert nur 2x)
     previous() {
         this.currentMonth = this.months[this.selectedMonth-1].name;
         this.selectedMonth = this.selectedMonth-1;
@@ -77,6 +77,7 @@ export class KalenderComponent {
                 startDate: data.morning.startDate,
                 endDate: data.morning.endDate
                 //TODO: Kurs mit übergeben
+                //TODO: Anzahl Stunden mit übergeben (berechnen)
             }
             let updateAfternoon = {
                 date: data.date,
@@ -85,6 +86,7 @@ export class KalenderComponent {
                 startDate: data.afternoon.startDate,
                 endDate: data.afternoon.endDate
                 //TODO: Kurs mit übergeben
+                //TODO: Anzahl Stunden mit übergeben (berechnen)
             }
             if (data.morning.morningOrAfternoon ==="morning") {
                 this.vlService.vorlesungen.push(updateMorning);
