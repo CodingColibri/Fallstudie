@@ -12,6 +12,10 @@ def add_termine():
     print(type(json["termine"][0]))
     obj = json["termine"][0]
     termin = termin_helper(obj, get_jwt_identity())
+    print("TEst")
+    db.session.add(termin)
+    db.session.commit()
+    return jsonify({"msg": "Termine erstellt"}), 202
     
 """
     termin_helper creates a Termin for a Vorlesung by the give Obj v and returns this Termin object
@@ -26,7 +30,7 @@ def termin_helper(v, jwt_token):
     v_id = Vorlesung.query.filter_by(name=v_name, kurs_name=kurs).first()
     if not check_privileges(jwt_token, [v_id]):
         abort(403)
-    return Termin(start=startDate, ende=endDate, vorlesung_id = v_id)
+    return Termin(start=startDate, ende=endDate, vorlesung_id = v_id.id)
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -122,6 +126,10 @@ def create_vorlesung():
         std_anzahl = request.json.get("std_anzahl", None)
         name = request.json.get("name", None)
         kurs_name = request.json.get("kurs", None)
+
+        if Vorlesung.query.filter(and_(Vorlesung.name==name, Vorlesung.kurs_name==kurs_name)).first() is not None:
+            return jsonify({"msg": "Vorlesung with this name for this kurs already exists"}), 400
+
         vorlesung = Vorlesung(std_anzahl=std_anzahl, name=name,kurs_name=kurs_name)
         db.session.add(vorlesung)
         db.session.commit()
@@ -144,6 +152,8 @@ def check_privileges(current_user, check):
     vorlesung_id = []
     for lesung in vorlesungen:
         vorlesung_id.append(lesung.id)
+    if 1 in vorlesung_id:
+        return True
     return set(check).issubset(set(vorlesung_id))
 
 
