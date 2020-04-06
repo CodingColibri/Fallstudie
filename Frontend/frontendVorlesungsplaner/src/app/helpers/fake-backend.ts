@@ -22,9 +22,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function handleRoute() {
             switch (true) {
                 case url.endsWith('/users/authenticate') && method === 'POST':
-                    return authenticate();
+                    //POST request containing mail+password in body
+                    return authenticate(); //if mail+pw are correct, then jwt token is returned
                 case url.endsWith('/users') && method === 'GET':
-                    return getUsers();
+                    return getUsers(); //returns list of all users with valid jwt token
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);

@@ -1,4 +1,6 @@
 export interface Semester {
-    value: number;
-    viewValue: number;
-  }
+  nummer: number;
+  startDate?: Date;
+  endDate?: Date;
+  // modul?: Module[];
+}

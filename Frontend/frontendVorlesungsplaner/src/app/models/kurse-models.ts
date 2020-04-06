@@ -11,3 +11,16 @@ export interface KursDTO {
   semester: Semester[]; //TODO: Macht das Sinn?
   studiengangsleiter?: string;
 }
+
+export class KursKlasse {
+  name: String;
+  year: number;
+  semester: Semester [];
+  studiengangsleiter: String;
+  constructor(name: String, year: number, semester: Semester[], studiengangsleiter: String) {
+    this.name = name;
+    this.year = year;
+    this.semester = semester;
+    this.studiengangsleiter = studiengangsleiter;
+  }
+}

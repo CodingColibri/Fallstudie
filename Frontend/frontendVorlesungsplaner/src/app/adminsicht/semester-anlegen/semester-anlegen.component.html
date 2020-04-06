@@ -1,65 +1,50 @@
 <adminheader></adminheader>
 <div class="title">
     <h1>Neues Semester anlegen</h1>
-<div> 
-<mat-form-field appearance="legacy" id="semestername">
-    <mat-label>Semestername</mat-label>
-    <input matInput placeholder="Placeholder">
-</mat-form-field>
-
-<mat-form-field id="beginn"> 
-        <mat-label>Chose first date</mat-label> 
-        <input matInput [matDatepicker]="myDatepicker">
-        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #myDatepicker></mat-datepicker>
-</mat-form-field>
-
-
-<mat-form-field id="ende">
-    <mat-label>Chose last date </mat-label>
-    <input matInput [matDatepicker]="myDatepicker2">
-    <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
-    <mat-datepicker #myDatepicker2></mat-datepicker>
-  </mat-form-field>
-
 </div>
+<div class="formWrapper">
+    <form [formGroup]="formSemester" (ngSubmit)="onSubmit(formSemester.value)" #submitSemester="ngForm">
+        <div formArrayName="semesterData"
+            *ngFor="let item of formSemester['controls'].semesterData['controls']; let i= index">
+            <!---->
+            <ng-contaner [formGroupName]="i">
+                <div class="formdataSemester">
+                    <mat-form-field>
+                        <mat-label>Nummer</mat-label>
+                        <mat-select formControlName="Semesternummer">
+                            <mat-option *ngFor="let semester of semester" [value]="semester.nummer">
+                                {{semester.nummer}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Semesterbeginn</mat-label>
+                        <!-- TODO Esra?: matDatepicker in deutscher Zeit anzeigen -->
+                        <input matInput [matDatepicker]="picker" formControlName="Semesterbeginn">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>Semesterende</mat-label>
+                        <!-- TODO Esra?: matDatepicker in deutscher Zeit anzeigen -->
+                        <input matInput [matDatepicker]="picker2" formControlName="Semesterende">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
 
-<div> 
-    <form [formGroup]='formName'>
-        <div formArrayName="controllerArray" >
-        <div *ngFor="let item of formName['controls'].controllerArray['controls']; let i=index" [formGroupName]="i">
-       <!-- <input formControlName="controlerInputName1" type="text">  -->
-
-        <mat-form-field formControlName="controlerInputName1" appearance="legacy" id="semestername">
-            <mat-label>Semestername</mat-label>
-            <input matInput placeholder="Placeholder">
-        </mat-form-field>
-
-        <mat-form-field id="beginn"> 
-            <mat-label>Chose first date</mat-label> 
-            <input matInput [matDatepicker]="myDatepicker">
-            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-            <mat-datepicker #myDatepicker></mat-datepicker>
-        </mat-form-field>
-           
-        <mat-form-field id="ende">
-            <mat-label>Chose last date </mat-label>
-            <input matInput [matDatepicker]="myDatepicker2">
-            <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
-            <mat-datepicker #myDatepicker2></mat-datepicker>
-        </mat-form-field>
-     
-        <div (click)='removeInput(i)'><img id="müll" width="20em" height="20em" src="https://image.flaticon.com/icons/png/512/25/25008.png"></div> 
-    </div> </div>
+                    <button id="removeSemester" (click)='removeInput(this.i)'>x</button>
+                </div>
+            </ng-contaner>
+            <!---->
+        </div>
     </form>
-    <!-- <p> validation: {{ formName.status }}</p> -->
-        <div (click)='addInput()'><img id="plus" src="https://i.ya-webdesign.com/images/white-plus-png-5.png"></div>
-
+    <div (click)='addInput()'>
+        <p id="addSemester">+</p>
+    </div>
+    <div class="formular-buttons">
+        <img src="../../../assets/img/next-icon-dhbw.jpg"><button (click)="submitSemester.ngSubmit.emit()">
+            <h3>Semester anlegen</h3>
+        </button>
+    </div>
 </div>
-
-<div class="header"> 
-<img id="pfeil" src="https://cdn.pixabay.com/photo/2012/04/24/13/58/arrow-40166_960_720.png">   
-<p class="semesteranlegen"> <a routerLink="/Semesteranlegen" routerLinkActive="active"> Semester anlegen</a></p>
-</div>
-
-</div>
+<!--Ende formWrapper-->

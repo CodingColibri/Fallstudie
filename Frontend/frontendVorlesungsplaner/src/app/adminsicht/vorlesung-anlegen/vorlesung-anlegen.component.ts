@@ -1,39 +1,37 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { AppComponent } from '../../app.component';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Semester } from '../../models/semester-models';
 import { KursAnlegenService } from '../../services/kurs-anlegen.service';
 
 @Component({
-  selector: 'kurs-anlegen1',
-  templateUrl: './kurs-anlegen1.component.html',
-  styleUrls: ['./kurs-anlegen1.component.css']
+  selector: 'vorlesung-anlegen',
+  templateUrl: './vorlesung-anlegen.component.html',
+  styleUrls: ['./vorlesung-anlegen.component.css']
 })
 
 
-export class Kursanlegen1Component {
+export class VorlesunganlegenComponent {
 
   formKurs: FormGroup;
   formVorlesungen: FormGroup;
   Kursname: string;
   Jahr: number;
   Semester: number;
-  Studiengangsleiter: string;
 
   constructor(private fb: FormBuilder,
     public kursService: KursAnlegenService) {
-      this.formKurs = this.fb.group({
-        kursData: this.fb.array([
+      this.formVorlesungen = this.fb.group({
+        vorlesungenStunden: this.fb.array([
         ])
       })
   }
   addInput() {
-    const vlStunden = this.formKurs.controls.kursData as FormArray;
+    const vlStunden = this.formVorlesungen.controls.vorlesungenStunden as FormArray;
     vlStunden.push(this.fb.group({
-      Kursname: '',
-      Jahr: '',
-      Studiengangsleiter: ''
+      Vorlesungstitel: '',
+      StundenanzahlVl: '',
     }))
   }
 
@@ -56,7 +54,7 @@ export class Kursanlegen1Component {
   }
 
   removeInput(index) {
-    this.formKurs.controls.kursData["controls"].splice(index, 1)
+    this.formVorlesungen.controls.vorlesungenStunden["controls"].splice(index, 1)
   }
 
 }

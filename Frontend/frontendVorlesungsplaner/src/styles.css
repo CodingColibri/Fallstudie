@@ -41,6 +41,7 @@ h3 {
     margin-left: 40px;
     margin-right: 40px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
@@ -108,3 +109,29 @@ h3 {
     margin-left: -51px;
     color: white;
 } */
+/*Buttons "xy anlegen" mit dhbw-next-icon*/
+.formular-buttons {
+    margin-top: 30px;
+}
+.formular-buttons button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+}
+.formular-buttons h3{
+    color: #666;
+}
+.formular-buttons a{
+    text-decoration: none;
+}
+.formular-buttons:hover {
+    text-decoration: underline;
+    color: #666;
+}
+.formular-buttons img{
+    max-width: 7px;
+    padding-right: 6px;
+}
+/*----------------------*/

@@ -3,64 +3,37 @@
     <h1>Neuen Kurs anlegen</h1>
 </div>
 <div class="formWrapper">
-
     <form [formGroup]="formKurs" (ngSubmit)="onSubmit(formKurs.value)" #submitKurs="ngForm">
-        <div class="formdataKurs">
-            <mat-form-field appearance="legacy">
-                <mat-label>Kursname</mat-label>
-                <input matInput formControlName="Kursname" placeholder="Kursname">
-            </mat-form-field>
-            <mat-form-field appearance="legacy">
-                <mat-label>Jahr</mat-label>
-                <input matInput formControlName="Jahr" placeholder="Jahr">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Semester</mat-label>
-                <mat-select formControlName="Semester">
-                    <mat-option *ngFor="let semester of semesterAuswahl" [value]="semester.value">
-                        {{semester.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </form>
-
-    <h3>Vorlesungen</h3>
-    <!--Add dynamic rows-->
-    <form [formGroup]='formVorlesungen' (ngSubmit)="onSubmit(formVorlesungen.value)" #submitVorlesungen="ngForm">
-        <div formArrayName="vorlesungenStunden"
-            *ngFor="let item of formVorlesungen['controls'].vorlesungenStunden['controls']; let i= index">
+        <div formArrayName="kursData"
+            *ngFor="let item of formKurs['controls'].kursData['controls']; let i= index">
             <!---->
             <ng-contaner [formGroupName]="i">
                 <div class="formdataVorlesungen">
                     <mat-form-field appearance="legacy">
-                        <mat-label>Titel der Vorlesung</mat-label>
-                        <input matInput formControlName="Vorlesungstitel" placeholder="Titel der Vorlesung">
+                        <mat-label>Kursname</mat-label>
+                        <input matInput formControlName="Kursname" placeholder="Kursname">
                     </mat-form-field>
                     <mat-form-field appearance="legacy">
-                        <mat-label>Anzahl der Stunden</mat-label>
-                        <input matInput formControlName="StundenanzahlVl">
+                        <mat-label>Jahr</mat-label>
+                        <input matInput formControlName="Jahr" placeholder="Jahr">
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Studiengangsleiter</mat-label>
+                        <input matInput formControlName="Studiengangsleiter" placeholder="Studiengangsleiter">
                     </mat-form-field>
                     <button id="removeVorlesung" (click)='removeInput(this.i)'>x</button>
                 </div>
             </ng-contaner>
             <!---->
         </div>
-        <!--End of div *ngFor looping through formVorlesungen-->
     </form>
-
     <div (click)='addInput()'>
         <p id="addKurs">+</p>
     </div>
     <div class="buttons">
-        <img src="../../../assets/img/next-icon-dhbw.jpg"><button (click)="submitKurs.ngSubmit.emit()"
-            (click)="submitVorlesungen.ngSubmit.emit()">
-            <h3>Kurs anlegen</h3>
-        </button><br>
-        <img src="../../../assets/img/next-icon-dhbw.jpg"><button><a routerLink="/kurs-anlegen-2"
-                routerLinkActive="active">
-                <h3>Weiter</h3>
-            </a></button>
+        <img src="../../../assets/img/next-icon-dhbw.jpg"><button (click)="submitKurs.ngSubmit.emit()">
+            <h3>Kurse anlegen</h3>
+        </button>
     </div>
 </div>
 <!--Ende formWrapper-->

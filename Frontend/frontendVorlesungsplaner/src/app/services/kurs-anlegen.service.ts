@@ -7,14 +7,15 @@ import { KursDTO } from '@app/models/kurse-models';
 
 export class KursAnlegenService {
   //TODO: GET Request/ Daten vom Backend holen
+  /*TODO: Info Backend: Dozenten können nur über einen HTTP Request in die Datenbank hinzugefügt 
+          werden, da ansonsten bei einer Abfrage ein Fehler mit dem gehashten Passwort auftritt.*/
   public kurs: KursDTO[] = [
     {
         name: "WWI2018H",
         year: 2018,
         semester: [
           {
-            value: 4,
-            viewValue: 4,
+            nummer: 4,
           }
         ],
         studiengangsleiter: "Prof. Dr. Richter"
@@ -24,8 +25,7 @@ export class KursAnlegenService {
         year: 2018,
         semester: [
           {
-            value: 4,
-            viewValue: 4,
+            nummer: 4,
           }
         ],
         studiengangsleiter: "Prof. Dr. Wenger"

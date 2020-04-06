@@ -30,7 +30,6 @@ import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-bu
 import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
 import { DashboardbuttonsComponent } from './adminsicht/dashboard-buttons/dashboard-buttons.component';
 import { Kursanlegen1Component } from './adminsicht/kurs-anlegen1/kurs-anlegen1.component';
-import { Kursanlegen2Component } from './adminsicht/kurs-anlegen2/kurs-anlegen2.component';
 import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester-anlegen.component';
 import { KalenderComponent } from './calendar/calendar.component';
 import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
@@ -41,6 +40,10 @@ import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/doze
 import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender.component';
 import { KursuebersichtComponent } from './adminsicht/kursuebersicht/kursuebersicht.component';
 import { LoginViewsComponent } from './login-views/login-views.component';
+import { VorlesunganlegenComponent } from './adminsicht/vorlesung-anlegen/vorlesung-anlegen.component';
+import { KursDozentenRegistrierungComponent } from './adminsicht/registierung/registrierung.component';
+import { DozentenanlegenComponent } from './adminsicht/dozenten-anlegen/dozenten-anlegen.component';
+import { AdministrationComponent } from './adminsicht/administration/administration.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,7 @@ import { LoginViewsComponent } from './login-views/login-views.component';
     DwelcomebuttonsComponent,
     DashboardbuttonsComponent,
     Kursanlegen1Component,
-    Kursanlegen2Component,
+    DozentenanlegenComponent,
     SemesteranlegenComponent,
     KalenderComponent,
     VorlesungEintragenComponent,
@@ -63,7 +66,10 @@ import { LoginViewsComponent } from './login-views/login-views.component';
     DozentenKalenderComponent,
     AdminKalenderComponent,
     KursuebersichtComponent,
-    LoginViewsComponent
+    LoginViewsComponent,
+    AdministrationComponent,
+    VorlesunganlegenComponent,
+    KursDozentenRegistrierungComponent
     ],
   imports: [
     BrowserModule,
@@ -88,7 +94,7 @@ import { LoginViewsComponent } from './login-views/login-views.component';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend
-    fakeBackendProvider
+    fakeBackendProvider //TODO: Für echte API auskommentieren: Wo echte API angeben?!
   ],
   bootstrap: [AppComponent],
   schemas: [

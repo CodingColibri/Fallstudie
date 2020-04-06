@@ -1,6 +1,6 @@
 <adminheader></adminheader>
 <div class="title">
-    <h1>Neuen Kurs anlegen</h1>
+    <h1>Dozenten anlegen</h1>
 </div>
 
 <div class="formWrapper">
@@ -62,11 +62,6 @@
     </form>
     <div (click)='addInput()'><p id="addDozent">+</p></div>
     <div class="buttons">
-        <img id="icon-back" src="../../../assets/img/next-icon-dhbw.jpg"><button><a routerLink="/kurs-anlegen-1"
-                routerLinkActive="active">
-                <h3>Zurück</h3>
-            </a></button>
-        <br>
         <img src="../../../assets/img/next-icon-dhbw.jpg"><button (click)="submitDozenten.ngSubmit.emit()">
             <h3>Dozenten anlegen</h3>
         </button>

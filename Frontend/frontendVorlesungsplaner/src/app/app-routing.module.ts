@@ -7,7 +7,7 @@ import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-bu
 import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
 import { DashboardbuttonsComponent } from './adminsicht/dashboard-buttons/dashboard-buttons.component';
 import { Kursanlegen1Component } from './adminsicht/kurs-anlegen1/kurs-anlegen1.component';
-import { Kursanlegen2Component } from './adminsicht/kurs-anlegen2/kurs-anlegen2.component';
+import { DozentenanlegenComponent } from './adminsicht/dozenten-anlegen/dozenten-anlegen.component';
 import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester-anlegen.component';
 import { KalenderComponent } from './calendar/calendar.component';
 import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
@@ -19,6 +19,9 @@ import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender
 import { KursuebersichtComponent } from './adminsicht/kursuebersicht/kursuebersicht.component';
 import { LoginViewsComponent } from './login-views/login-views.component';
 import { AuthGuard } from '../app/helpers'
+import { VorlesunganlegenComponent } from './adminsicht/vorlesung-anlegen/vorlesung-anlegen.component';
+import { KursDozentenRegistrierungComponent } from './adminsicht/registierung/registrierung.component';
+import { AdministrationComponent } from './adminsicht/administration/administration.component';
 
 const routes: Routes = [
   { path: '', component: WelcomebuttonsComponent, canActivate:[AuthGuard]},
@@ -29,7 +32,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardbuttonsComponent },
   { path: 'Semesterneuanlegen', component: SemesteranlegenComponent },
   { path: 'kurs-anlegen-1', component: Kursanlegen1Component },
-  { path: 'kurs-anlegen-2', component: Kursanlegen2Component }, 
+  { path: 'dozenten-anlegen', component: DozentenanlegenComponent }, 
   { path: 'willkommen', component: WelcomebuttonsComponent}, 
   { path: 'dwelcome', component: DwelcomebuttonsComponent },
   { path: 'zurück', component: Kursanlegen1Component, }, 
@@ -40,6 +43,11 @@ const routes: Routes = [
   { path: 'adminkalender', component: AdminKalenderComponent },
   { path: 'kursuebersicht', component: KursuebersichtComponent },
   { path: 'login-views', component: LoginViewsComponent },
+  { path: 'administration', component: AdministrationComponent},
+  { path: 'vorlesung-anlegen', component: VorlesunganlegenComponent},
+  { path: 'kurs-dozent-registrierung', component: KursDozentenRegistrierungComponent}
+
+
   // [canActivate => Implementieren, Prüfung Admin/ Berechtigung das zu sehen]
 ];
 export const appRoutingModule = RouterModule.forRoot(routes);

@@ -1,20 +1,31 @@
-
-.header {
-    height: 15vh;
-    display: table;
-    width: 100%;
+.formWrapper {
+    padding-left: 40px;
 }
-h2 {
-    color: red;
-    margin-left:60px;
-    margin-bottom: 10x;
-    margin-top: 50px;
+#addSemester{
+    color: #ccc;
+    font-weight: bold;
+    font-size: 30px;
+    cursor
+    : pointer;
 }
-p {
-   color: grey;
-   margin-left: 0px;
+#removeSemester{
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    color: #ccc;
+    font-weight: normal;
+    font-size: 20px;
+    cursor: pointer;
 }
-#semestername {
+#removeSemester:hover {
+    text-decoration: none;
+}
+.formdataSemester mat-form-field{
+    margin-right: 40px;
+}
+/* #semestername {
     float: left;
     clear:left;
     margin-left: 60px;
@@ -65,4 +76,4 @@ p {
     position: absolute; 
     margin-left: 2em;
     margin-top:2.4em;
-}
+} */

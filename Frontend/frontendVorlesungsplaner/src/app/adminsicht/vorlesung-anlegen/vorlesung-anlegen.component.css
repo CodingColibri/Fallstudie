@@ -9,33 +9,9 @@
 }
 .formdataVorlesungen {
     margin-right: 40px;
+    width: 470px;
 }
-/*Buttons "Kurs anlegen" und "Weiter"*/
-.buttons {
-    margin-top: 30px;
-}
-.buttons button {
-    border: none;
-    background-color: white;
-    cursor: pointer;
-    outline: none;
-    padding: 0;
-}
-button h3{
-    color: #666;
-}
-button a{
-    text-decoration: none;
-}
-button:hover {
-    text-decoration: underline;
-    color: #666;
-}
-.buttons img {
-    max-width: 7px;
-    padding-right: 6px;
-}
-/*----------------------*/
+
 .formWrapper input {
     margin-left: 0px;
 }

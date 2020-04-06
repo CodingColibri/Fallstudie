@@ -1,43 +1,57 @@
 import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
-import {FormControl} from '@angular/forms'; 
+import { FormControl, NgForm, FormGroup } from '@angular/forms';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { Semester } from '@app/models/semester-models';
 
 @Component({
-    selector: 'semester-anlegen',
-    templateUrl: './semester-anlegen.component.html',
-    styleUrls: ['./semester-anlegen.component.css'],
+  selector: 'semester-anlegen',
+  templateUrl: './semester-anlegen.component.html',
+  styleUrls: ['./semester-anlegen.component.css'],
 
 })
 
-export class SemesteranlegenComponent  {
-   //date = new FormControl(new Date());
-  //serializedDate = new FormControl((new Date()).toISOString());
+export class SemesteranlegenComponent {
 
-  // arrayInputs = [{controlerInputName1 : ['',Validators.required]}, {controlerInputName1: ''}];
-  
-  arrayInputs = [];
+  formSemester: FormGroup;
+  Semesternummer: number;
+  Semesterbeginn: Date;
+  Semesterende: Date;
 
-  formName =this.fb.group({
-    controllerArray: this.fb.array([])
-  })  
+  semester: Semester[] = [
+    { nummer: 1 },
+    { nummer: 2 },
+    { nummer: 3 },
+    { nummer: 4 },
+    { nummer: 5 },
+    { nummer: 6 }
+  ];
 
-  constructor(private fb: FormBuilder) { }
-
-  setArrayInputs(arrayInputs) {
-    const arrayFG = arrayInputs.map(address => this.fb.group(address));
-    const formArray = this.fb.array(arrayFG);
-    this.formName.setControl('controllerArray', formArray);
+  constructor(private fb: FormBuilder) {
+    this.formSemester = this.fb.group({
+      semesterData: this.fb.array([
+      ])
+    })
+  }
+  addInput() {
+    const semesterArray = this.formSemester.controls.semesterData as FormArray;
+    semesterArray.push(this.fb.group({
+      Semesternummer: '',
+      Semesterbeginn: '',
+      Semesterende: ''
+    }))
   }
 
-  ngOnInit() { this.setArrayInputs(this.arrayInputs) }
+  onSubmit(form: NgForm) {
 
-  addInput() {(this.formName.get('controllerArray') as FormArray).push(this.fb.group({controlerInputName1:''})) }
+    console.log(form);
+  }
 
-  removeInput(index) { this.formName.controls.controllerArray["controls"].splice(index,1) }
-
+  removeInput(index) {
+    this.formSemester.controls.semesterData["controls"].splice(index, 1)
+  }
 
 }
