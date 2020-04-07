@@ -10,8 +10,8 @@
     <mat-form-field> 
         <mat-label class="wählen">  Kurs auswählen </mat-label>
             <mat-select> 
-                <mat-option *ngFor="let kurs of kurse" [value]="kurs.value"> 
-                    {{kurs.viewValue}}
+                <mat-option *ngFor="let kurs of kurse" [value]="kurs.name"> 
+                    {{kurs.name}}
                 </mat-option>
             </mat-select>
     </mat-form-field>   
@@ -33,5 +33,6 @@
     <div class="navi"><a routerLink="/adminkalender" routerLinkActive="active">Kalenderansicht</a></div>
     <div class="navi">Vorlesungsplanansicht</div>
  </div>
+ 
     
     

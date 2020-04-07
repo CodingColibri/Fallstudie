@@ -3,7 +3,15 @@
     <h1>Neue Vorlesung anlegen</h1>
 </div>
 <div class="formWrapper">
-
+    <mat-form-field> 
+        <mat-label class="wählen">Kurs auswählen</mat-label>
+            <mat-select> 
+                <mat-option *ngFor="let kurs of kurse" [value]="kurs.name"> 
+                    {{kurs.name}}
+                </mat-option>
+            </mat-select>
+    </mat-form-field>  
+    
     <form [formGroup]="formVorlesungen" (ngSubmit)="onSubmit(formVorlesungen.value)" #submitKurs="ngForm">
         <div formArrayName="vorlesungenStunden"
             *ngFor="let item of formVorlesungen['controls'].vorlesungenStunden['controls']; let i= index">

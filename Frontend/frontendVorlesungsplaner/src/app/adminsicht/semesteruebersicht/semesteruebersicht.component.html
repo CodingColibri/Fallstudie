@@ -1,0 +1,27 @@
+<adminheader></adminheader>
+<div class="title">
+    <h1>Semesterübersicht</h1>
+</div>
+<div class="selectStudienJg">
+<mat-form-field> 
+    <mat-label class="wählen">Studienjahrgang wählen</mat-label>
+        <mat-select> 
+            <mat-option *ngFor="let studienjahrgang of studienjahrgang" [value]="studienjahrgang.jahr"> 
+                {{studienjahrgang.jahr}}
+            </mat-option>
+        </mat-select>
+</mat-form-field>  
+</div>
+<div class="kursliste">
+
+
+    <div *ngFor="let kurs of kurse">
+        <div *ngFor="let semester of kurs.semester">
+        <tr>
+            <td class="semesterNr">{{semester.nummer}}. Semester</td>
+            <td class="zeitraum">{{semester.startDate |date:'dd.MM.yyyy'}} - {{semester.endDate |date:'dd.MM.yyyy'}}</td>
+
+        </tr>
+        </div>
+    </div>
+</div>

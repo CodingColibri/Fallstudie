@@ -44,6 +44,7 @@ import { VorlesunganlegenComponent } from './adminsicht/vorlesung-anlegen/vorles
 import { KursDozentenRegistrierungComponent } from './adminsicht/registierung/registrierung.component';
 import { DozentenanlegenComponent } from './adminsicht/dozenten-anlegen/dozenten-anlegen.component';
 import { AdministrationComponent } from './adminsicht/administration/administration.component';
+import { SemesteruebersichtComponent } from './adminsicht/semesteruebersicht/semesteruebersicht.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { AdministrationComponent } from './adminsicht/administration/administrat
     LoginViewsComponent,
     AdministrationComponent,
     VorlesunganlegenComponent,
-    KursDozentenRegistrierungComponent
+    KursDozentenRegistrierungComponent,
+    SemesteruebersichtComponent
     ],
   imports: [
     BrowserModule,

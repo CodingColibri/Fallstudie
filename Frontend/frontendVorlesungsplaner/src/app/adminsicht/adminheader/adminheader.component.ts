@@ -5,12 +5,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Kurs } from '../../models/kurse-models';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User } from 'src/app/models/user';
 import { first } from 'rxjs/operators';
+import { KursKlasse } from '@app/models/kurse-models';
+import { KursController } from '@app/controller/kurs-controller.service';
 
 @Component({
     selector: 'adminheader',
@@ -20,19 +21,19 @@ import { first } from 'rxjs/operators';
 
 
 export class AdminheaderComponent {
-
-  kurse: Kurs[] = [
-    {value: 'kursA-0', viewValue: 'WWI 2018A'},
-    {value: 'kursB-1', viewValue: 'WWI 2018B'},
-    {value: 'kursC-2', viewValue: 'WWI 2018C'}
-  ]; 
-
-  loading = false;
-  users: User[];
-
-  constructor(private userService: UserService,
-    private router: Router,
-    private authenticationService: AuthenticationService) { }
+    loading = false;
+    users: User[];
+    kurse: KursKlasse[]= [];
+  
+    constructor(private userService: UserService,
+        private router: Router,
+        private authenticationService: AuthenticationService,
+        public kursController: KursController) {
+        this.kursController.kursListe.subscribe((data: KursKlasse[])=> {
+        this.kurse = data;
+      });
+      this.kursController.loadData();
+    }
 
 ngOnInit() {
     this.loading = true;
@@ -45,6 +46,5 @@ logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
 }
-
 
 }

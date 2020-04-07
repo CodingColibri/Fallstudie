@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { CalenderData, Week, CalenderDay } from '../../models/calender-models';
-import { Modul, Vorlesung } from '../../models/module-models';
+import { Vorlesung } from '../../models/vorlesungen-models';
+import { Modul } from '../../models/module-models';
 import { KalenderComponent } from 'src/app/calendar/calendar.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 

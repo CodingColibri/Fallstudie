@@ -22,6 +22,7 @@ import { AuthGuard } from '../app/helpers'
 import { VorlesunganlegenComponent } from './adminsicht/vorlesung-anlegen/vorlesung-anlegen.component';
 import { KursDozentenRegistrierungComponent } from './adminsicht/registierung/registrierung.component';
 import { AdministrationComponent } from './adminsicht/administration/administration.component';
+import { SemesteruebersichtComponent } from './adminsicht/semesteruebersicht/semesteruebersicht.component';
 
 const routes: Routes = [
   { path: '', component: WelcomebuttonsComponent, canActivate:[AuthGuard]},
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'dozentenkalender', component: DozentenKalenderComponent },
   { path: 'adminkalender', component: AdminKalenderComponent },
   { path: 'kursuebersicht', component: KursuebersichtComponent },
+  { path: 'semesteruebersicht', component: SemesteruebersichtComponent },
   { path: 'login-views', component: LoginViewsComponent },
   { path: 'administration', component: AdministrationComponent},
   { path: 'vorlesung-anlegen', component: VorlesunganlegenComponent},

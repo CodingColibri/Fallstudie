@@ -1,4 +1,4 @@
-import { Vorlesung } from './module-models';
+import { Vorlesung } from './vorlesungen-models';
 
 export class CalenderDay {
     public date: Date; //Startdatum mit Startuhrzeit
