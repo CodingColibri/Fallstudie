@@ -9,15 +9,15 @@ import { Studienjahrgang } from '@app/models/studienjahrgang-models';
 @Injectable({
   providedIn: "root"
 })
-export class StudienjahrgangController {
+export class SemesterController {
   private backendUrl = environment.apiUrl;
-  public studienjahrListe: BehaviorSubject<Studienjahrgang[]>;
+  public semesterListe: BehaviorSubject<Semester[]>;
 
   constructor(
     private httpClient: HttpClient,
     // private vpnPeerAdapter: VPNPeerAdapter
   ) {
-    this.studienjahrListe = new BehaviorSubject<Studienjahrgang[]>(null);
+    this.semesterListe = new BehaviorSubject<Semester[]>(null);
   }
 
   loadData() {
@@ -29,20 +29,16 @@ export class StudienjahrgangController {
     //   });
     //   this.kursListe.next(vpnPeers);
     // });
-    let temp: Studienjahrgang[] = [
-      new Studienjahrgang(2016),
-      new Studienjahrgang(2017),
-      new Studienjahrgang(2018),
-      new Studienjahrgang(2019),
-      new Studienjahrgang(2020),
-      new Studienjahrgang(2021),
-    ]
+    let temp: Semester[] = [
+        new Semester(2018, 1,new Date(2018,9,1),new Date(2018,11,23), []),
+        new Semester(2018, 2,new Date(2019,2,18),new Date(2019,5,9), [])
+    ];
 
-    this.studienjahrListe.next(temp); //pusht in Beh. Subject
+    this.semesterListe.next(temp); //pusht in Beh. Subject
   }
 
-  addKurs(studienjahrgang: Studienjahrgang) {
-    this.studienjahrListe.next(this.studienjahrListe.getValue().concat([studienjahrgang]))
+  addSemester(semester: Semester) {
+    this.semesterListe.next(this.semesterListe.getValue().concat([semester]))
   }
 
 }

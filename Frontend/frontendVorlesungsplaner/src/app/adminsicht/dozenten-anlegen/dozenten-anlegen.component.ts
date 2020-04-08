@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { FormGroup, FormBuilder, Validators, NgForm, FormArray } from '@angular/forms';
 import { KursAnlegenService } from '@app/services/kurs-anlegen.service';
-import { Vorlesung } from '@app/models/module-models';
+import { Vorlesung } from '@app/models/vorlesungen-models';
 
 @Component({
     selector: 'dozenten-anlegen',

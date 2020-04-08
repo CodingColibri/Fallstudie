@@ -1,7 +1,7 @@
 import { Dozenten } from './dozenten-models';
 import { KursKlasse } from './kurse-models';
 
-export interface Vorlesung {
+export class Vorlesung {
     date?: Date;
     name?: String;
     maxStunden?: number;
@@ -15,4 +15,10 @@ export interface Vorlesung {
     dozent?: Dozenten[];
     kurs?: KursKlasse[];
     //TODO: Kurs übergeben (Frage: Wie mappt man den Kalender/ die Vorlesung zu genau dem Kurs?)
+    
+//   constructor(name: String, maxStunden: number){
+//     this.name = name;
+//     this.maxStunden = maxStunden;
+// }
+
 }

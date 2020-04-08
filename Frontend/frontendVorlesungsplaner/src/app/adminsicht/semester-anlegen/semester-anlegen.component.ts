@@ -6,6 +6,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { Semester } from '@app/models/semester-models';
+import { KursKlasse } from '@app/models/kurse-models';
+import { Studienjahrgang } from '@app/models/studienjahrgang-models';
+import { KursController } from '@app/controller/kurs-controller.service';
+import { StudienjahrgangController } from '@app/controller/studienjahrgang-controller.service';
+import { SemesterController } from '@app/controller/semester-controller.service';
+import { SEMESTERNUMBERS } from '../../utils/constants';
 
 @Component({
   selector: 'semester-anlegen',
@@ -21,24 +27,39 @@ export class SemesteranlegenComponent {
   Semesterbeginn: Date;
   Semesterende: Date;
 
-  semester: Semester[] = [
-    { nummer: 1 },
-    { nummer: 2 },
-    { nummer: 3 },
-    { nummer: 4 },
-    { nummer: 5 },
-    { nummer: 6 }
-  ];
+//Konstante
+  semesternummer = SEMESTERNUMBERS;
 
-  constructor(private fb: FormBuilder) {
+  kurse: KursKlasse[]= [];
+  studienjahrgang: Studienjahrgang[] = [];
+  semester: Semester[]= [];
+
+  constructor(private fb: FormBuilder,
+    public kursController: KursController,
+    public studienJgController: StudienjahrgangController,
+    public semesterController: SemesterController) {
+    this.kursController.kursListe.subscribe((data: KursKlasse[])=> {
+      this.kurse = data;
+    });
+    this.studienJgController.studienjahrListe.subscribe((data: Studienjahrgang[])=> {
+      this.studienjahrgang = data;
+    });
+    this.semesterController.semesterListe.subscribe((data: Semester[])=> {
+      this.semester = data;
+    });
     this.formSemester = this.fb.group({
       semesterData: this.fb.array([
       ])
     })
+    this.kursController.loadData();
+    this.studienJgController.loadData();
+    this.semesterController.loadData();
   }
+
   addInput() {
     const semesterArray = this.formSemester.controls.semesterData as FormArray;
     semesterArray.push(this.fb.group({
+      Studienjahrgang: '',
       Semesternummer: '',
       Semesterbeginn: '',
       Semesterende: ''
@@ -48,10 +69,11 @@ export class SemesteranlegenComponent {
   onSubmit(form: NgForm) {
 
     console.log(form);
+    //TODO: Daten aus Formular in den SemesterController schreiben
+    //this.semesterController.addSemester(new Semester(???));
   }
 
   removeInput(index) {
     this.formSemester.controls.semesterData["controls"].splice(index, 1)
   }
-
 }

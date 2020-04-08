@@ -16,12 +16,10 @@ export class KursuebersichtComponent {
     this.kursController.kursListe.subscribe((data: KursKlasse[])=> {
       this.kurse = data;
     });
-    this.reloadData();
-  }
-  reloadData() {
     this.kursController.loadData();
   }
-  addData(){
-    this.kursController.addKurs(new KursKlasse("WWI2016X", 2020,[],"test"));
-  }
+
+  // addData(){
+  //   this.kursController.addKurs(new KursKlasse("WWI2016X", 2020,[],"test"));
+  // }
 }

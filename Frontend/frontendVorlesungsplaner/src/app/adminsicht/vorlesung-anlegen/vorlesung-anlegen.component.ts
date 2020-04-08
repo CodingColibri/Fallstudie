@@ -48,7 +48,7 @@ export class VorlesunganlegenComponent {
   onSubmit(form: NgForm) {
 
     console.log(form);
-    console.log(form.name)
+
     // console.log(form.controls['Kursname'].value);
     // //TODO: Daten aus dem Formular in den kursService schreiben
     // // let updateKursData = {
