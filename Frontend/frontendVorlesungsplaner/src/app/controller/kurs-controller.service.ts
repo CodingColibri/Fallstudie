@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BehaviorSubject } from "rxjs";
-// import { VPNPeer, VPNPeerAdapter } from "../models/VPN";
 import { HttpClient } from "@angular/common/http";
 import { KursKlasse } from '@app/models/kurse-models';
 import { Semester } from '@app/models/semester-models';

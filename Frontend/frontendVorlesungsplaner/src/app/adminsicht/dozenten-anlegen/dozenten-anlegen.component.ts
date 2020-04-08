@@ -12,29 +12,11 @@ import { Vorlesung } from '@app/models/vorlesungen-models';
 
 export class DozentenanlegenComponent {
 
-    vorlesungen: Vorlesung[] = [
-        {
-            name: null
-        },
-        {
-            name: 'Wissenschaftliches Arbeiten'
-        },
-        {
-            name: 'Digitale Transformation'
-        },
-        {
-            name: 'Wirtschaftsinformatik'
-        },
-    ];
-
     formDozenten: FormGroup;
     Titel: string;
     Vorname: string;
     Nachname: string;
     Mail: string;
-    Vorlesung: string;
-    Vorlesung2: string;
-    Vorlesung3: string;
 
     constructor(private fb: FormBuilder,
         public kursService: KursAnlegenService) {
@@ -51,10 +33,7 @@ export class DozentenanlegenComponent {
             Titel: '',
             Vorname: '',
             Nachname: '',
-            Mail: '',
-            Vorlesung: '',
-            Vorlesung2: '',
-            Vorlesung3: ''
+            Mail: ''
         }))
     }
 

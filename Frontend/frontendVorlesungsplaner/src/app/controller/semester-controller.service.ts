@@ -2,9 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { KursKlasse } from '@app/models/kurse-models';
 import { Semester } from '@app/models/semester-models';
-import { Studienjahrgang } from '@app/models/studienjahrgang-models';
 
 @Injectable({
   providedIn: "root"
@@ -34,7 +32,7 @@ export class SemesterController {
         new Semester(2018, 2,new Date(2019,2,18),new Date(2019,5,9), [])
     ];
 
-    this.semesterListe.next(temp); //pusht in Beh. Subject
+    this.semesterListe.next(temp);
   }
 
   addSemester(semester: Semester) {

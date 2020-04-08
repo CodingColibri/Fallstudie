@@ -29,30 +29,6 @@
                         <mat-label>E-Mail Adresse</mat-label>
                         <input matInput formControlName="Mail" placeholder="E-Mail Adresse">
                     </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Vorlesung</mat-label>
-                        <mat-select formControlName="Vorlesung">
-                            <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
-                                {{vorlesung.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Vorlesung 2</mat-label>
-                        <mat-select formControlName="Vorlesung2">
-                            <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
-                                {{vorlesung.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Vorlesung 3</mat-label>
-                        <mat-select formControlName="Vorlesung3">
-                            <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
-                                {{vorlesung.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
                     <button id="removeDozent" (click)='removeInput(this.i)'>x</button>
                 </div>
             </ng-contaner>

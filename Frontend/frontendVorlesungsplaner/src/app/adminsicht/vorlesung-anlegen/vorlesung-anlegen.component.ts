@@ -2,10 +2,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { FormControl, FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
-import { Semester } from '../../models/semester-models';
-import { KursAnlegenService } from '../../services/kurs-anlegen.service';
 import { KursController } from '@app/controller/kurs-controller.service';
 import { KursKlasse } from '@app/models/kurse-models';
+import { Dozent } from '@app/models/dozenten-models';
+import { DozentenController } from '@app/controller/dozenten-controller.service';
+import { DozentenKalenderComponent } from '@app/dozentensicht/dozentenkalender/dozentenkalender.component';
 
 @Component({
   selector: 'vorlesung-anlegen',
@@ -17,6 +18,7 @@ import { KursKlasse } from '@app/models/kurse-models';
 export class VorlesunganlegenComponent {
 
   kurse: KursKlasse[]= [];
+  dozent: Dozent[]= [];
   
   formKurs: FormGroup;
   formVorlesungen: FormGroup;
@@ -25,7 +27,8 @@ export class VorlesunganlegenComponent {
   Semester: number;
 
   constructor(private fb: FormBuilder,
-    public kursController: KursController) {
+    public kursController: KursController,
+    public dozentenController: DozentenController) {
       this.formVorlesungen = this.fb.group({
         vorlesungenStunden: this.fb.array([
         ])
@@ -33,7 +36,11 @@ export class VorlesunganlegenComponent {
       this.kursController.kursListe.subscribe((data: KursKlasse[])=> {
         this.kurse = data;
       });
+      this.dozentenController.dozentenListe.subscribe((data: Dozent[])=> {
+        this.dozent = data;
+      });
       this.kursController.loadData();
+      this.dozentenController.loadData();
       
   }
 
@@ -49,17 +56,7 @@ export class VorlesunganlegenComponent {
 
     console.log(form);
 
-    // console.log(form.controls['Kursname'].value);
-    // //TODO: Daten aus dem Formular in den kursService schreiben
-    // // let updateKursData = {
-    // //   name: form.controls['formKurs'].controls['Kursname']value,
-    // //   year: form.controls['Jahr'].value,
-    // //   semester: [
-    // //       { value: this.Semester, viewValue: this.Semester }
-    // //   ]
-    // //   }
-    // //   debugger;
-    // this.kursService.kurs.push(form.value);
+    // //TODO: Daten aus dem Formular in den kursController schreiben
     console.log(this.kursController)
   }
 

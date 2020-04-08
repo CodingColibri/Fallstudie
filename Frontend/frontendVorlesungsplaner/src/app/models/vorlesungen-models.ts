@@ -1,4 +1,4 @@
-import { Dozenten } from './dozenten-models';
+import { Dozent } from './dozenten-models';
 import { KursKlasse } from './kurse-models';
 
 export class Vorlesung {
@@ -12,7 +12,7 @@ export class Vorlesung {
     startDate?: Date;
     endDate?: Date;
     morningOrAfternoon?: String
-    dozent?: Dozenten[];
+    dozent?: Dozent[];
     kurs?: KursKlasse[];
     //TODO: Kurs übergeben (Frage: Wie mappt man den Kalender/ die Vorlesung zu genau dem Kurs?)
     
