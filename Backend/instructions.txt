@@ -1,0 +1,33 @@
+Einrichten:
+     1. Python installieren
+         - Bitte verwende Python 3.7.5 (Windows Exe: https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe)
+         - Python sollte zum Path hinzugefügt werden
+
+     2. Virtualenv installieren (Pyhton package manager)
+         1. Powershell als Administrator
+         2. Eingabe: "pip3 install virtualenv" (Wenn "pip command not found" dann checken ob Python im Path sonst folgendes Tutorial: https://programwithus.com/learn-to-code/Pip-and-virtualenv-on-Windows/)
+
+     3. Virtualenv für Backend einrichten
+         In Powershell:
+         1. Zum Backend Pfad des Projekts wechseln Eingabe "cd <Pfad zum Projekt>/Backend"
+         2. Eingabe "virtualenv env" 
+         3. Eingabe "\env\Scripts\activate.bat" (Möglicherweise muss der erste \ weg)
+         4. Eingabe "pip3 install -r requirements.txt" (Kann etwas dauern)
+
+     4. MariaDB einrichten
+         1. Starte MariaDB z.B. über XAMPP
+         2. Erstelle eine Database mit dem Namen "vorlesungsplaner"
+         3. Stelle sicher, dass es einen Nutzer mit Zugriff auf die Datenbank gibt mit Username: root & password: root
+
+ Flask starten:
+         In Powershell:
+         1. Zum Backend Pfad des Projekts wechseln Eingabe "cd <Pfad zum Projekt>/Backend"
+         2. Eingabe "\env\Scripts\activate.bat" (Möglicherweise muss der erste \ weg)
+         3. Eingabe "flask run"
+
+         4. Flask kann mit Strg + C beendet werden. (Die meisten anderen Methoden lassen den Socket belegt und Flask kann nicht mehr erneut starten)
+
+         Natürlich kannst du auch die Integrierte CMD in deiner IDEA verwenden
+
+ Weitere Anmerkungen:
+     - Dozenten können nur über einen HTTP Request in die Datenbank hinzugefügt werden, da ansonsten bei einer Abfrage ein Fehler mit dem gehashten Passwort auftritt.
