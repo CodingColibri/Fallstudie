@@ -25,6 +25,7 @@ export class VorlesunganlegenComponent {
   Kursname: string;
   Jahr: number;
   Semester: number;
+  DozentVl: string;
 
   constructor(private fb: FormBuilder,
     public kursController: KursController,
@@ -49,11 +50,11 @@ export class VorlesunganlegenComponent {
     vlStunden.push(this.fb.group({
       Vorlesungstitel: '',
       StundenanzahlVl: '',
+      DozentVl: ''
     }))
   }
 
   onSubmit(form: NgForm) {
-
     console.log(form);
 
     // //TODO: Daten aus dem Formular in den kursController schreiben

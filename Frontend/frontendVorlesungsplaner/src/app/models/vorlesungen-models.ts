@@ -2,23 +2,15 @@ import { Dozent } from './dozenten-models';
 import { KursKlasse } from './kurse-models';
 
 export class Vorlesung {
-    date?: Date;
+    date?: Date; //TODO: Delete => ist in Termin
     name?: String;
     maxStunden?: number;
-    stunden?: number; //endDate-startDate
-    /*TODO max.Stunden sollen aus der Funktion Admin-Vorlesung-anlegen genommen werden,
-    & die aktuelle Stundenzahl der Vorlesung beim Eintragen soll dann immer abgeglichen werden.
-    Ist die max. Stundenanzahl erreicht, kommt eine Warnmeldung.*/
-    startDate?: Date;
-    endDate?: Date;
-    morningOrAfternoon?: String
-    dozent?: Dozent[];
+    stunden?: number; //TODO: Delete => ist in Termin
+    startDate?: Date; //TODO: Delete => ist in Termin
+    endDate?: Date; //TODO: Delete => ist in Termin
+    morningOrAfternoon?: String //TODO: Delete => ist in Termin
     kurs?: KursKlasse[];
-    //TODO: Kurs übergeben (Frage: Wie mappt man den Kalender/ die Vorlesung zu genau dem Kurs?)
-    
-//   constructor(name: String, maxStunden: number){
-//     this.name = name;
-//     this.maxStunden = maxStunden;
-// }
+    dozent?: Dozent[];
+    //TODO: Kurs übergeben => Neben Username, soll selected Kurs auf den Kalendereintrag gemappt werden
 
 }

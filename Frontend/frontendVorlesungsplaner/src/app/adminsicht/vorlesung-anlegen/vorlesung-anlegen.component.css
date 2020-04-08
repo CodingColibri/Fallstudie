@@ -9,7 +9,6 @@
 }
 .formdataVorlesungen {
     margin-right: 40px;
-    width: 470px;
 }
 
 .formWrapper input {
@@ -34,4 +33,7 @@
 }
 #removeVorlesung:hover {
     text-decoration: none;
+}
+#dozentenAuswahl{
+    width: 250px;
 }

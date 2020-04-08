@@ -3,6 +3,7 @@ import { AppComponent } from '../../app.component';
 import { FormGroup, FormBuilder, Validators, NgForm, FormArray } from '@angular/forms';
 import { KursAnlegenService } from '@app/services/kurs-anlegen.service';
 import { Vorlesung } from '@app/models/vorlesungen-models';
+import { DozentenController } from '@app/controller/dozenten-controller.service';
 
 @Component({
     selector: 'dozenten-anlegen',
@@ -19,7 +20,8 @@ export class DozentenanlegenComponent {
     Mail: string;
 
     constructor(private fb: FormBuilder,
-        public kursService: KursAnlegenService) {
+        public kursService: KursAnlegenService,
+        public dozentenController: DozentenController) {
         this.formDozenten = this.fb.group({
             dozentenDaten: this.fb.array([
             ])
@@ -39,6 +41,7 @@ export class DozentenanlegenComponent {
 
     onSubmit(form: NgForm) {
         console.log(form);
+        //this.kursController.add(new KursKlasse("WWI2016X", 2020, [], "test"));
     }
 
     removeInput(index) { 

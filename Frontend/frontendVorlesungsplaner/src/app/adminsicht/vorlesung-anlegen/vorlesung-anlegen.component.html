@@ -26,6 +26,14 @@
                         <mat-label>Anzahl der Stunden</mat-label>
                         <input matInput formControlName="StundenanzahlVl">
                     </mat-form-field>
+                    <mat-form-field id="dozentenAuswahl"> 
+                        <mat-label class="wählen">Dozent auswählen</mat-label>
+                            <mat-select formControlName="DozentVl"> 
+                                <mat-option *ngFor="let dozent of dozent" [value]="dozent.vorname+dozent.nachname"> 
+                                    {{dozent.titel}}{{dozent.vorname}} {{dozent.nachname}}
+                                </mat-option>
+                            </mat-select>
+                    </mat-form-field>  
                     <button id="removeVorlesung" (click)='removeInput(this.i)'>x</button>
                 </div>
             </ng-contaner>

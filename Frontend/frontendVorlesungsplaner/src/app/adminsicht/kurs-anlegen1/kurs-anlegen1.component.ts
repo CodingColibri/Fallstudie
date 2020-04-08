@@ -49,13 +49,12 @@ export class Kursanlegen1Component {
   onSubmit(form: NgForm) {
 
     console.log(form);
-    console.log(form.name)
+    //console.log(form.controls['Kursname'].value);
     //TODO: Daten aus dem Formular in den kursController schreiben
     //TODO: Update Funktion addKurs() in kursController
 
-    console.log(this.kursController)
-
-    this.kursController.addKurs(new KursKlasse("WWI2016X", 2020, [], "test"));
+    // console.log(this.kursController)
+    // this.kursController.addKurs(new KursKlasse("WWI2016X", 2020, [], "test"));
 
   }
 
