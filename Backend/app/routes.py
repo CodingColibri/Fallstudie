@@ -9,7 +9,7 @@ from sqlalchemy import and_
 #Getter
 ############################################
 
-@app.route('/login', methods=['GET'])
+@app.route('/login', methods=['POST'])
 def login():
     if not request.is_json:
         return jsonify({"msg": "Missing JSON in request"}), 400
@@ -32,7 +32,7 @@ def login():
 
 
 
-@app.route('/get/vorlesung/fortimeandkurs', methods=['GET'])
+@app.route('/get/vorlesung/fortimeandkurs', methods=['POST'])
 @jwt_required
 def vorlesung_fortimeandkrus():
     #TODO: Gib Liste mit Vorlesungen zurück für Zeitraum x bis y und einen Kurs. 
