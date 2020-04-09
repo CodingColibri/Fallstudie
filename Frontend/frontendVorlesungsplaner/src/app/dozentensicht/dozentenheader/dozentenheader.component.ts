@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
-import { MatIconRegistry } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatFormFieldModule} from '@angular/material/form-field';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { MatSelectModule } from '@angular/material/select';
 import { KursKlasse } from '../../models/kurse-models';
 import { User } from '@app/models/user';
 import { UserService } from '@app/services/user.service';

@@ -69,7 +69,7 @@ export class SemesteranlegenComponent {
   onSubmit(form: NgForm) {
 
     console.log(form);
-    //TODO: Daten aus Formular in den SemesterController schreiben
+    //TODO: Daten aus Formular in den SemesterController schreiben + Backend Request
     //this.semesterController.addSemester(new Semester(???));
   }
 

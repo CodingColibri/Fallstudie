@@ -88,11 +88,11 @@ export class KalenderComponent {
                 //TODO: Kurs mit übergeben
                 //TODO: Anzahl Stunden mit übergeben (berechnen)
             }
-            debugger;
-            if (data.morning.morningOrAfternoon ==="morning") {
+            if (data.morning.morningOrAfternoon ==="morning" && data.morning.name !== null) {
                 this.vlService.vorlesungen.push(updateMorning);
             } 
-            if (data.afternoon.morningOrAfternoon ==="afternoon"){
+            //TODO: Leere Vorlesungen sollen nicht in der Vorlesungsübersicht angezeigt werden
+            if (data.afternoon.morningOrAfternoon ==="afternoon" && data.afternoon.name !== null){
                 this.vlService.vorlesungen.push(updateAfternoon);
             }
             

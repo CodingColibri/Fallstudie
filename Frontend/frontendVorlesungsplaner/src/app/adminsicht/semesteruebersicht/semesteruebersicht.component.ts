@@ -14,7 +14,7 @@ export class SemesteruebersichtComponent {
 
   kurse: KursKlasse[]= [];
   studienjahrgang: Studienjahrgang[] = [];
-  
+  //TODO: Semesterübersicht soll sich nach select Studienjahrgang aktualisieren (=> Verknüpfung)
   constructor(public kursController: KursController,
     public studienJgController: StudienjahrgangController) {
     this.kursController.kursListe.subscribe((data: KursKlasse[])=> {

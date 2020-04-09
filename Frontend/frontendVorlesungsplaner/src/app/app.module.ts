@@ -28,8 +28,8 @@ import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozenten
 import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component'; 
 import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
 import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
-import { DashboardbuttonsComponent } from './adminsicht/dashboard-buttons/dashboard-buttons.component';
-import { Kursanlegen1Component } from './adminsicht/kurs-anlegen1/kurs-anlegen1.component';
+import { AdminDashboardComponent } from './adminsicht/dashboard/dashboard.component';
+import { KursanlegenComponent } from './adminsicht/kurs-anlegen/kurs-anlegen.component';
 import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester-anlegen.component';
 import { KalenderComponent } from './calendar/calendar.component';
 import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
@@ -55,13 +55,12 @@ import { SemesteruebersichtComponent } from './adminsicht/semesteruebersicht/sem
     AdminheaderComponent,
     WelcomebuttonsComponent,
     DwelcomebuttonsComponent,
-    DashboardbuttonsComponent,
-    Kursanlegen1Component,
+    AdminDashboardComponent,
+    KursanlegenComponent,
     DozentenanlegenComponent,
     SemesteranlegenComponent,
     KalenderComponent,
     VorlesungEintragenComponent,
-    DashboardbuttonsComponent,
     VorlesungsuebersichtComponent,
     StundenWarnungComponent,
     DozentenKalenderComponent,

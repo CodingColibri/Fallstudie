@@ -5,8 +5,8 @@ import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozenten
 import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component'; 
 import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
 import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
-import { DashboardbuttonsComponent } from './adminsicht/dashboard-buttons/dashboard-buttons.component';
-import { Kursanlegen1Component } from './adminsicht/kurs-anlegen1/kurs-anlegen1.component';
+import { AdminDashboardComponent } from './adminsicht/dashboard/dashboard.component';
+import { KursanlegenComponent } from './adminsicht/kurs-anlegen/kurs-anlegen.component';
 import { DozentenanlegenComponent } from './adminsicht/dozenten-anlegen/dozenten-anlegen.component';
 import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester-anlegen.component';
 import { KalenderComponent } from './calendar/calendar.component';
@@ -24,31 +24,32 @@ import { KursDozentenRegistrierungComponent } from './adminsicht/registierung/re
 import { AdministrationComponent } from './adminsicht/administration/administration.component';
 import { SemesteruebersichtComponent } from './adminsicht/semesteruebersicht/semesteruebersicht.component';
 
+//TODO: Routes je nach Login anpassen => Admin-/ Dozentensicht
 const routes: Routes = [
   { path: '', component: WelcomebuttonsComponent, canActivate:[AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'login-views', component: LoginViewsComponent },
   //otherwise redirect to home
   // { path: '**', redirectTo: ''},
-  { path: 'dashboard', component: DashboardbuttonsComponent },
-  { path: 'Semesterneuanlegen', component: SemesteranlegenComponent },
-  { path: 'kurs-anlegen-1', component: Kursanlegen1Component },
-  { path: 'dozenten-anlegen', component: DozentenanlegenComponent }, 
+  //ADMIN-VIEW
   { path: 'willkommen', component: WelcomebuttonsComponent}, 
-  { path: 'dwelcome', component: DwelcomebuttonsComponent },
-  { path: 'zurück', component: Kursanlegen1Component, }, 
-  { path: 'kalenderansicht', component: KalenderComponent },
-  { path: 'vorlesungsuebersicht', component: VorlesungsuebersichtComponent },
-  { path: 'stunden-warnung', component: StundenWarnungComponent },
-  { path: 'dozentenkalender', component: DozentenKalenderComponent },
-  { path: 'adminkalender', component: AdminKalenderComponent },
-  { path: 'kursuebersicht', component: KursuebersichtComponent },
-  { path: 'semesteruebersicht', component: SemesteruebersichtComponent },
-  { path: 'login-views', component: LoginViewsComponent },
+  { path: 'dashboard', component: AdminDashboardComponent },
+  { path: 'kurs-dozent-registrierung', component: KursDozentenRegistrierungComponent},
+  { path: 'semester-anlegen', component: SemesteranlegenComponent },
+  { path: 'dozenten-anlegen', component: DozentenanlegenComponent }, 
+  { path: 'kurs-anlegen', component: KursanlegenComponent },
   { path: 'administration', component: AdministrationComponent},
   { path: 'vorlesung-anlegen', component: VorlesunganlegenComponent},
-  { path: 'kurs-dozent-registrierung', component: KursDozentenRegistrierungComponent}
-
+  { path: 'kursuebersicht', component: KursuebersichtComponent },
+  { path: 'semesteruebersicht', component: SemesteruebersichtComponent },
+  { path: 'adminkalender', component: AdminKalenderComponent },
+//DOZENTEN-VIEW
+  { path: 'dwelcome', component: DwelcomebuttonsComponent },
+  { path: 'dozentenkalender', component: DozentenKalenderComponent },
+  { path: 'vorlesungsuebersicht', component: VorlesungsuebersichtComponent },
+  { path: 'stunden-warnung', component: StundenWarnungComponent },
+//SHARED
+{ path: 'kalenderansicht', component: KalenderComponent },
 
   // [canActivate => Implementieren, Prüfung Admin/ Berechtigung das zu sehen]
 ];

@@ -57,7 +57,7 @@ export class VorlesunganlegenComponent {
   onSubmit(form: NgForm) {
     console.log(form);
 
-    // //TODO: Daten aus dem Formular in den kursController schreiben
+    // //TODO: Daten aus dem Formular in den kursController schreiben + ans Backend senden
     console.log(this.kursController)
   }
 

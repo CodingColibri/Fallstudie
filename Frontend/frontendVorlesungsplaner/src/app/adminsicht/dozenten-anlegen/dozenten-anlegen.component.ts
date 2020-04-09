@@ -41,7 +41,9 @@ export class DozentenanlegenComponent {
 
     onSubmit(form: NgForm) {
         console.log(form);
-        //this.kursController.add(new KursKlasse("WWI2016X", 2020, [], "test"));
+        //TODO: Formulardaten an dozentenController übergeben
+        //TODO: Post Request ans Backend
+        //this.dozentenController.add();
     }
 
     removeInput(index) { 

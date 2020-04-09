@@ -19,8 +19,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class VorlesungEintragenComponent {
 
   selectedVorlesung: string; //ausgewählte Vorlesung im Dialog
-  //afternoonStartDate: Date;
-  //afternoonEndDate: Date;
 
   vorlesungen: Vorlesung[] = [
     {
@@ -38,6 +36,7 @@ export class VorlesungEintragenComponent {
   //TODO: POST Request an Backend Service
     this.dialogRef.close(this.calenderDay);
   }
+  //TODO: Dialogfester => close() und Vorlesung löschen implementieren
   close() {
     
   }

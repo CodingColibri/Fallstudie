@@ -8,13 +8,13 @@ import { KursController } from '@app/controller/kurs-controller.service';
 import { KursKlasse } from '@app/models/kurse-models';
 
 @Component({
-  selector: 'kurs-anlegen1',
-  templateUrl: './kurs-anlegen1.component.html',
-  styleUrls: ['./kurs-anlegen1.component.css']
+  selector: 'kurs-anlegen',
+  templateUrl: './kurs-anlegen.component.html',
+  styleUrls: ['./kurs-anlegen.component.css']
 })
 
 
-export class Kursanlegen1Component {
+export class KursanlegenComponent {
 
   formKurs: FormGroup;
   formVorlesungen: FormGroup;
@@ -50,12 +50,11 @@ export class Kursanlegen1Component {
 
     console.log(form);
     //console.log(form.controls['Kursname'].value);
-    //TODO: Daten aus dem Formular in den kursController schreiben
+    //TODO: Daten aus dem Formular in den kursController schreiben + Request an das Backend
     //TODO: Update Funktion addKurs() in kursController
 
     // console.log(this.kursController)
     // this.kursController.addKurs(new KursKlasse("WWI2016X", 2020, [], "test"));
-
   }
 
   removeInput(index) {

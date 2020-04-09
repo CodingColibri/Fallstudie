@@ -4,6 +4,7 @@
 </div>
 <div class="formWrapper">
     <mat-form-field> 
+        <!-- TODO: Kurs soll schon ausgewählt sein (mit ausgewähltem Kurs neben dem Username im Header verknüpft) -->
         <mat-label class="wählen">Kurs auswählen</mat-label>
             <mat-select> 
                 <mat-option *ngFor="let kurs of kurse" [value]="kurs.name"> 
