@@ -30,19 +30,20 @@ def login():
     access_token = create_access_token(identity=mail, expires_delta=expires)
     return jsonify(access_token=access_token), 200
 
+""" Liefert alle Termine für einen bestimmten Zeitraum für einen Kurs, wobei nur bei den Kursen, worauf der Requester Zugriff hat, der
+    Vorlesungsname angezeigt wird. Ein Admin kann somit alle Termine sehen.
+"""
 
-
-@app.route('/get/vorlesung/fortimeandkurs', methods=['POST'])
+@app.route('/get/termine/fortimeandkurs', methods=['POST'])
 @jwt_required
-def vorlesung_fortimeandkrus():
-    #TODO: Gib Liste mit Vorlesungen zurück für Zeitraum x bis y und einen Kurs. 
-    # Dozenten ohne Admin bekommen Anonymisierte Rückgabe (ohne andere Vorlesungsnamen)
+def vorlesung_fortimeandkurs():
     kurs = request.json.get("kurs", None)
     start = request.json.get("start", None)
     start = date(start[0],start[1],start[2])
     ende = request.json.get("ende", None)
     ende = date(ende[0], ende[1], ende[2])
-    requester_vorlesungen = Dozent.query.filter_by(mail = get_jwt_identity()).first().vorlesungen.all()
+    mail = get_jwt_identity()
+    requester_vorlesungen = Dozent.query.filter_by(mail = mail).first().vorlesungen.all()
     requester_privileges = []
     for vorlesung in requester_vorlesungen:
         requester_privileges.append(vorlesung.id)
@@ -54,18 +55,55 @@ def vorlesung_fortimeandkrus():
             termine.append(termin)
 
     termine_out = []
-    for termin in termine: #anonymisieren
+    for termin in termine: 
+        termin_out = {}
+        termin = termin.__dict__
+        if check_privileges(mail, int(termin["vorlesung_id"])):#anonymisieren
+            termin_out['vorlesung'] = Vorlesung.query.get(termin["vorlesung_id"]).name
+        else:
+            termin_out['vorlesung'] = "Hidden"
+        termin_out['start'] = [termin['start'].year,termin['start'].month,termin['start'].day,termin['start'].hour,termin['start'].minute]
+        termin_out['ende'] = [termin['ende'].year,termin['ende'].month,termin['ende'].day,termin['ende'].hour,termin['ende'].minute]
+        print(termin_out)
+        termine_out.append(termin_out)
+
+    return jsonify({"termine": termine_out}), 200
+
+""" Liefert alle anstehenden Termine für einen bestimmten Dozenten, unabhängig von Kurs und Zeit.
+"""
+#TODO: Test me
+@app.route('/get/termine/fordozent', methods=['POST'])
+@jwt_required
+def vorlesung_fordozent():
+    dozent = Dozent.query.get(get_jwt_identity()).first()
+    vorlesungen = dozent.vorlesungen.all()
+    termine = []
+    for vorlesung in vorlesungen:
+        for termin in vorlesung.termine:
+            termine.append(termin)
+   
+    termine_out = []
+    for termin in termine: 
         termin_out = {}
         termin = termin.__dict__
         termin_out['vorlesung'] = Vorlesung.query.get(termin["vorlesung_id"]).name
         termin_out['start'] = [termin['start'].year,termin['start'].month,termin['start'].day,termin['start'].hour,termin['start'].minute]
         termin_out['ende'] = [termin['ende'].year,termin['ende'].month,termin['ende'].day,termin['ende'].hour,termin['ende'].minute]
-        print(termin_out)
+        termine_out.append(termin_out)
+    
+    return jsonify({"termine": termine_out}), 200
 
+@app.route('/get/name/fordozent', methods=['GET'])
+@jwt_required
+def get_name():
+    dozent = Dozent.query.get(get_jwt_identity())
+    dozent_out = {}
+    dozent_out['titel'] = dozent.titel
+    dozent_out['vorname'] = dozent.vorname
+    dozent_out['nachname'] = dozent.nachname
 
-    print(is_period_free("TEST2018A",datetime(2020,1,1,12,30),datetime(2020,1,1,15,30)))
-    return jsonify({"msg": "Test"}), 200
-
+    return jsonify(dozent_out), 200
+ 
 #Creater
 ###########################################
 
@@ -169,6 +207,22 @@ def create_vorlesung():
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
     return jsonify({"msg": "Vorlesung created"}), 202
 
+#Changer
+###########################################
+
+@app.route('/change/dozentgibtvorlesung', methods=['POST'])
+@jwt_required
+def dozentgibtvorlesung():
+    if check_privileges(get_jwt_identity(), [1]):
+        dozent = Dozent.query.get(request.json.get("mail",None))
+        vorlesung = Vorlesung.query.filter(and_(Vorlesung.name == request.json.get("name",None), Vorlesung.kurs_name == request.json.get("kurs",None))).first()
+        vorlesung.dozenten.append(dozent)
+        db.session.add(dozent)
+        db.session.commit()
+    else:
+        return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
+    return jsonify({"msg": "Dozent und Vorlesung verknüpft"}), 202
+
 #Helper
 ###########################################
 
@@ -178,8 +232,11 @@ def create_vorlesung():
     Return:     True if the user "gibt" all the vorlesungen
 """
 def check_privileges(current_user, check):
-    if type(check) is not list:
-        raise ValueError("check has to be a list")
+    print(type(check))
+    if not ((type(check) is int) or (type(check) is list)):
+        raise ValueError("Check has to be a list or an integer")
+    check = []
+    check.append(check)
 
     user = Dozent.query.filter_by(mail=current_user).first()
     if user is None:

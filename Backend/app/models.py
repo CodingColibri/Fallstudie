@@ -32,6 +32,7 @@ class Kurs(db.Model):
     __tablename__='kurs'
 
     name = db.Column(db.String(32), primary_key=True)
+    studiengangsleiter = db.Column(db.String(128))
     
     semester = db.relationship('Semester', back_populates="kurs")
     vorlesungen = db.relationship('Vorlesung', backref="kurs")
