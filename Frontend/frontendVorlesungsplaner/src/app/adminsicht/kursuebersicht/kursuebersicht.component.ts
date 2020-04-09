@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { KursAnlegenService } from '@app/services/kurs-anlegen.service';
 import { KursKlasse } from '@app/models/kurse-models';
 import { KursController } from '@app/controller/kurs-controller.service';
 

@@ -16,7 +16,6 @@ export class KursController {
 
   constructor(
     private httpClient: HttpClient,
-    // private vpnPeerAdapter: VPNPeerAdapter
   ) {
     this.kursListe = new BehaviorSubject<KursKlasse[]>(null);
   }

@@ -13,7 +13,6 @@ export class StudienjahrgangController {
 
   constructor(
     private httpClient: HttpClient,
-    // private vpnPeerAdapter: VPNPeerAdapter
   ) {
     this.studienjahrListe = new BehaviorSubject<Studienjahrgang[]>(null);
   }

@@ -21,9 +21,9 @@ export class AuthenticationService {
     }
 
     login(mail: string, password: string) {
-        //TODO: change post to get request? => Backend kann Post auf Login nicht beantworten
-        //Login Backend: GET request Json {"mail:dev, "password": "root"}
-        //TODO: environment.apiUrl change to: "http://127.0.0.1:5000/login" ???
+        //Login Backend: POST request Json {"mail:dev, "password": "root"}
+        //Backend gibt jwt-token zurück
+        //TODO: environment.apiUrl change to: "http://127.0.0.1:5000/login"
         return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { mail, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes

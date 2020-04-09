@@ -2,19 +2,19 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { Dozent } from '@app/models/dozenten-models';
+import { Termin } from '@app/models/termin-models';
 
 @Injectable({
   providedIn: "root"
 })
-export class DozentenController {
+export class VorlesungenController {
   private backendUrl = environment.apiUrl;
-  public dozentenListe: BehaviorSubject<Dozent[]>;
+  public terminListe: BehaviorSubject<Termin[]>;
 
   constructor(
     private httpClient: HttpClient,
   ) {
-    this.dozentenListe = new BehaviorSubject<Dozent[]>(null);
+    this.terminListe = new BehaviorSubject<Termin[]>(null);
   }
 
   loadData() {
@@ -26,16 +26,17 @@ export class DozentenController {
     //   });
     //   this.kursListe.next(vpnPeers);
     // });
-    let temp: Dozent[] = [
-        new Dozent("Prof. Dr. ","Sebastian","Richter","sebastian.richter@dhbw.de"),
-        new Dozent("Prof. Dr. ","Raymond","Bimazubute","raymond.bimazubute@dhbw.de")
+    let temp: Termin[] = [
+        new Termin(new Date(2020, 3, 2),3,new Date(2020,3,3,9,0),new Date(2020,3,3,12,15),'morning',
+        [],[]), //TODO: Vorlesung in den Termin pushen
+        new Termin(new Date(2020, 3, 24),3,new Date(2020,3,4,13,15),new Date(2020,3,24,16,30),'afternoon',
+        [],[]), 
     ];
 
-    this.dozentenListe.next(temp);
+    this.terminListe.next(temp); //pusht in Beh. Subject
   }
 
-  addDozent(dozent: Dozent) {
-    this.dozentenListe.next(this.dozentenListe.getValue().concat([dozent]))
+  addTermin(termin: Termin) {
+    this.terminListe.next(this.terminListe.getValue().concat([termin]))
   }
-
 }

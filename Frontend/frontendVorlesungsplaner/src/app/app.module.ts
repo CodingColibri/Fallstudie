@@ -95,7 +95,7 @@ import { SemesteruebersichtComponent } from './adminsicht/semesteruebersicht/sem
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend
-    fakeBackendProvider //TODO: Für echte API auskommentieren: Wo echte API angeben?!
+    fakeBackendProvider //TODO: Für echte API auskommentieren
   ],
   bootstrap: [AppComponent],
   schemas: [

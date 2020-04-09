@@ -36,9 +36,9 @@ export class VorlesungEintragenComponent {
   //TODO: POST Request an Backend Service
     this.dialogRef.close(this.calenderDay);
   }
-  //TODO: Dialogfester => close() und Vorlesung löschen implementieren
-  close() {
-    
+  //TODO: Dialogfester => Vorlesung löschen implementieren oder leere Vorlesung = null?
+  close():void {
+    this.dialogRef.close();
   }
 
   calenderDay: CalenderDay;

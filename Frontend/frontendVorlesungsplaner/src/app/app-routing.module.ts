@@ -51,7 +51,7 @@ const routes: Routes = [
 //SHARED
 { path: 'kalenderansicht', component: KalenderComponent },
 
-  // [canActivate => Implementieren, Prüfung Admin/ Berechtigung das zu sehen]
+  // [canActivate => Implementieren, Prüfung Admin/ Berechtigung]
 ];
 export const appRoutingModule = RouterModule.forRoot(routes);
 

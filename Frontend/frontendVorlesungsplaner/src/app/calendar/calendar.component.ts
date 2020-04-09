@@ -66,7 +66,7 @@ export class KalenderComponent {
         dialogConfig.data = day; //Daten über das dialogConfig object übergeben
         //console.log("(KalenderComponent) Übergebene Daten: " + dialogConfig.data);
         let dialogRef = this.dialog.open(VorlesungEintragenComponent, dialogConfig); 
-        
+        //TODO vlService löschen, Termin+Vorlesung getrennt => Controller implementieren
         dialogRef.afterClosed().subscribe(data => {
             //this.vlService.vorlesungen = data;
             console.log(data);

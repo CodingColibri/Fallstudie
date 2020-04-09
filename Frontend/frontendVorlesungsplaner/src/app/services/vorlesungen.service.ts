@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Vorlesung } from '../models/vorlesungen-models';
 
+//TODO: Service löschen und durch Vorlesungen-Controller ersetzen 
+//=> Kein extra Interface VorlesungDTO
+//Interface/Klasse Vorlesung soll aufgeteilt werden in Vorlesung+ Termin
 export interface VorlesungDTO {
   date: Date;
   name?: string;

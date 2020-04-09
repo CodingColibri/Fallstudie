@@ -12,4 +12,14 @@ export class Termin {
     morningOrAfternoon?: String //=> im Backend gespeichert
     dozent?: Dozent[]; //=>TODO: Soll von Login übergeben werden
     vorlesung?: Vorlesung[];
+    
+    constructor(date: Date, stunden: number, startDate: Date, endDate: Date, morningOrAfternoon: String,
+        dozent: Dozent[], vorlesung: Vorlesung[]) {
+        this.stunden = stunden;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.morningOrAfternoon = morningOrAfternoon;
+        this.dozent = dozent;
+        this.vorlesung = vorlesung;
+        }
 }

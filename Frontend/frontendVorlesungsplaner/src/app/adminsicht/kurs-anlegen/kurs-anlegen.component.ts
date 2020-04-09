@@ -3,7 +3,6 @@ import { AppComponent } from '../../app.component';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Semester } from '../../models/semester-models';
-import { KursAnlegenService } from '../../services/kurs-anlegen.service';
 import { KursController } from '@app/controller/kurs-controller.service';
 import { KursKlasse } from '@app/models/kurse-models';
 

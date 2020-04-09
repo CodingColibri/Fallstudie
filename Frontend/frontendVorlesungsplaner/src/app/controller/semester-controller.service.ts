@@ -13,7 +13,6 @@ export class SemesterController {
 
   constructor(
     private httpClient: HttpClient,
-    // private vpnPeerAdapter: VPNPeerAdapter
   ) {
     this.semesterListe = new BehaviorSubject<Semester[]>(null);
   }
