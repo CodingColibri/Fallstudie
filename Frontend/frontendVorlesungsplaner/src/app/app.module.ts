@@ -23,7 +23,6 @@ import { fakeBackendProvider } from './helpers';
 
 //Import Komponenten Vorlesungsplaner
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
-import { BackgroundComponent } from './welcome-background/welcome-background.component';
 import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
 import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component'; 
 import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
@@ -51,7 +50,6 @@ import { SemesteruebersichtComponent } from './adminsicht/semesteruebersicht/sem
     AppComponent,
     LoginComponent,
     DozentenheaderComponent,
-    BackgroundComponent,
     AdminheaderComponent,
     WelcomebuttonsComponent,
     DwelcomebuttonsComponent,

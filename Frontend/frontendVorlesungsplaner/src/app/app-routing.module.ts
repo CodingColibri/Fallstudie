@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BackgroundComponent } from './welcome-background/welcome-background.component';
 import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
 import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component'; 
 import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
