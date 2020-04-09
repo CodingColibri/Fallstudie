@@ -30,7 +30,5 @@ export class SemesteruebersichtComponent {
   reloadData() {
     this.kursController.loadData();
   }
-  addData(){
-    this.kursController.addKurs(new KursKlasse("WWI2016X", 2020,[],"test"));
-  }
+
 }

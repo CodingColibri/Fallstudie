@@ -9,10 +9,18 @@
             <!---->
             <ng-contaner [formGroupName]="i">
                 <div class="formdataSemester">
+                    <mat-form-field> 
+                        <mat-label class="wählen">Studienjahrgang wählen</mat-label>
+                            <mat-select formControlName="Studienjahrgang"> 
+                                <mat-option *ngFor="let studienjahrgang of studienjahrgang" [value]="studienjahrgang.jahr"> 
+                                    {{studienjahrgang.jahr}}
+                                </mat-option>
+                            </mat-select>
+                    </mat-form-field>  
                     <mat-form-field>
                         <mat-label>Nummer</mat-label>
                         <mat-select formControlName="Semesternummer">
-                            <mat-option *ngFor="let semester of semester" [value]="semester.nummer">
+                            <mat-option *ngFor="let semester of semesternummer" [value]="semester.nummer">
                                 {{semester.nummer}}
                             </mat-option>
                         </mat-select>

@@ -13,13 +13,12 @@
     <div *ngFor="let kurs of kurse">
         <tr>
             <td>{{kurs.name}}</td>
-            <td class="kursJahr">{{kurs.year}}</td>
+            <!-- TODO: Wenn noch Zeit: Sortierung nach Jahr aufsteigend -->
+            <td class="kursJahr">{{kurs.studienjahrgang}}</td>
             <td class="kursSGL">{{kurs.studiengangsleiter}}</td>
-            <!-- <td>{{kurs.semester.value}}</td> TODO: Braucht man das?!-->
         </tr>
         
     </div>
-    <!-- <button (click)="reloadData()">Load</button> -->
-    <button (click)="addData()">Load</button>
+
 
 </div>

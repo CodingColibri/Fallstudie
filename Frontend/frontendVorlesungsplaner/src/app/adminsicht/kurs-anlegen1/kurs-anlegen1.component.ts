@@ -4,6 +4,8 @@ import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Semester } from '../../models/semester-models';
 import { KursAnlegenService } from '../../services/kurs-anlegen.service';
+import { KursController } from '@app/controller/kurs-controller.service';
+import { KursKlasse } from '@app/models/kurse-models';
 
 @Component({
   selector: 'kurs-anlegen1',
@@ -21,13 +23,20 @@ export class Kursanlegen1Component {
   Semester: number;
   Studiengangsleiter: string;
 
+  kurse: KursKlasse[]= [];
+
   constructor(private fb: FormBuilder,
-    public kursService: KursAnlegenService) {
-      this.formKurs = this.fb.group({
-        kursData: this.fb.array([
-        ])
-      })
+    public kursController: KursController) {
+    this.formKurs = this.fb.group({
+      kursData: this.fb.array([
+      ])
+    });
+      this.kursController.kursListe.subscribe((data: KursKlasse[]) => {
+        this.kurse = data;
+      });
+      this.kursController.loadData();
   }
+
   addInput() {
     const vlStunden = this.formKurs.controls.kursData as FormArray;
     vlStunden.push(this.fb.group({
@@ -40,19 +49,13 @@ export class Kursanlegen1Component {
   onSubmit(form: NgForm) {
 
     console.log(form);
-    console.log(form.name)
-    // console.log(form.controls['Kursname'].value);
-    // //TODO: Daten aus dem Formular in den kursService schreiben
-    // // let updateKursData = {
-    // //   name: form.controls['formKurs'].controls['Kursname']value,
-    // //   year: form.controls['Jahr'].value,
-    // //   semester: [
-    // //       { value: this.Semester, viewValue: this.Semester }
-    // //   ]
-    // //   }
-    // //   debugger;
-    // this.kursService.kurs.push(form.value);
-    console.log(this.kursService)
+    //console.log(form.controls['Kursname'].value);
+    //TODO: Daten aus dem Formular in den kursController schreiben
+    //TODO: Update Funktion addKurs() in kursController
+
+    // console.log(this.kursController)
+    // this.kursController.addKurs(new KursKlasse("WWI2016X", 2020, [], "test"));
+
   }
 
   removeInput(index) {

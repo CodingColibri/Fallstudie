@@ -13,10 +13,11 @@ import { Semester } from './semester-models';
 // }
 
 export class KursKlasse {
-  name: String;
-  studienjahrgang: number;
-  semester: Semester [];
-  studiengangsleiter: String;
+  name: String; //=> im Backend gespeichert
+  studienjahrgang: number; //=> nicht im Backend gespeichert
+  semester: Semester []; //=> nicht im Backend gespeichert
+  studiengangsleiter: String; //=> im Backend gespeichert
+  
   constructor(name: String, studienjahrgang: number, semester: Semester[], studiengangsleiter: String) {
     this.name = name;
     this.studienjahrgang = studienjahrgang;

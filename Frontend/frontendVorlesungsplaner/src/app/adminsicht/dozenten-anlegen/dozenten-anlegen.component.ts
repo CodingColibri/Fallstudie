@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { FormGroup, FormBuilder, Validators, NgForm, FormArray } from '@angular/forms';
 import { KursAnlegenService } from '@app/services/kurs-anlegen.service';
-import { Vorlesung } from '@app/models/module-models';
+import { Vorlesung } from '@app/models/vorlesungen-models';
+import { DozentenController } from '@app/controller/dozenten-controller.service';
 
 @Component({
     selector: 'dozenten-anlegen',
@@ -12,32 +13,15 @@ import { Vorlesung } from '@app/models/module-models';
 
 export class DozentenanlegenComponent {
 
-    vorlesungen: Vorlesung[] = [
-        {
-            name: null
-        },
-        {
-            name: 'Wissenschaftliches Arbeiten'
-        },
-        {
-            name: 'Digitale Transformation'
-        },
-        {
-            name: 'Wirtschaftsinformatik'
-        },
-    ];
-
     formDozenten: FormGroup;
     Titel: string;
     Vorname: string;
     Nachname: string;
     Mail: string;
-    Vorlesung: string;
-    Vorlesung2: string;
-    Vorlesung3: string;
 
     constructor(private fb: FormBuilder,
-        public kursService: KursAnlegenService) {
+        public kursService: KursAnlegenService,
+        public dozentenController: DozentenController) {
         this.formDozenten = this.fb.group({
             dozentenDaten: this.fb.array([
             ])
@@ -51,15 +35,13 @@ export class DozentenanlegenComponent {
             Titel: '',
             Vorname: '',
             Nachname: '',
-            Mail: '',
-            Vorlesung: '',
-            Vorlesung2: '',
-            Vorlesung3: ''
+            Mail: ''
         }))
     }
 
     onSubmit(form: NgForm) {
         console.log(form);
+        //this.kursController.add(new KursKlasse("WWI2016X", 2020, [], "test"));
     }
 
     removeInput(index) { 
