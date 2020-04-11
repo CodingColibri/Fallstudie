@@ -21,7 +21,7 @@ def create_admin_Vorlesung():
     except Exception as e:
         print("Fehler beim erstellen der Datenbank?")
     try:
-        kurs = Kurs(name="admin")
+        kurs = Kurs(name="admin", studienjahrgang=2018, studiengangsleiter="Richter")
         vorlesung = Vorlesung(id=1,std_anzahl=0,name="admin",kurs_name="admin")
         admin = Dozent(mail="dev",role="dozent")
         admin.set_password("root")
