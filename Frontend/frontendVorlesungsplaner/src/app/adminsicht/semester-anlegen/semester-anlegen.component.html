@@ -3,15 +3,15 @@
     <h1>Neues Semester anlegen</h1>
 </div>
 <div class="formWrapper">
-    <form [formGroup]="formSemester" (ngSubmit)="onSubmit(formSemester.value)" #submitSemester="ngForm">
+    <form [formGroup]="formSemester" (ngSubmit)="onSubmit()" #submitSemester="ngForm">
         <div formArrayName="semesterData"
-            *ngFor="let item of formSemester['controls'].semesterData['controls']; let i= index">
+            *ngFor="let semester of semesterData.controls; let i= index">
             <!---->
             <ng-contaner [formGroupName]="i">
                 <div class="formdataSemester">
                     <mat-form-field> 
                         <mat-label class="wählen">Studienjahrgang wählen</mat-label>
-                            <mat-select formControlName="Studienjahrgang"> 
+                            <mat-select formControlName="studienjahrgang"> 
                                 <mat-option *ngFor="let studienjahrgang of studienjahrgang" [value]="studienjahrgang.jahr"> 
                                     {{studienjahrgang.jahr}}
                                 </mat-option>
@@ -19,23 +19,23 @@
                     </mat-form-field>  
                     <mat-form-field>
                         <mat-label>Nummer</mat-label>
-                        <mat-select formControlName="Semesternummer">
-                            <mat-option *ngFor="let semester of semesternummer" [value]="semester.nummer">
-                                {{semester.nummer}}
+                        <mat-select formControlName="nummer">
+                            <mat-option *ngFor="let nummer of semesternummer" [disabled]="isSemesterNummerUsed(nummer)" [value]="nummer">
+                                {{nummer}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Semesterbeginn</mat-label>
                         <!-- TODO: matDatepicker in deutscher Zeit anzeigen -->
-                        <input matInput [matDatepicker]="picker" formControlName="Semesterbeginn">
+                        <input matInput [matDatepicker]="picker" formControlName="startDate">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                       </mat-form-field>
                       <mat-form-field>
                         <mat-label>Semesterende</mat-label>
                         <!-- TODO: matDatepicker in deutscher Zeit anzeigen -->
-                        <input matInput [matDatepicker]="picker2" formControlName="Semesterende">
+                        <input matInput [matDatepicker]="picker2" formControlName="endDate">
                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                         <mat-datepicker #picker2></mat-datepicker>
                       </mat-form-field>
@@ -46,12 +46,12 @@
             <!---->
         </div>
     </form>
-    <div (click)='addInput()'>
+    <div (click)='addSemester()'>
         <p id="addSemester">+</p>
     </div>
     <div class="formular-buttons">
         <img src="../../../assets/img/next-icon-dhbw.jpg"><button (click)="submitSemester.ngSubmit.emit()">
-            <h3>Semester anlegen</h3>
+            <h3>Speichern</h3>
         </button>
     </div>
 </div>

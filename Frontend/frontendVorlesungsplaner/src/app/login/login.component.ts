@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../services/authentication.service';
+import { LoginRequest, BackendErrorResponse } from '@app/models/user';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
     selector: 'login',
     templateUrl: 'login.component.html',
@@ -23,12 +25,13 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService
-    ) { 
+    ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
         }
     }
+
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
             mail: ['', Validators.required],
@@ -42,29 +45,36 @@ export class LoginComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
 
-    onSubmit() {
+    public async onSubmit() {
         this.submitted = true;
-        
+
         // stop here if form is invalid
         if (this.loginForm.invalid) {
             return;
-            
         }
 
         this.loading = true;
-        
-        this.authenticationService.login(this.f.mail.value, this.f.password.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                    console.log(this.returnUrl);
-                    console.log("Login erfolgreich");
-                },
-                error => {
-                    this.error = error;
-                    this.loading = false;
-                    console.log("Loading Error");
-                });
+
+        try {
+            const body = {
+                mail: this.f.mail.value,
+                password: this.f.password.value
+            } as LoginRequest;
+            const response = await this.authenticationService.login(body);
+
+            this.router.navigate([this.returnUrl]);
+            console.log(this.returnUrl);
+            console.log("Login erfolgreich");
+        } catch (err) {
+            if (err instanceof HttpErrorResponse) {
+                console.error(err);
+                const error = err.error as BackendErrorResponse;
+                this.error = error.msg;
+            } else {
+                console.error("Unknown error occured");
+                console.error(err);
+            }
+            this.loading = false;
+        }
     }
-}//end class LoginComponent
+}

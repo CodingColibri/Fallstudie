@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import * as moment from 'moment';
-import { number } from 'prop-types';
+// import { number } from 'prop-types';
 import { MatIconRegistry } from '@angular/material/icon';
 import { CalenderData, Week, CalenderDay } from '../models/calender-models';
 import { WEEKDAYNAMES, MONTHS, YEARS } from '../utils/constants';

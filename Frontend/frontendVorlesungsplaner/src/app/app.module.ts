@@ -19,10 +19,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 
 // used to create fake backend
-import { fakeBackendProvider } from './helpers';
 
 //Import Komponenten Vorlesungsplaner
-import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
 import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component'; 
 import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
@@ -44,6 +42,9 @@ import { KursDozentenRegistrierungComponent } from './adminsicht/registierung/re
 import { DozentenanlegenComponent } from './adminsicht/dozenten-anlegen/dozenten-anlegen.component';
 import { AdministrationComponent } from './adminsicht/administration/administration.component';
 import { SemesteruebersichtComponent } from './adminsicht/semesteruebersicht/semesteruebersicht.component';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { fakeBackendProvider } from './helpers/fake-backend';
 
 @NgModule({
   declarations: [

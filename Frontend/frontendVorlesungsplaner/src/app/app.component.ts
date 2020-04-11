@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from './services/authentication.service';
 import { User } from './models/user';
+import { KursController } from './controller/kurs-controller.service';
+import { StudienjahrgangController } from './controller/studienjahrgang-controller.service';
+import { SemesterController } from './controller/semester-controller.service';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +17,23 @@ export class AppComponent {
 
   currentUser: User;
 
-    constructor(
-        private router: Router,
-        private authenticationService: AuthenticationService
-    ) {
-        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    }
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private kursController: KursController,
+    private studienJgController: StudienjahrgangController,
+    private semesterController: SemesterController
+  ) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 
-    logout() {
-        this.authenticationService.logout();
-        this.router.navigate(['/login']);
-    }
+    //Initial load data
+    this.kursController.loadData();
+    this.studienJgController.loadData();
+    this.semesterController.loadData();
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  }
 }

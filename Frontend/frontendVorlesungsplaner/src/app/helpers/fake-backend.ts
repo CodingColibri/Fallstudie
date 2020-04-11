@@ -5,7 +5,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 import { User } from '../models/user';
 
-const users: User[] = [{ id: 1, mail: 'it-girls@dhbw.de', password: 'girls', firstName: 'Test', lastName: 'User' }];
+const users: User[] = [{ id: 1, mail: 'it-girls@dhbw.de', password: 'girls', firstName: 'Test', lastName: 'User', role: "admin" }];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -67,6 +67,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function isLoggedIn() {
+            return true;
             return headers.get('Authorization') === 'Bearer fake-jwt-token';
         }
     }

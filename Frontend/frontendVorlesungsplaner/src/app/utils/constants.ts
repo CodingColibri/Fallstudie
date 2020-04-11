@@ -25,11 +25,4 @@ export const YEARS = [
     { id: 2025, name: 2025 }
 ];
 
-export const SEMESTERNUMBERS = [
-    { nummer: 1 },
-    { nummer: 2 },
-    { nummer: 3 },
-    { nummer: 4 },
-    { nummer: 5 },
-    { nummer: 6 }
-];
+export const SEMESTERNUMBERS = [1, 2, 3, 4, 5, 6];

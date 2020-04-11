@@ -1,27 +1,24 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
-import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component'; 
-import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
-import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
-import { AdminDashboardComponent } from './adminsicht/dashboard/dashboard.component';
-import { KursanlegenComponent } from './adminsicht/kurs-anlegen/kurs-anlegen.component';
-import { DozentenanlegenComponent } from './adminsicht/dozenten-anlegen/dozenten-anlegen.component';
-import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester-anlegen.component';
-import { KalenderComponent } from './calendar/calendar.component';
-import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
-import { LoginComponent } from './login/login.component';
-import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersicht/vorlesungsuebersicht.component';
-import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden-warnung.component';
-import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
-import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender.component';
-import { KursuebersichtComponent } from './adminsicht/kursuebersicht/kursuebersicht.component';
-import { LoginViewsComponent } from './login-views/login-views.component';
-import { AuthGuard } from '../app/helpers'
-import { VorlesunganlegenComponent } from './adminsicht/vorlesung-anlegen/vorlesung-anlegen.component';
-import { KursDozentenRegistrierungComponent } from './adminsicht/registierung/registrierung.component';
+import { RouterModule, Routes } from '@angular/router';
 import { AdministrationComponent } from './adminsicht/administration/administration.component';
+import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender.component';
+import { AdminDashboardComponent } from './adminsicht/dashboard/dashboard.component';
+import { DozentenanlegenComponent } from './adminsicht/dozenten-anlegen/dozenten-anlegen.component';
+import { KursanlegenComponent } from './adminsicht/kurs-anlegen/kurs-anlegen.component';
+import { KursuebersichtComponent } from './adminsicht/kursuebersicht/kursuebersicht.component';
+import { KursDozentenRegistrierungComponent } from './adminsicht/registierung/registrierung.component';
+import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester-anlegen.component';
 import { SemesteruebersichtComponent } from './adminsicht/semesteruebersicht/semesteruebersicht.component';
+import { VorlesunganlegenComponent } from './adminsicht/vorlesung-anlegen/vorlesung-anlegen.component';
+import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
+import { KalenderComponent } from './calendar/calendar.component';
+import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
+import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
+import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden-warnung.component';
+import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersicht/vorlesungsuebersicht.component';
+import { LoginViewsComponent } from './login-views/login-views.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './helpers/auth.guard';
 
 //TODO: Routes je nach Login anpassen => Admin-/ Dozentensicht
 const routes: Routes = [

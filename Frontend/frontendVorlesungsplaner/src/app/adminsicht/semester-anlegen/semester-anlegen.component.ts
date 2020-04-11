@@ -22,58 +22,84 @@ import { SEMESTERNUMBERS } from '../../utils/constants';
 
 export class SemesteranlegenComponent {
 
-  formSemester: FormGroup;
-  Semesternummer: number;
-  Semesterbeginn: Date;
-  Semesterende: Date;
+  public formSemester: FormGroup;
 
-//Konstante
-  semesternummer = SEMESTERNUMBERS;
+  //Konstante
+  public semesternummer = SEMESTERNUMBERS;
 
-  kurse: KursKlasse[]= [];
-  studienjahrgang: Studienjahrgang[] = [];
-  semester: Semester[]= [];
+  public kurse: KursKlasse[] = [];
+  public studienjahrgang: Studienjahrgang[] = [];
 
   constructor(private fb: FormBuilder,
     public kursController: KursController,
     public studienJgController: StudienjahrgangController,
-    public semesterController: SemesterController) {
-    this.kursController.kursListe.subscribe((data: KursKlasse[])=> {
+    public semesterController: SemesterController
+  ) {
+    this.kursController.kursListe.subscribe((data: KursKlasse[]) => {
       this.kurse = data;
     });
-    this.studienJgController.studienjahrListe.subscribe((data: Studienjahrgang[])=> {
+
+    this.studienJgController.studienjahrListe.subscribe((data: Studienjahrgang[]) => {
       this.studienjahrgang = data;
     });
-    this.semesterController.semesterListe.subscribe((data: Semester[])=> {
-      this.semester = data;
+
+    this.semesterController.semesterListe.subscribe((semesters: Semester[]) => {
+      this.formSemester = this.fb.group({
+        semesterData: this.fb.array([])
+      })
+
+      if (semesters) {
+        for (const semester of semesters) {
+          this.semesterData.push(
+            this.fb.group({
+              studienjahrgang: semester.studienjahrgang,
+              nummer: semester.nummer,
+              startDate: semester.startDate,
+              endDate: semester.endDate
+            } as Semester)
+          )
+        }
+      }
     });
-    this.formSemester = this.fb.group({
-      semesterData: this.fb.array([
-      ])
-    })
-    this.kursController.loadData();
-    this.studienJgController.loadData();
-    this.semesterController.loadData();
   }
 
-  addInput() {
-    const semesterArray = this.formSemester.controls.semesterData as FormArray;
-    semesterArray.push(this.fb.group({
-      Studienjahrgang: '',
-      Semesternummer: '',
-      Semesterbeginn: '',
-      Semesterende: ''
-    }))
+  public get semesterData(): FormArray {
+    return this.formSemester.get('semesterData') as FormArray;
   }
 
-  onSubmit(form: NgForm) {
+  public addSemester() {
+    this.semesterData.push(this.fb.group({
+      studienjahrgang: undefined,
+      nummer: undefined,
+      startDate: undefined,
+      endDate: undefined
+    } as Semester))
+  }
 
-    console.log(form);
+  public onSubmit() {
+    
+    const semesters: Semester[] = [];
+    this.formSemester.value.semesterData.forEach(semester => {
+      semesters.push(semester);
+    });
+    console.log(semesters);
+
+    //TODO: Backend add overwrite all semesters
     //TODO: Daten aus Formular in den SemesterController schreiben + Backend Request
     //this.semesterController.addSemester(new Semester(???));
   }
 
-  removeInput(index) {
-    this.formSemester.controls.semesterData["controls"].splice(index, 1)
+  public removeInput(index) {
+    this.semesterData.removeAt(index);
+  }
+
+  public isSemesterNummerUsed(nr: number) {
+    for (let semester of this.semesterData.value as Semester[]) {
+      console.log(semester);
+      if (semester.nummer == nr) {
+        return true;
+      }
+    }
+    return false;
   }
 }
