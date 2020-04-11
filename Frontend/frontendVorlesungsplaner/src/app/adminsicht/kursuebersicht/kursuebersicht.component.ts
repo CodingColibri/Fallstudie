@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KursKlasse } from '@app/models/kurse-models';
+import { Kurs } from '@app/models/kurse-models';
 import { KursController } from '@app/controller/kurs-controller.service';
 
 @Component({
@@ -9,16 +9,16 @@ import { KursController } from '@app/controller/kurs-controller.service';
 })
 export class KursuebersichtComponent {
 
-  kurse: KursKlasse[]= [];
+  kurse: Kurs[]= [];
   
   constructor(public kursController: KursController) {
-    this.kursController.kursListe.subscribe((data: KursKlasse[])=> {
+    this.kursController.kursListe.subscribe((data: Kurs[])=> {
       this.kurse = data;
     });
     this.kursController.loadData();
   }
 
   // addData(){
-  //   this.kursController.addKurs(new KursKlasse("WWI2016X", 2020,[],"test"));
+  //   this.kursController.addKurs(new Kurs("WWI2016X", 2020,[],"test"));
   // }
 }

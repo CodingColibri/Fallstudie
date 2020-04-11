@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KursKlasse } from '@app/models/kurse-models';
+import { Kurs } from '@app/models/kurse-models';
 import { KursController } from '@app/controller/kurs-controller.service';
 import { Studienjahrgang } from '@app/models/studienjahrgang-models';
 import { StudienjahrgangController } from '@app/controller/studienjahrgang-controller.service';
@@ -11,12 +11,12 @@ import { StudienjahrgangController } from '@app/controller/studienjahrgang-contr
 })
 export class SemesteruebersichtComponent {
 
-  kurse: KursKlasse[]= [];
+  kurse: Kurs[]= [];
   studienjahrgang: Studienjahrgang[] = [];
   //TODO: Semesterübersicht soll sich nach select Studienjahrgang aktualisieren (=> Verknüpfung)
   constructor(public kursController: KursController,
     public studienJgController: StudienjahrgangController) {
-    this.kursController.kursListe.subscribe((data: KursKlasse[])=> {
+    this.kursController.kursListe.subscribe((data: Kurs[])=> {
       this.kurse = data;
     });
     this.studienJgController.studienjahrListe.subscribe((data: Studienjahrgang[])=> {

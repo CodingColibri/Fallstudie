@@ -7,6 +7,8 @@ export class Termin {
     /*TODO max.Stunden sollen aus der Funktion Admin-Vorlesung-anlegen genommen werden,
     & die aktuelle Stundenzahl der Vorlesung beim Eintragen soll dann immer abgeglichen werden.
     Ist die max. Stundenanzahl erreicht, kommt eine Warnmeldung.*/
+    start: Date;
+    ende: Date;
     startDate?: Date; //=> wird vom Backend als Array übergeben [Jahr, Monat, Tag, Stunden, Minuten]
     endDate?: Date; //=> wird vom Backend als Array übergeben [Jahr, Monat, Tag, Stunden, Minuten]
     morningOrAfternoon?: String //=> im Backend gespeichert

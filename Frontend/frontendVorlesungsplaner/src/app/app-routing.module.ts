@@ -53,7 +53,7 @@ export const appRoutingModule = RouterModule.forRoot(routes);
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, 
-    {enableTracing: true })
+    {enableTracing: false })
   
   ],
   exports: [RouterModule]

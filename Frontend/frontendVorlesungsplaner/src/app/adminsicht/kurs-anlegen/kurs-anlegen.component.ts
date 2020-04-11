@@ -4,7 +4,7 @@ import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Semester } from '../../models/semester-models';
 import { KursController } from '@app/controller/kurs-controller.service';
-import { KursKlasse } from '@app/models/kurse-models';
+import { Kurs } from '@app/models/kurse-models';
 
 @Component({
   selector: 'kurs-anlegen',
@@ -22,7 +22,7 @@ export class KursanlegenComponent {
   Semester: number;
   Studiengangsleiter: string;
 
-  kurse: KursKlasse[]= [];
+  kurse: Kurs[]= [];
 
   constructor(private fb: FormBuilder,
     public kursController: KursController) {
@@ -30,7 +30,7 @@ export class KursanlegenComponent {
       kursData: this.fb.array([
       ])
     });
-      this.kursController.kursListe.subscribe((data: KursKlasse[]) => {
+      this.kursController.kursListe.subscribe((data: Kurs[]) => {
         this.kurse = data;
       });
       this.kursController.loadData();
@@ -53,7 +53,7 @@ export class KursanlegenComponent {
     //TODO: Update Funktion addKurs() in kursController
 
     // console.log(this.kursController)
-    // this.kursController.addKurs(new KursKlasse("WWI2016X", 2020, [], "test"));
+    // this.kursController.addKurs(new Kurs("WWI2016X", 2020, [], "test"));
   }
 
   removeInput(index) {

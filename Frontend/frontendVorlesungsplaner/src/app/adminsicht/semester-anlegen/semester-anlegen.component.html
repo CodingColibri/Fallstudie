@@ -9,17 +9,17 @@
             <!---->
             <ng-contaner [formGroupName]="i">
                 <div class="formdataSemester">
-                    <mat-form-field> 
+                    <!-- <mat-form-field> 
                         <mat-label class="wählen">Studienjahrgang wählen</mat-label>
                             <mat-select formControlName="studienjahrgang"> 
                                 <mat-option *ngFor="let studienjahrgang of studienjahrgang" [value]="studienjahrgang.jahr"> 
                                     {{studienjahrgang.jahr}}
                                 </mat-option>
                             </mat-select>
-                    </mat-form-field>  
+                    </mat-form-field>  -->
                     <mat-form-field>
                         <mat-label>Nummer</mat-label>
-                        <mat-select formControlName="nummer">
+                        <mat-select formControlName="semesterID">
                             <mat-option *ngFor="let nummer of semesternummer" [disabled]="isSemesterNummerUsed(nummer)" [value]="nummer">
                                 {{nummer}}
                             </mat-option>
@@ -28,14 +28,14 @@
                     <mat-form-field>
                         <mat-label>Semesterbeginn</mat-label>
                         <!-- TODO: matDatepicker in deutscher Zeit anzeigen -->
-                        <input matInput [matDatepicker]="picker" formControlName="startDate">
+                        <input matInput [matDatepicker]="picker" formControlName="start">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                       </mat-form-field>
                       <mat-form-field>
                         <mat-label>Semesterende</mat-label>
                         <!-- TODO: matDatepicker in deutscher Zeit anzeigen -->
-                        <input matInput [matDatepicker]="picker2" formControlName="endDate">
+                        <input matInput [matDatepicker]="picker2" formControlName="ende">
                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                         <mat-datepicker #picker2></mat-datepicker>
                       </mat-form-field>

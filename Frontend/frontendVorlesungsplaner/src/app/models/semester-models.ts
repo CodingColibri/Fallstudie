@@ -3,17 +3,28 @@ import { Studienjahrgang } from './studienjahrgang-models';
 import { Vorlesung } from './vorlesungen-models';
 
 export class Semester {
+  id: number;
   studienjahrgang?: number; //=> nicht im Backend gespeichert
-  nummer: number; //=> nicht im Backend gespeichert
-  startDate?: Date; //=> im Backend gespeichert
-  endDate?: Date; //=> im Backend gespeichert
-  vorlesung?: Vorlesung[]; //=> nicht im Backend gespeichert
+  semesterID: number; //=> nicht im Backend gespeichert
+  start?: Date; //=> im Backend gespeichert
+  ende?: Date; //=> im Backend gespeichert
 
-  constructor(studienjahrgang: number, nummer: number, startDate: Date, endDate: Date, vorlesung: Vorlesung[]) {
-    this.studienjahrgang = studienjahrgang;
-    this.nummer = nummer;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.vorlesung = vorlesung;
+  constructor(id: number, semesterID: number, start: Date, ende: Date) {
+    this.id = id;
+    this.semesterID = semesterID;
+    this.start = start;
+    this.ende = ende;}
 }
+export interface SemesterResponse {
+  semesters: Semester[];
+}
+
+export interface SemesterRequestValues {
+  id?: number;
+  semesterID: number;
+  start?: number;
+  ende?: number;
+}
+export interface SemesterRequest {
+  semesters: SemesterRequestValues[];
 }

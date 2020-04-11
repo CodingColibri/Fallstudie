@@ -2,7 +2,9 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { Semester } from '@app/models/semester-models';
+import { Semester, SemesterResponse, SemesterRequest } from '@app/models/semester-models';
+import { KursController } from './kurs-controller.service';
+import { async } from '@angular/core/testing';
 
 @Injectable({
   providedIn: "root"
@@ -10,32 +12,38 @@ import { Semester } from '@app/models/semester-models';
 export class SemesterController {
   private backendUrl = environment.apiUrl;
   public semesterListe: BehaviorSubject<Semester[]>;
+  public currentKurs: string = "admin"; //undefined
 
   constructor(
-    private httpClient: HttpClient,
+    private http: HttpClient,
+    private kursController: KursController
   ) {
-    this.semesterListe = new BehaviorSubject<Semester[]>(null);
+    this.kursController.currentKurs.subscribe(async (data: string) => {
+      if (data) {
+        console.log("test-semester-controller");
+        this.currentKurs = data;
+      }
+    });
   }
 
-  loadData() {
-    //TODO: GET Request
-    // const url = this.backendUrl + "vpn";
-    // this.httpClient.get(url).subscribe((data: any[]) => {
-    //   let vpnPeers: VPNPeer[] = data.map(item => {
-    //     return this.vpnPeerAdapter.adapt(item);
-    //   });
-    //   this.kursListe.next(vpnPeers);
-    // });
-    let temp: Semester[] = [
-        new Semester(2018, 1,new Date(2018,9,1),new Date(2018,11,23), []),
-        new Semester(2018, 2,new Date(2019,2,18),new Date(2019,5,9), [])
-    ];
+  async saveSemester(kurs_name: string, body: Semester[]): Promise<SemesterResponse> {
+    const request = {
+      semesters: []
+    } as SemesterRequest
+    for (const semester of body) {
+      request.semesters.push({
+        id: semester.id,
+        semesterID: semester.semesterID,
+        ende: semester.ende.getTime() / 1000,
+        start: semester.start.getTime() / 1000,
+      })
+    }
+    console.log(request);
+    const sendSemester = await this.http.post<SemesterResponse>(`${environment.backendUrl}/kurs/${kurs_name}/semester`, request).toPromise();
+    console.log("Semester anlegen: ", sendSemester)
+    this.kursController.loadData();
+    return sendSemester;
 
-    this.semesterListe.next(temp);
-  }
-
-  addSemester(semester: Semester) {
-    this.semesterListe.next(this.semesterListe.getValue().concat([semester]))
   }
 
 }

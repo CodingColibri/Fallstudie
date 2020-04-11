@@ -24,12 +24,16 @@ export class AppComponent {
     private studienJgController: StudienjahrgangController,
     private semesterController: SemesterController
   ) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe(x => {
+      this.currentUser = x;
+      this.kursController.loadData();
+      this.studienJgController.loadData();
+    }
+    );
+
 
     //Initial load data
-    this.kursController.loadData();
-    this.studienJgController.loadData();
-    this.semesterController.loadData();
+
   }
 
   logout() {

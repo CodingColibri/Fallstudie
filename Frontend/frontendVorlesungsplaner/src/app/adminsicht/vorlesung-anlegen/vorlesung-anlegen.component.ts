@@ -3,7 +3,7 @@ import { AppComponent } from '../../app.component';
 import { FormControl, FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { KursController } from '@app/controller/kurs-controller.service';
-import { KursKlasse } from '@app/models/kurse-models';
+import { Kurs } from '@app/models/kurse-models';
 import { Dozent } from '@app/models/dozenten-models';
 import { DozentenController } from '@app/controller/dozenten-controller.service';
 import { DozentenKalenderComponent } from '@app/dozentensicht/dozentenkalender/dozentenkalender.component';
@@ -17,7 +17,7 @@ import { DozentenKalenderComponent } from '@app/dozentensicht/dozentenkalender/d
 
 export class VorlesunganlegenComponent {
 
-  kurse: KursKlasse[]= [];
+  kurse: Kurs[]= [];
   dozent: Dozent[]= [];
   
   formKurs: FormGroup;
@@ -34,7 +34,7 @@ export class VorlesunganlegenComponent {
         vorlesungenStunden: this.fb.array([
         ])
       });
-      this.kursController.kursListe.subscribe((data: KursKlasse[])=> {
+      this.kursController.kursListe.subscribe((data: Kurs[])=> {
         this.kurse = data;
       });
       this.dozentenController.dozentenListe.subscribe((data: Dozent[])=> {

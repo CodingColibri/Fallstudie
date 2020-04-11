@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
-import { KursKlasse } from '../../models/kurse-models';
+import { Kurs } from '../../models/kurse-models';
 import { User } from '@app/models/user';
 import { UserService } from '@app/services/user.service';
 import { Router } from '@angular/router';
@@ -18,13 +18,13 @@ export class DozentenheaderComponent {
 
     loading = false;
     users: User[];
-    kurse: KursKlasse[]= [];
+    kurse: Kurs[]= [];
   
     constructor(private userService: UserService,
         private router: Router,
         private authenticationService: AuthenticationService,
         public kursController: KursController) {
-        this.kursController.kursListe.subscribe((data: KursKlasse[])=> {
+        this.kursController.kursListe.subscribe((data: Kurs[])=> {
         this.kurse = data;
       });
       this.kursController.loadData();
