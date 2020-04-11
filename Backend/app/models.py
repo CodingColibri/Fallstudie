@@ -109,16 +109,19 @@ class Dozent(db.Model):
 class Semester(db.Model):
     __tablename__='semester'
 
+    id = db.Column(db.Integer, primary_key=True)
+    semesterID = db.Column(db.Integer, nullable=False)
     start = db.Column(db.Date, nullable=False)
     ende = db.Column(db.Date, nullable=False)
-    name = db.Column(db.String(32), nullable=False, primary_key=True)
-    kurs_name = db.Column(db.String(32), db.ForeignKey('kurs.name'), primary_key=True)
+    kurs_name = db.Column(db.String(32), db.ForeignKey('kurs.name'))
 
     kurs = db.relationship("Kurs", back_populates="semester")
 
     def to_public(self):
         out = {}
-        out['name'] = self.name
+        out['id'] = self.id
+        out['semesterID'] = self.semesterID
+        # Invalid argument is thrown when date is prior 01.01.1970
         out['start'] = datetime.combine(self.start, datetime.min.time()).timestamp()
         out['ende'] = datetime.combine(self.ende, datetime.min.time()).timestamp()
         out['kurs_name'] = self.kurs_name

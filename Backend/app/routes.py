@@ -137,6 +137,21 @@ def get_dozent(dozent_identity=None):
     
     return jsonify(dozent.to_public()), 200
 
+@app.route('/kurs', methods=['GET'])
+@jwt_required
+def get_alle_kurse():
+    #TODO: Check if admin
+    kurse = Kurs.query.all()
+    if not kurse:
+        return jsonify({"kurse": []}), 404
+
+
+    kurse_out = []
+    for kurs in kurse:
+        kurse_out.append(kurs.to_public())
+    
+    return jsonify({"kurse": kurse_out}), 200
+
 @app.route('/kurs/<string:kurs_name>', methods=['GET'])
 @jwt_required
 def get_kurs(kurs_name):
@@ -235,7 +250,7 @@ def create_kurs():
     
     name = request.json.get("name", None)
     studiengangsleiter = request.json.get("studiengangsleiter", None)
-    if not Kurs.query.filter_by(name=name).first() is None:
+    if Kurs.query.filter_by(name=name).first() is not None:
         return jsonify({"msg": 'A Kurs with this name already exists'}), 400
     
     kurs = Kurs(name=name, studiengangsleiter=studiengangsleiter)
@@ -248,27 +263,44 @@ def create_kurs():
 @app.route('/kurs/<string:kurs_name>/semester', methods=['POST'])
 @jwt_required
 @json_required
-def create_semester_by_kurs(kurs_name):
+def save_semester_by_kurs(kurs_name):
     if not check_privileges(get_jwt_identity(), [1]):
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
 
-    start = request.json.get("start", None)
-    start = date.fromtimestamp(start)
-    ende = request.json.get("ende", None)
-    ende = date.fromtimestamp(ende)
-    name = request.json.get("name", None)
     kurs = Kurs.query.filter_by(name=kurs_name).first()
     if kurs is None:
         return jsonify({"msg": 'The kurs '+kurs_name+' does not exist'}), 400
-
-    if Semester.query.filter(and_(Semester.name == name, Semester.kurs_name == kurs.name)).first() is not None:
-        return jsonify({"msg": 'A Semester with with this name already exists for the given kurs'}), 400
-
-    semester = Semester(name=name,kurs_name=kurs_name,start=start,ende=ende)
-    db.session.add(semester)
+    
+    #TODO: Check that maximum of semesters is not exceeded
+    for obj in request.json.get("semesters", []):
+        semesterID = obj.get("semesterID", None)
+        studienjahrgang = obj.get("studienjahrgang", None)
+        start = obj.get("start")
+        start = date.fromtimestamp(start)
+        ende = obj.get("ende")
+        ende = date.fromtimestamp(ende)
+        id = obj.get("id", None)
+        if Semester.query.filter(and_(Semester.semesterID == semesterID, Semester.kurs_name == kurs.name)).first() is not None:
+            return jsonify({"msg": 'A Semester with the given semesterID already exists for the given kurs'}), 400
+        
+        # If id is given update already existing row in database otherwise its a new semester
+        if id is not None:
+            semester = Semester.query.filter(Semester.id == id)
+            if semester is None:
+                return jsonify({"msg": 'Semester with id '+id+' does not exist yet'}), 400
+            semester.update({"semesterID": semesterID,"kurs_name": kurs_name,"start":start,"ende":ende})
+        else:
+            semester = Semester(semesterID=semesterID,kurs_name=kurs_name,start=start,ende=ende)
+            db.session.add(semester)
+        
     db.session.commit()
-       
-    return jsonify({"msg": "Semester created", "semester": semester.to_public()}), 201
+
+    semesters_out = []
+    semesters = Semester.query.filter(Semester.kurs_name == kurs.name).all()
+    for semester in semesters:
+        semesters_out.append(semester.to_public())
+
+    return jsonify({"msg": "Semester created", "semesters": semesters_out}), 201
 
 
 @app.route('/kurs/<string:kurs_name>/vorlesung', methods=['POST'])
