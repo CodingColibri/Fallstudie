@@ -253,9 +253,12 @@
 			"response": []
 		},
 		{
-			"name": "Get kurs by id",
+			"name": "Get all kurse",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -267,12 +270,43 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/kurs",
+					"raw": "{{host}}/kurs/admin",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"kurs"
+						"kurs",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get kurs by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"test\",\n\t\"studiengangsleiter\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/kurs/admin",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"kurs",
+						"admin"
 					]
 				}
 			},
@@ -285,7 +319,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Test4\",\n\t\"start\": 2000,\n\t\"ende\": 2000\n}",
+					"raw": "{\n\t\"semesters\": [\n\t\t{\n\t\t\t\"id\": 3,\n\t\t\t\"semesterID\": 6,\n\t\t\t\"start\": 200000,\n\t\t\t\"ende\": 200000\n\t\t\t\n\t\t}\n\t]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -372,13 +406,13 @@
 	],
 	"variable": [
 		{
-			"id": "3e838da2-be1b-4541-b4a3-d1fedcbaa00b",
+			"id": "ceac9e28-501e-48f4-a6b4-ab8b5eff245f",
 			"key": "host",
 			"value": "http://localhost:5000",
 			"type": "string"
 		},
 		{
-			"id": "b33fa861-71eb-466f-a2f6-34338504024f",
+			"id": "17a70bd8-e1a6-47da-ae12-bd0e88b373d6",
 			"key": "access_token",
 			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1ODY1MzU3OTgsIm5iZiI6MTU4NjUzNTc5OCwianRpIjoiNDg2MzAzZDMtODhkYy00NDViLThiNmItY2MxYmUxMjc3MGYwIiwiZXhwIjoxNTg2Nzk0OTk4LCJpZGVudGl0eSI6ImRldiIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyIsInVzZXJfY2xhaW1zIjp7Im1haWwiOiJkZXYiLCJ0aXRlbCI6bnVsbCwidm9ybmFtZSI6bnVsbCwibmFjaG5hbWUiOm51bGwsInJvbGUiOiJkb3plbnQifX0.s5O2cFvA8sJBowtUYX8rwzxYW2ufibmY_HvRcmwUpN4",
 			"type": "string"
