@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "4310b128-fb1f-4c4e-8ebb-ec4f63372217",
+		"name": "Vorlesungsplaner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mail\": \"dev\",\n\t\"password\": \"root\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create dozent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mail\": \"test3\",\n\t\"password\": \"root\",\n\t\"titel\": \"Herr\",\n\t\"vorname\": \"Max\",\n\t\"nachname\": \"Musterman\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/dozent",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"dozent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get dozent by JWT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/dozent",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"dozent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get dozent by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/termine/dozent/test",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"termine",
+						"dozent",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create vorlesung",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Test5\",\n\t\"std_anzahl\": 20,\n\t\"dozenten\": [\"dev\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/kurs/admin/vorlesung",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"kurs",
+						"admin",
+						"vorlesung"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get vorlesungen by kurs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"test\",\n\t\"studiengangsleiter\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/kurs/admin/vorlesungen",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"kurs",
+						"admin",
+						"vorlesungen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create vorlesung termine",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"termine\": [\n\t\t{\n\t\t\t\"startDate\": 0,\n\t\t\t\"endDate\": 0\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/vorlesung/1/termin",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"vorlesung",
+						"1",
+						"termin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get termine by dozent",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/termin/dozent/dev",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"termin",
+						"dozent",
+						"dev"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get vorlesung by kurs and time",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"kurs\": \"admin\",\n\t\"start\": 0,\n\t\"ende\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/termin/fortimeandkurs",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"termin",
+						"fortimeandkurs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create kurs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"test3\",\n\t\"studiengangsleiter\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/kurs",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"kurs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get kurs by id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"test\",\n\t\"studiengangsleiter\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/kurs",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"kurs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create semester",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Test4\",\n\t\"start\": 2000,\n\t\"ende\": 2000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/kurs/admin/semester",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"kurs",
+						"admin",
+						"semester"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get semester by kurs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"test\",\n\t\"studiengangsleiter\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/kurs/admin/semester",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"kurs",
+						"admin",
+						"semester"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fe2007ee-1092-4799-993e-d286560d3089",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "97f8df9c-ffd9-437f-8eed-5d34ddedded9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "3e838da2-be1b-4541-b4a3-d1fedcbaa00b",
+			"key": "host",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"id": "b33fa861-71eb-466f-a2f6-34338504024f",
+			"key": "access_token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1ODY1MzU3OTgsIm5iZiI6MTU4NjUzNTc5OCwianRpIjoiNDg2MzAzZDMtODhkYy00NDViLThiNmItY2MxYmUxMjc3MGYwIiwiZXhwIjoxNTg2Nzk0OTk4LCJpZGVudGl0eSI6ImRldiIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyIsInVzZXJfY2xhaW1zIjp7Im1haWwiOiJkZXYiLCJ0aXRlbCI6bnVsbCwidm9ybmFtZSI6bnVsbCwibmFjaG5hbWUiOm51bGwsInJvbGUiOiJkb3plbnQifX0.s5O2cFvA8sJBowtUYX8rwzxYW2ufibmY_HvRcmwUpN4",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
