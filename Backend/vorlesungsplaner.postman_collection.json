@@ -233,7 +233,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"test3\",\n\t\"studiengangsleiter\": \"test\"\n}",
+					"raw": "{\n\t\"name\": \"test3\",\n\t\"studiengangsleiter\": \"test\",\n\t\"studienjahrgang\": 2018\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -270,13 +270,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/kurs/admin",
+					"raw": "{{host}}/kurs",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"kurs",
-						"admin"
+						"kurs"
 					]
 				}
 			},
@@ -406,13 +405,13 @@
 	],
 	"variable": [
 		{
-			"id": "ceac9e28-501e-48f4-a6b4-ab8b5eff245f",
+			"id": "ab565af3-99d3-44db-8f2e-fb2717282603",
 			"key": "host",
 			"value": "http://localhost:5000",
 			"type": "string"
 		},
 		{
-			"id": "17a70bd8-e1a6-47da-ae12-bd0e88b373d6",
+			"id": "8d6ba3fe-854e-4603-81e4-5f0654cd55d8",
 			"key": "access_token",
 			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1ODY1MzU3OTgsIm5iZiI6MTU4NjUzNTc5OCwianRpIjoiNDg2MzAzZDMtODhkYy00NDViLThiNmItY2MxYmUxMjc3MGYwIiwiZXhwIjoxNTg2Nzk0OTk4LCJpZGVudGl0eSI6ImRldiIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyIsInVzZXJfY2xhaW1zIjp7Im1haWwiOiJkZXYiLCJ0aXRlbCI6bnVsbCwidm9ybmFtZSI6bnVsbCwibmFjaG5hbWUiOm51bGwsInJvbGUiOiJkb3plbnQifX0.s5O2cFvA8sJBowtUYX8rwzxYW2ufibmY_HvRcmwUpN4",
 			"type": "string"

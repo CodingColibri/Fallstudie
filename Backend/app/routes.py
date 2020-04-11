@@ -245,15 +245,17 @@ def sign_up():
 @jwt_required
 @json_required
 def create_kurs():
-    if not check_privileges(get_jwt_identity(), [1]):
-        return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
+    #TODO: Update check_privileges?
+    #if not check_privileges(get_jwt_identity(), [1]):
+    #   return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
     
     name = request.json.get("name", None)
     studiengangsleiter = request.json.get("studiengangsleiter", None)
+    studienjahrgang = request.json.get("studienjahrgang", None)
     if Kurs.query.filter_by(name=name).first() is not None:
         return jsonify({"msg": 'A Kurs with this name already exists'}), 400
     
-    kurs = Kurs(name=name, studiengangsleiter=studiengangsleiter)
+    kurs = Kurs(name=name, studiengangsleiter=studiengangsleiter, studienjahrgang=studienjahrgang)
     db.session.add(kurs)
     db.session.commit()
 
@@ -274,7 +276,6 @@ def save_semester_by_kurs(kurs_name):
     #TODO: Check that maximum of semesters is not exceeded
     for obj in request.json.get("semesters", []):
         semesterID = obj.get("semesterID", None)
-        studienjahrgang = obj.get("studienjahrgang", None)
         start = obj.get("start")
         start = date.fromtimestamp(start)
         ende = obj.get("ende")
