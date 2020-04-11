@@ -10,7 +10,6 @@ db = SQLAlchemy(app)
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 
-
 from app import routes, models
 from app.models import Vorlesung, Kurs, Dozent
 @app.before_first_request
@@ -22,16 +21,16 @@ def create_admin_Vorlesung():
     try:
         kurs = Kurs(name="admin")
         vorlesung = Vorlesung(id=1,std_anzahl=0,name="admin",kurs_name="admin")
-        admin = Dozent(mail="dev")
+        admin = Dozent(mail="dev",role="dozent")
         admin.set_password("root")
         db.session.add(kurs)
         db.session.add(vorlesung)
         db.session.add(admin)
         vorlesung.dozenten.append(admin)
         db.session.commit()
-    except:
+    except Exception as e:
         db.session.close()
-        print("Did not create Admin account")
+        print("Did not create Admin account", str(e))
 """
 from app.models import Admin
 @app.before_first_request

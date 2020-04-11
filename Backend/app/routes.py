@@ -1,19 +1,27 @@
 from app import app, db
 from flask import request, jsonify, abort
-from flask_jwt_extended import jwt_required, create_access_token,get_jwt_identity
+from flask_jwt_extended import jwt_required, create_access_token,get_jwt_identity, get_jwt_claims
 from app.models import Dozent, Kurs, Semester, Vorlesung, Termin
 from datetime import timedelta, date, datetime
 from sqlalchemy import and_
+from functools import wraps
 
+#Decorators
+############################################
+def json_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if not request.is_json:
+            return jsonify({"msg": "Missing JSON in request"}), 400
+        return f(*args, **kwargs)
+    return wrap
 
 #Getter
 ############################################
 
 @app.route('/login', methods=['POST'])
+@json_required
 def login():
-    if not request.is_json:
-        return jsonify({"msg": "Missing JSON in request"}), 400
-
     mail = request.json.get('mail', None)
     password = request.json.get('password', None)
     if not mail:
@@ -25,23 +33,31 @@ def login():
     if user is None or not user.check_password(password):
         return jsonify({"msg": "Bad username or password"}), 401
 
+    user_out = {}
+    user_out['mail'] = user.mail
+    user_out['titel'] = user.titel
+    user_out['vorname'] = user.vorname
+    user_out['nachname'] = user.nachname
+    user_out['role'] = user.role
+
     # Identity can be any data that is json serializable
     expires = timedelta(days=3)
-    access_token = create_access_token(identity=mail, expires_delta=expires)
+    access_token = create_access_token(identity=mail, user_claims=user_out, expires_delta=expires)
     return jsonify(access_token=access_token), 200
 
 """ Liefert alle Termine für einen bestimmten Zeitraum für einen Kurs, wobei nur bei den Kursen, worauf der Requester Zugriff hat, der
     Vorlesungsname angezeigt wird. Ein Admin kann somit alle Termine sehen.
 """
 
-@app.route('/get/termine/fortimeandkurs', methods=['POST'])
+# Best practice would be GET with URL args ?kurs=XXX&start=XXX&end=XXX
+@app.route('/termin/fortimeandkurs', methods=['POST'])
 @jwt_required
 def vorlesung_fortimeandkurs():
     kurs = request.json.get("kurs", None)
     start = request.json.get("start", None)
-    start = date(start[0],start[1],start[2])
+    start = date.fromtimestamp(start)
     ende = request.json.get("ende", None)
-    ende = date(ende[0], ende[1], ende[2])
+    ende = date.fromtimestamp(ende)
     mail = get_jwt_identity()
     requester_vorlesungen = Dozent.query.filter_by(mail = mail).first().vorlesungen.all()
     requester_privileges = []
@@ -56,26 +72,37 @@ def vorlesung_fortimeandkurs():
 
     termine_out = []
     for termin in termine: 
-        termin_out = {}
-        termin = termin.__dict__
-        if check_privileges(mail, int(termin["vorlesung_id"])):#anonymisieren
-            termin_out['vorlesung'] = Vorlesung.query.get(termin["vorlesung_id"]).name
+        termin_out = termin.to_public()
+        # termin = termin.__dict__
+        if check_privileges(mail, int(termin.vorlesung_id)):#anonymisieren
+            termin_out['vorlesung'] = Vorlesung.query.get(termin.vorlesung_id).name
         else:
             termin_out['vorlesung'] = "Hidden"
-        termin_out['start'] = [termin['start'].year,termin['start'].month,termin['start'].day,termin['start'].hour,termin['start'].minute]
-        termin_out['ende'] = [termin['ende'].year,termin['ende'].month,termin['ende'].day,termin['ende'].hour,termin['ende'].minute]
         print(termin_out)
         termine_out.append(termin_out)
 
     return jsonify({"termine": termine_out}), 200
 
 """ Liefert alle anstehenden Termine für einen bestimmten Dozenten, unabhängig von Kurs und Zeit.
+    Wird kein Dozent explizit angegeben, wird der anfragende Nutzer verwendet
 """
-#TODO: Test me
-@app.route('/get/termine/fordozent', methods=['POST'])
+@app.route('/termin/dozent', methods=['GET'])
+@app.route('/termin/dozent/<string:dozent_identity>', methods=['GET'])
 @jwt_required
-def vorlesung_fordozent():
-    dozent = Dozent.query.get(get_jwt_identity()).first()
+def vorlesung_fordozent(dozent_identity=None):
+    jwt_identity = get_jwt_identity()
+    jwt_claims = get_jwt_claims()
+
+    if not dozent_identity:
+        dozent_identity = jwt_identity
+
+    if dozent_identity != jwt_identity and jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
+
+    dozent = Dozent.query.get(dozent_identity)
+    if not dozent:
+        return jsonify({"msg": "Dozent not exists"}), 404
+
     vorlesungen = dozent.vorlesungen.all()
     termine = []
     for vorlesung in vorlesungen:
@@ -84,48 +111,97 @@ def vorlesung_fordozent():
    
     termine_out = []
     for termin in termine: 
-        termin_out = {}
-        termin = termin.__dict__
-        termin_out['vorlesung'] = Vorlesung.query.get(termin["vorlesung_id"]).name
-        termin_out['start'] = [termin['start'].year,termin['start'].month,termin['start'].day,termin['start'].hour,termin['start'].minute]
-        termin_out['ende'] = [termin['ende'].year,termin['ende'].month,termin['ende'].day,termin['ende'].hour,termin['ende'].minute]
+        termin_out = termin.to_public()
+        # termin = termin.__dict__
+        termin_out['vorlesung'] = Vorlesung.query.get(termin.vorlesung_id).name
         termine_out.append(termin_out)
     
     return jsonify({"termine": termine_out}), 200
 
-@app.route('/get/name/fordozent', methods=['GET'])
+@app.route('/dozent', methods=['GET'])
+@app.route('/dozent/<string:dozent_identity>', methods=['GET'])
 @jwt_required
-def get_name():
-    dozent = Dozent.query.get(get_jwt_identity())
-    dozent_out = {}
-    dozent_out['titel'] = dozent.titel
-    dozent_out['vorname'] = dozent.vorname
-    dozent_out['nachname'] = dozent.nachname
+def get_dozent(dozent_identity=None):
+    jwt_identity = get_jwt_identity()
+    jwt_claims = get_jwt_claims()
+    
+    if not dozent_identity:
+        dozent_identity = jwt_identity
+    
+    if dozent_identity != jwt_identity and jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
 
-    return jsonify(dozent_out), 200
- 
+    dozent = Dozent.query.get(dozent_identity)
+    if not dozent:
+        return jsonify({"msg": "Dozent not exists"}), 404
+    
+    return jsonify(dozent.to_public()), 200
+
+@app.route('/kurs/<string:kurs_name>', methods=['GET'])
+@jwt_required
+def get_kurs(kurs_name):
+    kurs = Kurs.query.get(kurs_name)
+    if not kurs:
+        return jsonify({"msg": "Kurs does not exist"}), 404
+
+    kurs_out = kurs.to_public()
+    vorlesungen = kurs.vorlesungen
+    for vorlesung in vorlesungen:
+        print(vorlesung)
+
+    semesters = Semester.query.filter_by(kurs_name=kurs_name).all()
+    semesters_out = []
+    for semester in semesters:
+        semesters_out.append(semester.to_public())
+    kurs_out['semester'] = semesters_out
+    
+    return jsonify({"kurs": kurs_out}), 201
+
+@app.route('/kurs/<string:kurs_name>/vorlesungen', methods=['GET'])
+@jwt_required
+def get_vorlesungen_by_kurs(kurs_name):
+    kurs = Kurs.query.get(kurs_name)
+    if not kurs:
+        return jsonify({"msg": "Kurs does not exist"}), 404
+
+    vorlesungen_out = []
+    for vorlesung in kurs.vorlesungen:
+        vorlesungen_out.append(vorlesung.to_public())
+
+    return jsonify({"vorlesungen": vorlesungen_out}), 201
+
+@app.route('/kurs/<string:kurs_name>/semester', methods=['GET'])
+@jwt_required
+def get_semester_by_kurs(kurs_name):
+    kurs = Kurs.query.get(kurs_name)
+    if not kurs:
+        return jsonify({"msg": "Kurs does not exist"}), 404
+
+    semesters_out = []
+    for semester in kurs.semester:
+        semesters_out.append(semester.to_public())
+
+    return jsonify({"semesters": semesters_out}), 201
+
 #Creater
 ###########################################
 
-@app.route('/create/termin', methods=['POST'])
+@app.route('/vorlesung/<int:id>/termin', methods=['POST'])
 @jwt_required
-def add_termine():
+@json_required
+def add_termine(id):
     json, token = request.get_json(), get_jwt_identity()
     for obj in json["termine"]: 
-        termin = termin_helper(obj, token)
+        termin = termin_helper(id, obj, token)
         db.session.add(termin)
     db.session.commit()
-    return jsonify({"msg": "Termine erstellt"}), 202
+    return jsonify({"msg": "Termine erstellt"}), 201
 
-
-
-@app.route('/sign_up', methods=['POST'])
-@app.route('/create/dozent', methods=['POST'])
+@app.route('/sign_up', methods=['POST']) # jwt required for user registration?
+@app.route('/dozent', methods=['POST'])
 @jwt_required
+@json_required
 def sign_up():
-    if not request.is_json:
-        return jsonify({"msg": "Missing JSON in request"}), 400
-
     if not check_privileges(get_jwt_identity(), [1]):
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
 
@@ -142,70 +218,89 @@ def sign_up():
     titel = request.json.get('titel', None)
     vorname = request.json.get('vorname', None)
     nachname = request.json.get('nachname', None)
-    dozent = Dozent(mail=mail, titel=titel, vorname=vorname, nachname=nachname)
+    dozent = Dozent(mail=mail, titel=titel, vorname=vorname, nachname=nachname, role="Dozent")
     dozent.set_password(password)
     db.session.add(dozent)
     db.session.commit()
     #TODO: Beim erstellen Vorlesung hinzufügen
-    return jsonify({"msg": "User created"}), 202
+    return jsonify({"msg": "User created", "user": dozent.to_public() }), 201
 
 
-
-@app.route('/create/kurs', methods=['POST'])
+@app.route('/kurs', methods=['POST'])
 @jwt_required
+@json_required
 def create_kurs():
-    if check_privileges(get_jwt_identity(), [1]):
-        name = request.json.get("name", None)
-        if Kurs.query.filter_by(name=name).first() is None:
-            db.session.add(Kurs(name=name))
-            db.session.commit()
-        else:
-            return jsonify({"msg": 'A Kurs with this name already exists'}), 400
-    else:
+    if not check_privileges(get_jwt_identity(), [1]):
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
-    return jsonify({"msg": "Kurs created"}), 202
+    
+    name = request.json.get("name", None)
+    studiengangsleiter = request.json.get("studiengangsleiter", None)
+    if not Kurs.query.filter_by(name=name).first() is None:
+        return jsonify({"msg": 'A Kurs with this name already exists'}), 400
+    
+    kurs = Kurs(name=name, studiengangsleiter=studiengangsleiter)
+    db.session.add(kurs)
+    db.session.commit()
+
+    return jsonify({"msg": "Kurs created", "kurs": kurs.to_public()}), 201
 
 
-@app.route('/create/semester', methods=['POST'])
+@app.route('/kurs/<string:kurs_name>/semester', methods=['POST'])
 @jwt_required
-def create_semester():
-    if check_privileges(get_jwt_identity(), [1]):
-        start = request.json.get("start", None)
-        start = date(start[0],start[1],start[2])
-        ende = request.json.get("ende", None)
-        ende = date(ende[0], ende[1], ende[2])
-        name = request.json.get("name", None)
-        kurs_name = request.json.get("kurs", None)
-        kurs = Kurs.query.filter_by(name=kurs_name).first()
-        if kurs is not None:
-            if Semester.query.filter(and_(Semester.name == name, Semester.kurs_name == kurs.name)).first() is None:
-                new_semester = Semester(name=name,kurs_name=kurs_name,start=start,ende=ende)
-                db.session.add(new_semester)
-                db.session.commit()
-            else:
-                return jsonify({"msg": 'A Semester with this number already exists'}), 400
-    else:
+@json_required
+def create_semester_by_kurs(kurs_name):
+    if not check_privileges(get_jwt_identity(), [1]):
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
-    return jsonify({"msg": "Semester created"}), 202
+
+    start = request.json.get("start", None)
+    start = date.fromtimestamp(start)
+    ende = request.json.get("ende", None)
+    ende = date.fromtimestamp(ende)
+    name = request.json.get("name", None)
+    kurs = Kurs.query.filter_by(name=kurs_name).first()
+    if kurs is None:
+        return jsonify({"msg": 'The kurs '+kurs_name+' does not exist'}), 400
+
+    if Semester.query.filter(and_(Semester.name == name, Semester.kurs_name == kurs.name)).first() is not None:
+        return jsonify({"msg": 'A Semester with with this name already exists for the given kurs'}), 400
+
+    semester = Semester(name=name,kurs_name=kurs_name,start=start,ende=ende)
+    db.session.add(semester)
+    db.session.commit()
+       
+    return jsonify({"msg": "Semester created", "semester": semester.to_public()}), 201
 
 
-@app.route('/create/vorlesung', methods=['POST'])
+@app.route('/kurs/<string:kurs_name>/vorlesung', methods=['POST'])
 @jwt_required
-def create_vorlesung():
-    if check_privileges(get_jwt_identity(), [1]):
-        std_anzahl = request.json.get("std_anzahl", None)
-        name = request.json.get("name", None)
-        kurs_name = request.json.get("kurs", None)
-
-        if Vorlesung.query.filter(and_(Vorlesung.name==name, Vorlesung.kurs_name==kurs_name)).first() is not None:
-            return jsonify({"msg": "Vorlesung with this name for this kurs already exists"}), 400
-
-        vorlesung = Vorlesung(std_anzahl=std_anzahl, name=name,kurs_name=kurs_name)
-        db.session.add(vorlesung)
-        db.session.commit()
-    else:
+@json_required
+def create_vorlesung_by_kurs(kurs_name):
+    if not check_privileges(get_jwt_identity(), [1]):
         return jsonify({"msg": "You are not allowed to do this, please contact an admin"}), 403
-    return jsonify({"msg": "Vorlesung created"}), 202
+
+    std_anzahl = request.json.get("std_anzahl", None)
+    name = request.json.get("name", None)
+    dozenten = request.json.get("dozenten", None)
+
+    kurs = Kurs.query.filter_by(name=kurs_name).first()
+    if kurs is None:
+        return jsonify({"msg": 'The kurs '+kurs_name+' does not exist'}), 400
+
+    if Vorlesung.query.filter(and_(Vorlesung.name==name, Vorlesung.kurs_name==kurs_name)).first() is not None:
+        return jsonify({"msg": "Vorlesung with this name for this kurs already exists"}), 400
+
+    vorlesung = Vorlesung(std_anzahl=std_anzahl, name=name,kurs_name=kurs_name)
+
+    for dozent_identify in dozenten:
+        dozent = Dozent.query.get(dozent_identify)
+        if not dozent:
+            return jsonify({"msg": 'Dozent with mail '+dozent_identify+' does not exist'}), 400
+        vorlesung.dozenten.append(dozent)
+
+    db.session.add(vorlesung)
+    db.session.commit()
+        
+    return jsonify({"msg": "Vorlesung created", "vorlesung": vorlesung.to_public()}), 201
 
 #Changer
 ###########################################
@@ -225,6 +320,7 @@ def dozentgibtvorlesung():
 
 #Helper
 ###########################################
+
 
 """
     Params:     current_user: mail of the user, making this request
@@ -251,24 +347,24 @@ def check_privileges(current_user, check):
 
 
 """
-    termin_helper creates a Termin for a Vorlesung by the give Obj v and returns this Termin object
-    Params:     v: vorlesungsobject
+    termin_helper creates a Termin for a Vorlesung by the given Obj obj and returns this Termin object
+    Params:     obj: termin
                 jwt_token: JWT Access Token
     Return:     True if the Dozent has access to this Vorlesung
 """
-def termin_helper(v, jwt_token):
-    v_name = v["name"]
-    kurs = v["kurs"]
-    startDate = datetime(v["startDate"][0],v["startDate"][1], v["startDate"][2],v["startDate"][3],v["startDate"][4])
-    endDate = datetime(v["endDate"][0],v["endDate"][1],v["endDate"][2],v["endDate"][3],v["endDate"][4])
-    v_id = Vorlesung.query.filter_by(name=v_name, kurs_name=kurs).first()
-    if not is_period_free(kurs, startDate, endDate):
+def termin_helper(id, obj, jwt_token):
+    startDate = datetime.fromtimestamp(obj["startDate"])
+    endDate = datetime.fromtimestamp(obj["endDate"])
+    vorlesung = Vorlesung.query.get(id)
+
+    if vorlesung is None:
+        abort(400, {'message' : 'No Vorlesung found for id '+id})
+    if not is_period_free(str(vorlesung.kurs), startDate, endDate):
         abort(400, {'message' : 'timeframe is occupied: ' + startDate+" - "+endDate})
-    if v_id is None:
-        abort(400, {'message' : 'No Vorlesung found for '+v_name+' and ' + kurs})
-    if not check_privileges(jwt_token, [v_id]):
+    if not check_privileges(jwt_token, [vorlesung]):
         abort(403, {'message': 'No permissions to create Termin for ' + str(v_id.name)})
-    return Termin(start=startDate, ende=endDate, vorlesung_id = v_id.id)
+    
+    return Termin(start=startDate, ende=endDate, vorlesung_id = id)
 
 """
     is_period_free checks if and given period is blocked by another termin for the given kurs. 
@@ -287,6 +383,3 @@ def is_period_free(kurs, start, ende):
         if not((start < termin.start and ende <= termin.start) or start >= termin.ende):
             return False
     return True
-   
-
-    
