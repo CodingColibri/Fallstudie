@@ -143,8 +143,7 @@ def get_alle_kurse():
     #TODO: Check if admin
     kurse = Kurs.query.all()
     if not kurse:
-        return jsonify({"kurse": []}), 404
-
+        return jsonify({"kurse": []}), 200
 
     kurse_out = []
     for kurs in kurse:
@@ -158,19 +157,8 @@ def get_kurs(kurs_name):
     kurs = Kurs.query.get(kurs_name)
     if not kurs:
         return jsonify({"msg": "Kurs does not exist"}), 404
-
-    kurs_out = kurs.to_public()
-    vorlesungen = kurs.vorlesungen
-    for vorlesung in vorlesungen:
-        print(vorlesung)
-
-    semesters = Semester.query.filter_by(kurs_name=kurs_name).all()
-    semesters_out = []
-    for semester in semesters:
-        semesters_out.append(semester.to_public())
-    kurs_out['semester'] = semesters_out
     
-    return jsonify({"kurs": kurs_out}), 201
+    return jsonify({"kurs": kurs.to_public()}), 200
 
 @app.route('/kurs/<string:kurs_name>/vorlesungen', methods=['GET'])
 @jwt_required
@@ -183,7 +171,7 @@ def get_vorlesungen_by_kurs(kurs_name):
     for vorlesung in kurs.vorlesungen:
         vorlesungen_out.append(vorlesung.to_public())
 
-    return jsonify({"vorlesungen": vorlesungen_out}), 201
+    return jsonify({"vorlesungen": vorlesungen_out}), 200
 
 @app.route('/kurs/<string:kurs_name>/semester', methods=['GET'])
 @jwt_required
@@ -196,7 +184,7 @@ def get_semester_by_kurs(kurs_name):
     for semester in kurs.semester:
         semesters_out.append(semester.to_public())
 
-    return jsonify({"semesters": semesters_out}), 201
+    return jsonify({"semesters": semesters_out}), 200
 
 #Creater
 ###########################################
@@ -334,6 +322,18 @@ def create_vorlesung_by_kurs(kurs_name):
     db.session.commit()
         
     return jsonify({"msg": "Vorlesung created", "vorlesung": vorlesung.to_public()}), 201
+
+#Delete
+###########################################
+@app.route('/kurs/<string:kurs_name>', methods=['DELETE'])
+@jwt_required
+def delete_kurs(kurs_name):
+    #TODO: Check if is admin
+    #TODO: Implement delete in db with all foreign keys: 
+    # vorlesungen, termine, referenced dozenten
+
+    return jsonify({"msg": "Not implemented yet"}), 500
+
 
 #Changer
 ###########################################
