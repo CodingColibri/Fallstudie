@@ -68,7 +68,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function isLoggedIn() {
             return true;
-            return headers.get('Authorization') === 'Bearer fake-jwt-token';
+            // return headers.get('Authorization') === 'Bearer fake-jwt-token';
         }
     }
 }

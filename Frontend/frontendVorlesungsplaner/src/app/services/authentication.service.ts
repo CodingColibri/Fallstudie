@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../environments/environment';
 import { User, UserTokenData, LoginResponse, LoginRequest } from '../models/user';
+import { RestService } from '@app/controller/rest.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -13,17 +14,15 @@ export class AuthenticationService {
     private jwtHelper: JwtHelperService;
     private token: string;
 
-    constructor(private http: HttpClient) {
+    constructor(private restService: RestService) {
         this.jwtHelper = new JwtHelperService();
 
         this.token = localStorage.getItem('userToken');
-        // this.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1ODY1OTY4NDEsIm5iZiI6MTU4NjU5Njg0MSwianRpIjoiOTk3MjRlMzAtYzZiOC00YTMyLTljY2ItMjkxNGFhNGYxNTFjIiwiZXhwIjoxNTg2ODU2MDQxLCJpZGVudGl0eSI6ImRldiIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyIsInVzZXJfY2xhaW1zIjp7Im1haWwiOiJkZXYiLCJ0aXRlbCI6bnVsbCwidm9ybmFtZSI6bnVsbCwibmFjaG5hbWUiOm51bGwsInJvbGUiOiJkb3plbnQifX0.UfdJkJiZDAp9A8CQFzBsaj9DIt8bJYsF7kXGJ2fbnKk"
-        console.log(this.token);
         if (this.token) {
             const tokenData = this.getUserToken();
             this.currentUserSubject = new BehaviorSubject<User>(tokenData.user);
         } else {
-            this.currentUserSubject = new BehaviorSubject<User>(undefined);
+            this.currentUserSubject = new BehaviorSubject<User>(null);
         }
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -37,7 +36,6 @@ export class AuthenticationService {
             return undefined;
 
         const tokenUser = this.decodeToken(this.token).user_claims;
-        console.log(tokenUser);
         return {
             access_token: this.token,
             user: tokenUser
@@ -53,15 +51,13 @@ export class AuthenticationService {
     }
 
     public async login(body: LoginRequest): Promise<LoginResponse> {
-        const response = await this.http.post<LoginResponse>(`${environment.backendUrl}/login`, body).toPromise();
-        console.log("Test", response);
+        const response = await this.restService.login(body);
 
         localStorage.setItem('userToken', response.access_token);
         this.token = response.access_token;
         const userToken = this.getUserToken();
         this.currentUserSubject.next(userToken.user);
 
-        console.log("test2")
         return response;
     }
 

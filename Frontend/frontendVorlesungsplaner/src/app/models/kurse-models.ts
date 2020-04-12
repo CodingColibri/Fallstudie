@@ -21,6 +21,10 @@ export interface Kurs {
   vorlesungen: Vorlesung[];
 }
 
+export interface KursResponse {
+  kurs: Kurs;
+}
+
 export interface KurseResponse {
   kurse: Kurs[];
 }

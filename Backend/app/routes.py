@@ -259,7 +259,7 @@ def save_semester_by_kurs(kurs_name):
 
     kurs = Kurs.query.filter_by(name=kurs_name).first()
     if kurs is None:
-        return jsonify({"msg": 'The kurs '+kurs_name+' does not exist'}), 400
+        return jsonify({"msg": 'The kurs '+kurs_name+' does not exist'}), 404
     
     #TODO: Check that maximum of semesters is not exceeded
     for obj in request.json.get("semesters", []):
@@ -269,7 +269,8 @@ def save_semester_by_kurs(kurs_name):
         ende = obj.get("ende")
         ende = date.fromtimestamp(ende)
         id = obj.get("id", None)
-        if Semester.query.filter(and_(Semester.semesterID == semesterID, Semester.kurs_name == kurs.name)).first() is not None:
+        existingSemester = Semester.query.filter(and_(Semester.semesterID == semesterID, Semester.kurs_name == kurs.name)).first()
+        if existingSemester is not None and existingSemester.id != id:
             return jsonify({"msg": 'A Semester with the given semesterID already exists for the given kurs'}), 400
         
         # If id is given update already existing row in database otherwise its a new semester
@@ -289,7 +290,7 @@ def save_semester_by_kurs(kurs_name):
     for semester in semesters:
         semesters_out.append(semester.to_public())
 
-    return jsonify({"msg": "Semester created", "semesters": semesters_out}), 201
+    return jsonify({"msg": "Semesters saved", "semesters": semesters_out}), 201
 
 
 @app.route('/kurs/<string:kurs_name>/vorlesung', methods=['POST'])

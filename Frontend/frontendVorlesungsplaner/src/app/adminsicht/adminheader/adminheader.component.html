@@ -11,8 +11,8 @@
         <!-- TODO: Ausgewählter Kurs soll während der Session gespeichert werden 
         (& in die jeweiligen Formulare schon mit übergeben werden) -->
         <mat-label class="wählen">  Kurs auswählen </mat-label>
-            <mat-select> 
-                <mat-option *ngFor="let kurs of kurse" (selectionChange)="changeKurs(kurs.name)" [value]="kurs.name"> 
+            <mat-select (selectionChange)="changeKurs($event)"> 
+                <mat-option *ngFor="let kurs of kurse" [value]="kurs.name"> 
                     {{kurs.name}}
                 </mat-option>
             </mat-select>

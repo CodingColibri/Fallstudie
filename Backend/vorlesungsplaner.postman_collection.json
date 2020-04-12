@@ -339,13 +339,13 @@
 			"response": []
 		},
 		{
-			"name": "Create semester",
+			"name": "Save semesters",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"semesters\": [\n\t\t{\n\t\t\t\"id\": 3,\n\t\t\t\"semesterID\": 6,\n\t\t\t\"start\": 200000,\n\t\t\t\"ende\": 200000\n\t\t\t\n\t\t}\n\t]\n}",
+					"raw": "{\n\t\"semesters\": [\n\t\t{\n\t\t\t\"id\": 1,\n\t\t\t\"semesterID\": 6,\n\t\t\t\"start\": 200000,\n\t\t\t\"ende\": 200000\n\t\t\t\n\t\t}\n\t]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -432,13 +432,13 @@
 	],
 	"variable": [
 		{
-			"id": "d566bc0b-74c8-4a33-b93f-fecc1a87aa35",
+			"id": "3c7b788e-8b62-4be3-8298-176e2ca33bf3",
 			"key": "host",
 			"value": "http://localhost:5000",
 			"type": "string"
 		},
 		{
-			"id": "73868b46-e2d2-4d64-960b-a65c29821094",
+			"id": "9b87bc78-3f83-43c1-b0d3-11401baf081b",
 			"key": "access_token",
 			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1ODY1MzU3OTgsIm5iZiI6MTU4NjUzNTc5OCwianRpIjoiNDg2MzAzZDMtODhkYy00NDViLThiNmItY2MxYmUxMjc3MGYwIiwiZXhwIjoxNTg2Nzk0OTk4LCJpZGVudGl0eSI6ImRldiIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyIsInVzZXJfY2xhaW1zIjp7Im1haWwiOiJkZXYiLCJ0aXRlbCI6bnVsbCwidm9ybmFtZSI6bnVsbCwibmFjaG5hbWUiOm51bGwsInJvbGUiOiJkb3plbnQifX0.s5O2cFvA8sJBowtUYX8rwzxYW2ufibmY_HvRcmwUpN4",
 			"type": "string"

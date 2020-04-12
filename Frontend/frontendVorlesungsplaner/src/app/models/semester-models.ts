@@ -15,7 +15,7 @@ export class Semester {
     this.start = start;
     this.ende = ende;}
 }
-export interface SemesterResponse {
+export interface SemestersResponse {
   semesters: Semester[];
 }
 
@@ -25,6 +25,6 @@ export interface SemesterRequestValues {
   start?: number;
   ende?: number;
 }
-export interface SemesterRequest {
+export interface SemestersRequest {
   semesters: SemesterRequestValues[];
 }
