@@ -1,0 +1,95 @@
+#toast-wrapper {
+	position: fixed;
+	top: 50%;
+	right: 0px;
+	transform: translateY(-50%);
+	width: 350px;
+	z-index: 1200;
+}
+
+#toast-wrapper > div {
+	box-sizing: border-box;
+	width: 100%;
+	background: #DDD;
+	margin: 15px 0;
+	padding: 10px;
+	padding-left: 50px;
+	box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.3);
+	word-wrap: break-word;
+	display: flex;
+	position: relative;
+}
+
+#toast-wrapper > div.success {
+	background: #1eb95a;
+	box-shadow: 3px 3px 5px 0px rgba(22, 119, 69, 0.6);
+}
+
+#toast-wrapper > div.success .icon {
+	border-right: 1px solid rgba(34, 139, 85, 0.5);
+}
+
+#toast-wrapper > div.success .icon polyline {
+	transition: stroke-dashoffset .8s ease;
+	stroke: #167745;
+}
+
+#toast-wrapper > div.info {
+	background: #c4c4c4;
+	box-shadow: 3px 3px 5px 0px rgba(122, 122, 122, 0.6);
+}
+
+#toast-wrapper > div.info .icon {
+	border-right: 1px solid rgba(155, 155, 155, 0.5);
+}
+
+#toast-wrapper > div.info .icon path {
+	transition: stroke-dashoffset .8s ease;
+	fill: #7a7a7a;
+}
+
+#toast-wrapper > div.warning {
+	background: #d67d09;
+	box-shadow: 3px 3px 5px 0px rgba(131, 79, 12, 0.5);
+}
+
+#toast-wrapper > div.warning .icon {
+	border-right: 1px solid rgba(170, 108, 26, 0.5);
+}
+
+#toast-wrapper > div.warning .icon path {
+	transition: stroke-dashoffset .8s ease;
+	fill: #834f0c;
+}
+
+#toast-wrapper > div.error {
+	background: #d61515;
+	box-shadow: 3px 3px 5px 0px rgba(122, 16, 16, 0.5);
+}
+
+#toast-wrapper > div.error .icon {
+	border-right: 1px solid rgba(143, 31, 31, 0.5);
+}
+
+#toast-wrapper > div.error .icon line {
+	transition: stroke-dashoffset .8s ease;
+	stroke: #7a1010;
+}
+
+#toast-wrapper .icon {
+	box-sizing: border-box;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 5px 10px;
+	width: 44px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+#toast-wrapper .content {
+	box-sizing: border-box;
+	word-wrap: break-word;
+	word-break: break-all;
+}

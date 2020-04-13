@@ -2,25 +2,25 @@
 <div class="title">
     <h1>Neues Semester anlegen</h1>
 </div>
-<div class="formWrapper">
+<mat-card class="error" style="width: 300px; margin-left: 40px;" *ngIf="!currentKurs">
+    <mat-card-content>
+        <p>
+            Es wurde noch kein Kurs ausgewählt.<br />
+            Bitte wählen Sie oben einen Kurs!
+        </p>
+    </mat-card-content>
+</mat-card>
+
+<div class="formWrapper" *ngIf="currentKurs != null">
     <form [formGroup]="formSemester" (ngSubmit)="onSubmit()" #submitSemester="ngForm">
-        <div formArrayName="semesterData"
-            *ngFor="let semester of semesterData.controls; let i= index">
-            <!---->
+        <div formArrayName="semesterData" *ngFor="let semester of semesterData.controls; let i= index">
             <ng-contaner [formGroupName]="i">
                 <div class="formdataSemester">
-                    <!-- <mat-form-field> 
-                        <mat-label class="wählen">Studienjahrgang wählen</mat-label>
-                            <mat-select formControlName="studienjahrgang"> 
-                                <mat-option *ngFor="let studienjahrgang of studienjahrgang" [value]="studienjahrgang.jahr"> 
-                                    {{studienjahrgang.jahr}}
-                                </mat-option>
-                            </mat-select>
-                    </mat-form-field>  -->
                     <mat-form-field>
                         <mat-label>Nummer</mat-label>
                         <mat-select formControlName="semesterID">
-                            <mat-option *ngFor="let nummer of semesternummer" [disabled]="isSemesterNummerUsed(nummer)" [value]="nummer">
+                            <mat-option *ngFor="let nummer of semesternummer" [disabled]="isSemesterNummerUsed(nummer)"
+                                [value]="nummer">
                                 {{nummer}}
                             </mat-option>
                         </mat-select>
@@ -31,14 +31,14 @@
                         <input matInput [matDatepicker]="picker" formControlName="start">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                      <mat-form-field>
+                    </mat-form-field>
+                    <mat-form-field>
                         <mat-label>Semesterende</mat-label>
                         <!-- TODO: matDatepicker in deutscher Zeit anzeigen -->
                         <input matInput [matDatepicker]="picker2" formControlName="ende">
                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                         <mat-datepicker #picker2></mat-datepicker>
-                      </mat-form-field>
+                    </mat-form-field>
 
                     <button id="removeSemester" (click)='removeInput(this.i)'>x</button>
                 </div>

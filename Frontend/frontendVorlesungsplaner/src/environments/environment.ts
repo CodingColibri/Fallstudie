@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:4200/login',
-  backendUrl: 'http://localhost:5000'
+  backendUrl: 'http://localhost:5000',
+  toastDelay: 5 * 1000
 };
 
 /*

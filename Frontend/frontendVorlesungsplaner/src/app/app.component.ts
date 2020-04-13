@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AuthenticationService } from './services/authentication.service';
-import { User } from './models/user';
 import { KursController } from './controller/kurs-controller.service';
 import { StudienjahrgangController } from './controller/studienjahrgang-controller.service';
-import { SemesterController } from './controller/semester-controller.service';
+import { User } from './models/user';
+import { AuthenticationService } from './services/authentication.service';
+
 
 @Component({
   selector: 'app-root',
@@ -15,28 +14,22 @@ import { SemesterController } from './controller/semester-controller.service';
 export class AppComponent {
   title = 'frontendVorlesungsplaner';
 
-  currentUser: User;
+  public currentUser: User;
 
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     private kursController: KursController,
-    private studienJgController: StudienjahrgangController,
-    private semesterController: SemesterController
+    private studienJgController: StudienjahrgangController
   ) {
-    this.authenticationService.currentUser.subscribe(x => {
-      this.currentUser = x;
+    this.authenticationService.currentUser.subscribe(user => {
+      this.currentUser = user;
       this.kursController.loadData();
       this.studienJgController.loadData();
-    }
-    );
-
-
-    //Initial load data
-
+    });
   }
 
-  logout() {
+  public logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }

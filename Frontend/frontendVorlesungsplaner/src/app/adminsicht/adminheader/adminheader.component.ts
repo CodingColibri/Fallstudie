@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { first } from 'rxjs/operators';
 import { Kurs } from '@app/models/kurse-models';
 import { KursController } from '@app/controller/kurs-controller.service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
     selector: 'adminheader',
@@ -23,8 +24,8 @@ export class AdminheaderComponent {
         private router: Router,
         private authenticationService: AuthenticationService,
         public kursController: KursController) {
-        this.kursController.kursListe.subscribe((data: Kurs[]) => {
-            this.kurse = data;
+        this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
+            this.kurse = kurse;
         });
     }
 
@@ -35,11 +36,14 @@ export class AdminheaderComponent {
             this.users = users;
         });
     }
-    logout() {
+
+    public logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
     }
-    changeKurs(kurs_name: string) {
-        this.kursController.updateKurs(kurs_name);
+
+    public changeKurs(event: MatSelectChange) {
+        console.log("changeKurs", event);
+        this.kursController.setCurrentKurs(event.value);
     }
 }
