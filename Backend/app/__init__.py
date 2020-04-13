@@ -23,7 +23,7 @@ def create_admin_Vorlesung():
     try:
         kurs = Kurs(name="admin", studienjahrgang=2018, studiengangsleiter="Richter")
         vorlesung = Vorlesung(id=1,std_anzahl=0,name="admin",kurs_name="admin")
-        admin = Dozent(mail="dev",role="dozent")
+        admin = Dozent(mail="dev",role="admin")
         admin.set_password("root")
         db.session.add(kurs)
         db.session.add(vorlesung)

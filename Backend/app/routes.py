@@ -344,8 +344,30 @@ def delete_kurs(kurs_name):
 
     #TODO: Implement delete in db with all foreign keys: 
     # vorlesungen, termine, referenced dozenten
+    kurs = Kurs.query.get(kurs_name)
+    vorlesungen = kurs.vorlesungen
+    termine = []
+    for vorlesung in vorlesungen:
+        vorlesung.dozenten = [] #Delete Dozent Vorlesung reference
+        temp_termine = vorlesung.termine
+        for termin in temp_termine:
+            db.session.delete(termin) #Delete Termine for Vorlesung
+        db.session.delete(vorlesung)
+    
+    semester = kurs.semester
+    for obj in semester:
+        db.session.delete(obj)
 
-    return jsonify({"msg": "Not implemented yet"}), 500
+    try:
+        db.session.commit()
+    except:
+        db.session.rollback()
+        return jsonify({"msg": "Could not fullfill prerequisites for deleting this kurs"}), 500
+
+    db.session.delete(kurs)
+    db.session.commit()
+    print(semester)
+    return jsonify({"msg": "Kurs (and all references) delted"}), 200
 
 
 #Changer
