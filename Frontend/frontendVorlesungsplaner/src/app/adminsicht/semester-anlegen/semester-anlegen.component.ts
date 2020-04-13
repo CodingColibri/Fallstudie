@@ -46,11 +46,10 @@ export class SemesteranlegenComponent {
         semesterData: this.fb.array([])
       })
 
-      console.log(kurse);
       if (!kurse) {
         return;
       }
-
+      //Alle Kurse werden nach dem ausgewählten Kurs gefiltert, in diesen werden Semester hinzugefügt
       kurse = kurse.filter(kurs => {
         return kurs.name == this.currentKurs;
       });

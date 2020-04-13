@@ -10,8 +10,7 @@ export class Termin {
     start: Date;
     ende: Date;
     startDate?: Date; //=> wird vom Backend als Array übergeben [Jahr, Monat, Tag, Stunden, Minuten]
-    endDate?: Date; //=> wird vom Backend als Array übergeben [Jahr, Monat, Tag, Stunden, Minuten]
-    morningOrAfternoon?: String //=> im Backend gespeichert
+    endDate?: Date;    morningOrAfternoon?: String //=> im Backend gespeichert
     dozent?: Dozent[]; //=>TODO: Soll von Login übergeben werden
     vorlesung?: Vorlesung[];
     

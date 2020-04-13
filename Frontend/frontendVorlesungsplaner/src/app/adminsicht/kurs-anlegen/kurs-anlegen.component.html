@@ -3,7 +3,7 @@
     <h1>Neuen Kurs anlegen</h1>
 </div>
 <div class="formWrapper">
-    <form [formGroup]="formKurs" (ngSubmit)="onSubmit(formKurs.value)" #submitKurs="ngForm">
+    <form [formGroup]="formKurs" (ngSubmit)="onSubmit()" #submitKurs="ngForm">
         <div formArrayName="kursData"
             *ngFor="let item of formKurs['controls'].kursData['controls']; let i= index">
             <!---->

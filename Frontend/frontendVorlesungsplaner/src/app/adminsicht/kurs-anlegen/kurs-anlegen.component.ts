@@ -45,10 +45,28 @@ export class KursanlegenComponent {
     }))
   }
 
-  onSubmit(form: NgForm) {
+  public async onSubmit() {
+    const kurse: Kurs[]= [];
+    this.formKurs.value.kursData.forEach(kurs => {
+      kurse.push(kurs);
+    });
+    console.log(kurse);
 
-    console.log(form);
-    //console.log(form.controls['Kursname'].value);
+    try {
+      const kurs_name = this.currentKurs;
+      const response = await this.kursController.addKurs(kurs_name, semesters);
+      console.log("Daten wurden erfolgreich gesendet");
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        console.error(err);
+        const error = err.error as BackendErrorResponse;
+        this.error = error.msg;
+      } else {
+        console.error("Unknown error occured");
+        console.error(err);
+      }
+    }
+
     //TODO: Daten aus dem Formular in den kursController schreiben + Request an das Backend
     //TODO: Update Funktion addKurs() in kursController
 

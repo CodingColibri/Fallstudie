@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BehaviorSubject } from "rxjs";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Kurs, KurseResponse } from '@app/models/kurse-models';
+import { Kurs, KurseResponse, KursRequest } from '@app/models/kurse-models';
 import { Semester, SemesterResponse } from '@app/models/semester-models';
 import { BackendErrorResponse } from '@app/models/user';
 import { map } from 'rxjs/operators';
@@ -21,13 +21,11 @@ export class KursController {
     private http: HttpClient,
   ) {
     this.kursListe = new BehaviorSubject<Kurs[]>(null);
-    this.currentKurs = new BehaviorSubject<string>(null);
+    this.currentKurs = new BehaviorSubject<string>(null); //=> Ausgewählter Kurs im Header
     this.currentKurs.next("admin"); //TODO: muss vom Backend noch gesetzt werden /kurse, dann Zeile löschen 
     this.currentKurs.subscribe(async (data: string) => {
-
       if (data) {
         try {
-          console.log("test");
           console.log(data);
           const response = await this.http.get<KurseResponse>(`${environment.backendUrl}/kurs`).pipe(
             map(resp => {
@@ -78,6 +76,28 @@ export class KursController {
     //INFO: concat() to join to or more arrays
     this.kursListe.next(this.kursListe.getValue().concat([kurs]))
   }
+
+  //TODO:
+  // async saveKurs(body: Kurs[]): Promise<KurseResponse> {
+  //   const request = {
+  //     kurse: []
+  //   } as KursRequest
+  //   for (const kurse of body) {
+  //     request.kurse.push({
+
+  //       id: kurse.id,
+  //       semesterID: semester.semesterID,
+  //       ende: semester.ende.getTime() / 1000,
+  //       start: semester.start.getTime() / 1000,
+  //     })
+  //   }
+  //   console.log(request);
+  //   const sendSemester = await this.http.post<SemesterResponse>(`${environment.backendUrl}/kurs/${kurs_name}/semester`, request).toPromise();
+  //   console.log("Semester anlegen: ", sendSemester)
+  //   this.kursController.loadData();
+  //   return sendSemester;
+  // }
+
   public updateKurs(kurs: string) {
     this.currentKurs.next(kurs);
   }

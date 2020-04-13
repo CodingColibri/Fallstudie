@@ -1,18 +1,6 @@
 import { Semester } from './semester-models';
 import { Vorlesung } from './vorlesungen-models';
 
-// export interface Kurs {
-//   value: string;
-//   viewValue: string;
-//   } 
-
-// export interface KursDTO {
-//   name: string; 
-//   year: number;
-//   semester: Semester[]; //TODO: Macht das Sinn?
-//   studiengangsleiter?: string;
-// }
-
 export interface Kurs {
   name: string; //=> im Backend gespeichert
   studienjahrgang: number; //=> nicht im Backend gespeichert
