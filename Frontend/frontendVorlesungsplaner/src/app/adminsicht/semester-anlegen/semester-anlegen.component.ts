@@ -89,7 +89,7 @@ export class SemesteranlegenComponent {
     this.formSemester.value.semesterData.forEach(semester => {
       semesters.push(semester);
     });
-
+    console.log(semesters);
     try {
       const response = await this.semesterController.saveSemester(this.currentKurs, semesters);
       this.toastService.addSuccess("Semester erfolgreich gespeichert");
@@ -104,10 +104,7 @@ export class SemesteranlegenComponent {
         this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
       }
     }
-
     //TODO: Backend add overwrite all semesters
-    //TODO: Daten aus Formular in den SemesterController schreiben + Backend Request
-    //this.semesterController.addSemester(new Semester(???));
   }
 
   public removeInput(index) {

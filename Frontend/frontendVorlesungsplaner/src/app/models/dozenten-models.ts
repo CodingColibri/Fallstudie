@@ -1,16 +1,24 @@
 import { Vorlesung } from './vorlesungen-models';
 
-export class Dozent {
+export interface Dozent {
     titel: String;
     vorname: String;
     nachname: String;
     mail: String;
+    role: String;
     //belegteVorlesungen: Vorlesung[]; //TODO: Macht das Sinn? Innerhalb der Vorlesung steht der Dozent
 
-    constructor(titel: String, vorname: String, nachname: String, mail: String) {
-      this.titel = titel;
-      this.vorname = vorname;
-      this.nachname = nachname;
-      this.mail = mail;
-    }
+  }
+  export interface DozentenRequestValues {
+    titel: String;
+    vorname: String;
+    nachname: String;
+    mail: String;
+    role: String;
+  }
+  export interface DozentenRequest {
+    dozenten: DozentenRequestValues[];
+  }
+  export interface DozentenResponse {
+    dozenten: Dozent[];
   }

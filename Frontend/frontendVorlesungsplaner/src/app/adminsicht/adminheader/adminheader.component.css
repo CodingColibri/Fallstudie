@@ -7,6 +7,9 @@
 .user-kurse{
     margin-left: 380px;
 }
+.user-kurse mat-form-field{
+    padding-left: 20px;
+}
 .user-kurse img {
     height: 45px;
     width: 45px;

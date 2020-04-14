@@ -159,10 +159,12 @@ h3 {
     max-width: 7px;
     padding-right: 6px;
 }
-
+/*Error bei fehlender Kursauswahl*/
 mat-card.error {
     color: #856404;
     background-color: #fff3cd;
     border-color: #ffeeba;
+    width: 300px; 
+    margin-left: 40px;
 }
 /*----------------------*/

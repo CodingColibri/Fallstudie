@@ -2,17 +2,16 @@
 <div class="title">
     <h1>Neue Vorlesung anlegen</h1>
 </div>
-<div class="formWrapper">
-    <mat-form-field> 
-        <!-- TODO: Kurs soll schon ausgewählt sein (mit ausgewähltem Kurs neben dem Username im Header verknüpft) -->
-        <mat-label class="wählen">Kurs auswählen</mat-label>
-            <mat-select> 
-                <mat-option *ngFor="let kurs of kurse" [value]="kurs.name"> 
-                    {{kurs.name}}
-                </mat-option>
-            </mat-select>
-    </mat-form-field>  
-    
+<mat-card class="error" *ngIf="!currentKurs">
+    <mat-card-content>
+        <p>
+            Es wurde noch kein Kurs ausgewählt.<br />
+            Bitte wählen Sie oben einen Kurs!
+        </p>
+    </mat-card-content>
+</mat-card>
+<div class="formWrapper" *ngIf="currentKurs != null">
+
     <form [formGroup]="formVorlesungen" (ngSubmit)="onSubmit(formVorlesungen.value)" #submitKurs="ngForm">
         <div formArrayName="vorlesungenStunden"
             *ngFor="let item of formVorlesungen['controls'].vorlesungenStunden['controls']; let i= index">
@@ -21,15 +20,15 @@
                 <div class="formdataVorlesungen">
                     <mat-form-field appearance="legacy">
                         <mat-label>Titel der Vorlesung</mat-label>
-                        <input matInput formControlName="Vorlesungstitel" placeholder="Titel der Vorlesung">
+                        <input matInput formControlName="name" placeholder="Titel der Vorlesung">
                     </mat-form-field>
                     <mat-form-field appearance="legacy">
                         <mat-label>Anzahl der Stunden</mat-label>
-                        <input matInput formControlName="StundenanzahlVl">
+                        <input matInput formControlName="maxStunden">
                     </mat-form-field>
                     <mat-form-field id="dozentenAuswahl"> 
                         <mat-label class="wählen">Dozent auswählen</mat-label>
-                            <mat-select formControlName="DozentVl"> 
+                            <mat-select formControlName="dozent"> 
                                 <mat-option *ngFor="let dozent of dozent" [value]="dozent.vorname+dozent.nachname"> 
                                     {{dozent.titel}}{{dozent.vorname}} {{dozent.nachname}}
                                 </mat-option>

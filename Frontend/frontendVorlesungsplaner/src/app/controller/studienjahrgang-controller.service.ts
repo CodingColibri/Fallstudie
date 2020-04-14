@@ -18,14 +18,7 @@ export class StudienjahrgangController {
   }
 
   loadData() {
-    //TODO: GET Request
-    // const url = this.backendUrl + "vpn";
-    // this.httpClient.get(url).subscribe((data: any[]) => {
-    //   let vpnPeers: VPNPeer[] = data.map(item => {
-    //     return this.vpnPeerAdapter.adapt(item);
-    //   });
-    //   this.kursListe.next(vpnPeers);
-    // });
+
     let temp: Studienjahrgang[] = [
       new Studienjahrgang(2016),
       new Studienjahrgang(2017),

@@ -11,15 +11,15 @@
                 <div class="formdataVorlesungen">
                     <mat-form-field appearance="legacy">
                         <mat-label>Kursname</mat-label>
-                        <input matInput name="Kursname" formControlName="Kursname" placeholder="Kursname">
+                        <input matInput name="Kursname" formControlName="name" placeholder="Kursname">
                     </mat-form-field>
                     <mat-form-field appearance="legacy">
                         <mat-label>Jahr</mat-label>
-                        <input matInput formControlName="Jahr" placeholder="Jahr">
+                        <input matInput formControlName="studienjahrgang" placeholder="Jahr">
                     </mat-form-field>
                     <mat-form-field appearance="legacy">
                         <mat-label>Studiengangsleiter</mat-label>
-                        <input matInput formControlName="Studiengangsleiter" placeholder="Studiengangsleiter">
+                        <input matInput formControlName="studiengangsleiter" placeholder="Studiengangsleiter">
                     </mat-form-field>
                     <button id="removeVorlesung" (click)='removeInput(this.i)'>x</button>
                 </div>

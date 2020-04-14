@@ -7,7 +7,7 @@
     <h3>Dozenten</h3>
 
     <!--Add dynamic rows-->
-    <form [formGroup]='formDozenten' (ngSubmit)="onSubmit(formDozenten.value)" #submitDozenten="ngForm">
+    <form [formGroup]='formDozenten' (ngSubmit)="onSubmit()" #submitDozenten="ngForm">
         <div formArrayName="dozentenDaten"
             *ngFor="let item of formDozenten['controls'].dozentenDaten['controls']; let i= index">
             <!---->
@@ -15,19 +15,19 @@
                 <div class="formdataDozenten">
                     <mat-form-field appearance="legacy" id="form-titel">
                         <mat-label>Titel</mat-label>
-                        <input matInput formControlName="Titel" placeholder="Titel">
+                        <input matInput formControlName="titel" placeholder="Titel">
                     </mat-form-field>
                     <mat-form-field appearance="legacy" id="form-vorname">
                         <mat-label>Vorname</mat-label>
-                        <input matInput formControlName="Vorname" placeholder="Vorname">
+                        <input matInput formControlName="vorname" placeholder="Vorname">
                     </mat-form-field>
                     <mat-form-field appearance="legacy" id="form-nachname">
                         <mat-label>Nachname</mat-label>
-                        <input matInput formControlName="Nachname" placeholder="Nachname">
+                        <input matInput formControlName="nachname" placeholder="Nachname">
                     </mat-form-field>
                     <mat-form-field appearance="legacy" id="form-mail">
                         <mat-label>E-Mail Adresse</mat-label>
-                        <input matInput formControlName="Mail" placeholder="E-Mail Adresse">
+                        <input matInput formControlName="mail" placeholder="E-Mail Adresse">
                     </mat-form-field>
                     <button id="removeDozent" (click)='removeInput(this.i)'>x</button>
                 </div>

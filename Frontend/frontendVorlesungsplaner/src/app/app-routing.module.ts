@@ -19,8 +19,9 @@ import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersi
 import { LoginViewsComponent } from './login-views/login-views.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './helpers/auth.guard';
+import { UserRoleEnum } from './models/user';
 
-//TODO: Routes je nach Login anpassen => Admin-/ Dozentensicht
+//TODO: Routes je nach Login anpassen => Admin-/ Dozentensicht => data: { roles: [UserRoleEnum.Admin] }
 const routes: Routes = [
   { path: '', component: WelcomebuttonsComponent, canActivate:[AuthGuard]},
   { path: 'login', component: LoginComponent },
@@ -28,7 +29,7 @@ const routes: Routes = [
   //otherwise redirect to home
   // { path: '**', redirectTo: ''},
   //ADMIN-VIEW
-  { path: 'willkommen', component: WelcomebuttonsComponent}, 
+  { path: 'willkommen', component: WelcomebuttonsComponent, data: { roles: [UserRoleEnum.Admin] }}, 
   { path: 'dashboard', component: AdminDashboardComponent },
   { path: 'kurs-dozent-registrierung', component: KursDozentenRegistrierungComponent},
   { path: 'semester-anlegen', component: SemesteranlegenComponent },
