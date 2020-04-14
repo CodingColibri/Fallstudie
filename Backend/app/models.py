@@ -69,6 +69,7 @@ class Kurs(db.Model):
         out = {}
         out['name'] = self.name
         out['studiengangsleiter'] = self.studiengangsleiter
+        out['studienjahr'] = self.studienjahrgang
         
         vorlesungen = []
         for vorlesung in self.vorlesungen:
