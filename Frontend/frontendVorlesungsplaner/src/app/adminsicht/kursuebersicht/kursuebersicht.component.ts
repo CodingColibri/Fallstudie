@@ -17,8 +17,4 @@ export class KursuebersichtComponent {
     });
     this.kursController.loadData();
   }
-
-  // addData(){
-  //   this.kursController.addKurs(new Kurs("WWI2016X", 2020,[],"test"));
-  // }
 }

@@ -12,7 +12,7 @@
 </mat-card>
 <div class="formWrapper" *ngIf="currentKurs != null">
 
-    <form [formGroup]="formVorlesungen" (ngSubmit)="onSubmit(formVorlesungen.value)" #submitKurs="ngForm">
+    <form [formGroup]="formVorlesungen" (ngSubmit)="onSubmit()" #submitKurs="ngForm">
         <div formArrayName="vorlesungenStunden"
             *ngFor="let item of formVorlesungen['controls'].vorlesungenStunden['controls']; let i= index">
             <!---->
@@ -29,7 +29,7 @@
                     <mat-form-field id="dozentenAuswahl"> 
                         <mat-label class="wählen">Dozent auswählen</mat-label>
                             <mat-select formControlName="dozent"> 
-                                <mat-option *ngFor="let dozent of dozent" [value]="dozent.vorname+dozent.nachname"> 
+                                <mat-option *ngFor="let dozent of dozentenListe" [value]="dozent.vorname+dozent.nachname"> 
                                     {{dozent.titel}}{{dozent.vorname}} {{dozent.nachname}}
                                 </mat-option>
                             </mat-select>

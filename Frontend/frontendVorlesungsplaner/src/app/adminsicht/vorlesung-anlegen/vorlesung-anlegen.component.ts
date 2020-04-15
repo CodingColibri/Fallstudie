@@ -9,6 +9,9 @@ import { DozentenController } from '@app/controller/dozenten-controller.service'
 import { DozentenKalenderComponent } from '@app/dozentensicht/dozentenkalender/dozentenkalender.component';
 import { ToastService } from '@app/services/toast.service';
 import { Vorlesung } from '@app/models/vorlesungen-models';
+import { VorlesungenController } from '@app/controller/vorlesungen-controller.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { BackendErrorResponse } from '@app/models/user';
 
 @Component({
   selector: 'vorlesung-anlegen',
@@ -27,16 +30,12 @@ export class VorlesunganlegenComponent {
   private dozentenListe: Dozent[];
   public formKurs: FormGroup;
   error = '';
-
   formVorlesungen: FormGroup;
-  Kursname: string;
-  Jahr: number;
-  Semester: number;
-  DozentVl: string;
 
   constructor(private fb: FormBuilder,
     public kursController: KursController,
     public dozentenController: DozentenController,
+    public vorlesungenController: VorlesungenController,
     private toastService: ToastService) {
       this.kursController.currentKurs.subscribe(kurs => {
         this.currentKurs = kurs;
@@ -69,13 +68,12 @@ export class VorlesunganlegenComponent {
       this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
       return;
     }
-/*TODO: IN PROGRESS.....*/
     for (const vorlesung of kurs.vorlesungen) {
       this.vorlesungenStunden.push(
         this.fb.group({
           name: vorlesung.name,
         maxStunden: vorlesung.maxStunden,
-        dozent: vorlesung.dozent
+        dozent: vorlesung.dozenten
         } as Vorlesung)
       )
     }
@@ -93,10 +91,27 @@ export class VorlesunganlegenComponent {
     } as Vorlesung))
   }
 
-  onSubmit() {
-
-    // //TODO: Daten aus dem Formular in den kursController schreiben + ans Backend senden
-    console.log(this.kursController)
+  public async onSubmit() {
+    //TODO: Nachfragen => Blocked by CORS policy
+    const vorlesungen: Vorlesung[] = [];
+    this.formVorlesungen.value.vorlesungenStunden.forEach(vorlesung => {
+      vorlesungen.push(vorlesung);
+    });
+    console.log(vorlesungen);
+    try {
+      const response = await this.vorlesungenController.saveVorlesungen(this.currentKurs, vorlesungen);
+      this.toastService.addSuccess("Vorlesung erfolgreich gespeichert");
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        console.error(err);
+        const error = err.error as BackendErrorResponse;
+        this.error = error.msg;
+        this.toastService.addError(error.msg);
+      } else {
+        console.error(err);
+        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+      }
+    }
   }
 
   removeInput(index) {

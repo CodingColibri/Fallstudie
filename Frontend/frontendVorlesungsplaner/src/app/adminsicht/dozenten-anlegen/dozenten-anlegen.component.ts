@@ -22,11 +22,8 @@ export class DozentenanlegenComponent {
     public currentKurs: string;
     private kursListe: Kurs[];
     private dozentenListe: Dozent[];
+    dozenten: Dozent[] = []; 
     error = '';
-    Titel: string;
-    Vorname: string;
-    Nachname: string;
-    Mail: string;
 
     constructor(private fb: FormBuilder,
         public dozentenController: DozentenController,
@@ -61,13 +58,13 @@ export class DozentenanlegenComponent {
 
     public async onSubmit() {
         //TODO: Nachfragen: 400 Bad Request, Missing Mail Parameter?!
-        const dozenten: Dozent[] = [];
-        this.formDozenten.value.dozentenDaten.forEach(dozent => {
-            dozenten.push(dozent);
-        });
-        console.log(dozenten);
+                
         try {
-            const response = await this.dozentenController.saveDozenten(dozenten);
+            this.formDozenten.value.dozentenDaten.forEach(dozent => {
+                this.dozenten.push(dozent);
+            });
+            console.log(this.dozenten);
+            const response = await this.dozentenController.saveDozenten(this.dozenten);
             this.toastService.addSuccess("Semester erfolgreich gespeichert");
         } catch (err) {
             if (err instanceof HttpErrorResponse) {

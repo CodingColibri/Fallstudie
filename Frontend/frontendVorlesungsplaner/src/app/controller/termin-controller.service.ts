@@ -7,7 +7,7 @@ import { Termin } from '@app/models/termin-models';
 @Injectable({
   providedIn: "root"
 })
-export class VorlesungenController {
+export class TerminController {
   private backendUrl = environment.apiUrl;
   public terminListe: BehaviorSubject<Termin[]>;
 
