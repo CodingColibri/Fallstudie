@@ -214,9 +214,9 @@ def sign_up():
 
     mail = request.json.get('mail', None)
     password = request.json.get('password', None)
-    if not mail:
+    if mail is None:
         return jsonify({"msg": "Missing mail parameter"}), 400
-    if not password:
+    if password is None:
         return jsonify({"msg": "Missing password parameter"}), 400
 
     if Dozent.query.filter_by(mail=mail).first() is not None:
