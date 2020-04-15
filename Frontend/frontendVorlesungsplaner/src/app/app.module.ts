@@ -94,7 +94,7 @@ import { ToastComponent } from './toast/toast.component';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend
-    fakeBackendProvider //TODO: Für echte API auskommentieren
+    fakeBackendProvider //TODO Für echte API auskommentieren
   ],
   bootstrap: [AppComponent],
   schemas: [

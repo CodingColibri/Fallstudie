@@ -1,5 +1,5 @@
 <div class="pop-up-calendar">
-    <!-- TODO: Date Objekt German (Montag statt Monday, Januar statt Januaray) -->
+    <!-- TODO Date Objekt German (Montag statt Monday, Januar statt Januaray) -->
     <h3 id="monats-titel">{{calenderDay.date | date:'MMMM'}} <span
             class="text-grey">{{calenderDay.date | date:'yyyy'}}<br>
             {{calenderDay.date | date: 'EEEE, dd.MM.y'}}</span></h3>
@@ -11,8 +11,8 @@
         <p>
             <span class="text-grey">
                 <div class="time-frame-box">
-                    <input type="time" class="time-box" [ngModel]="calenderDay.morning.startDate | date: 'hh:mm'" (ngModelChange)="handleTimeStartMorning($event)">
-                    <p>-</p><input type="time" class="time-box" [ngModel]="calenderDay.morning.endDate | date: 'hh:mm'" (ngModelChange)="handleTimeEndMorning($event)">
+                    <input type="time" class="time-box" [ngModel]="calenderDay.morning.start | date: 'hh:mm'" (ngModelChange)="handleTimeStartMorning($event)">
+                    <p>-</p><input type="time" class="time-box" [ngModel]="calenderDay.morning.ende | date: 'hh:mm'" (ngModelChange)="handleTimeEndMorning($event)">
                 </div>
             </span>
         </p>
@@ -32,9 +32,9 @@
         <p>
             <span class="text-grey">
                 <div class="time-frame-box">
-                    <input type="time" class="time-box" [ngModel]="calenderDay.afternoon.startDate | date: 'HH:mm'" (ngModelChange)="handleTimeStartAfternoon($event)">
+                    <input type="time" class="time-box" [ngModel]="calenderDay.afternoon.start | date: 'HH:mm'" (ngModelChange)="handleTimeStartAfternoon($event)">
                     <p>-</p>
-                    <input type="time" class="time-box" [ngModel]="calenderDay.afternoon.endDate | date: 'HH:mm'" (ngModelChange)="handleTimeEndAfternoon($event)">
+                    <input type="time" class="time-box" [ngModel]="calenderDay.afternoon.ende | date: 'HH:mm'" (ngModelChange)="handleTimeEndAfternoon($event)">
                 </div>
             </span>
         </p>

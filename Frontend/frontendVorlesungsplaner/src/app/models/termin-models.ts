@@ -1,26 +1,12 @@
 import { Dozent } from './dozenten-models';
 import { Vorlesung } from './vorlesungen-models';
 
-export class Termin {
+export interface Termin {
     date?: Date;
+    name?: Vorlesung["name"]; //Nachfragen: Greift man so auf die Property "name" in Vorlesung zu?
     stunden?: number; //endDate-startDate //=> im Backend gespeichert
-    /*TODO max.Stunden sollen aus der Funktion Admin-Vorlesung-anlegen genommen werden,
-    & die aktuelle Stundenzahl der Vorlesung beim Eintragen soll dann immer abgeglichen werden.
-    Ist die max. Stundenanzahl erreicht, kommt eine Warnmeldung.*/
     start: Date;
     ende: Date;
-    startDate?: Date; //=> wird vom Backend als Array übergeben [Jahr, Monat, Tag, Stunden, Minuten]
-    endDate?: Date;    morningOrAfternoon?: String //=> im Backend gespeichert
-    dozent?: Dozent[]; //=>TODO: Soll von Login übergeben werden
-    vorlesung?: Vorlesung[];
-    
-    constructor(date: Date, stunden: number, startDate: Date, endDate: Date, morningOrAfternoon: String,
-        dozent: Dozent[], vorlesung: Vorlesung[]) {
-        this.stunden = stunden;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.morningOrAfternoon = morningOrAfternoon;
-        this.dozent = dozent;
-        this.vorlesung = vorlesung;
-        }
+    morningOrAfternoon?: String
+    dozent?: Dozent[]; //=>TODO Soll von Login übergeben werden
 }

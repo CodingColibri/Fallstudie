@@ -15,7 +15,7 @@
                 <div class="formdataDozenten">
                     <mat-form-field appearance="legacy" id="form-titel">
                         <mat-label>Titel</mat-label>
-                        <input matInput formControlName="titel" placeholder="Titel">
+                        <input matInput formControlName="titel" placeholder="Prof. Dr.">
                     </mat-form-field>
                     <mat-form-field appearance="legacy" id="form-vorname">
                         <mat-label>Vorname</mat-label>
@@ -27,7 +27,11 @@
                     </mat-form-field>
                     <mat-form-field appearance="legacy" id="form-mail">
                         <mat-label>E-Mail Adresse</mat-label>
-                        <input matInput formControlName="mail" placeholder="E-Mail Adresse">
+                        <input matInput formControlName="mail" placeholder="example@dhbw-stuttgart.de">
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy" id="form-password">
+                        <mat-label>Passwort</mat-label>
+                        <input matInput type="password" formControlName="password" placeholder="Passwort">
                     </mat-form-field>
                     <button id="removeDozent" (click)='removeInput(this.i)'>x</button>
                 </div>

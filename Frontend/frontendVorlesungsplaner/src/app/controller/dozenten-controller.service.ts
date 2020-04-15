@@ -11,22 +11,18 @@ import { KursController } from './kurs-controller.service';
 })
 export class DozentenController {
   public dozentenListe: BehaviorSubject<Dozent[]>;
-  public currentKurs: string = undefined;
+  public currentKurs: BehaviorSubject<string>;
 
   constructor(
     private restService: RestService,
     private kursController: KursController
   ) {
-    this.kursController.currentKurs.subscribe(kurs => {
-      if (kurs) {
-        this.currentKurs = kurs;
-      }
-    });
     this.dozentenListe = new BehaviorSubject<Dozent[]>(null);
+    this.currentKurs = new BehaviorSubject<string>(null);
   }
 
-  public async saveDozenten(dozenten: Dozent[]): Promise<DozentenResponse> {
-    const response = await this.restService.saveDozenten(dozenten);
+  public async saveDozenten(dozent: Dozent): Promise<DozentenResponse> {
+    const response = await this.restService.saveDozenten(dozent);
 
     return response;
   }

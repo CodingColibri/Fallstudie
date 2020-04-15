@@ -14,7 +14,7 @@ export class SemesteruebersichtComponent {
   public currentKurs: string;
   public kursListe: Kurs[];
 
-  //TODO: Semesterübersicht soll sich nach select Studienjahrgang aktualisieren (=> Verknüpfung)
+  //TODO Semesterübersicht soll sich nach select Studienjahrgang aktualisieren (=> Verknüpfung)
   constructor(public kursController: KursController,
     private toastService: ToastService) {
     this.kursController.currentKurs.subscribe(kurs => {

@@ -99,19 +99,16 @@ export class RestService {
     /**********************************************
   /* Dozenten Requests
   /**********************************************/
-  public async saveDozenten(dozenten: Dozent[]): Promise<DozentenResponse> {
+  public async saveDozenten(dozent: Dozent): Promise<DozentenResponse> {
     const body = {
-      dozenten: []
+      titel: dozent.titel,
+      vorname: dozent.vorname,
+      nachname: dozent.nachname,
+      mail: dozent.mail,
+      role: dozent.role,
+      password: dozent.password,
     } as DozentenRequest;
-    for (const dozent of dozenten) {
-      body.dozenten.push({
-        titel: dozent.titel,
-        vorname: dozent.vorname,
-        nachname: dozent.nachname,
-        mail: dozent.mail,
-        role: dozent.role
-      })
-    }
+
     return await this.http.post<DozentenResponse>(`${environment.backendUrl}/dozent`, body).toPromise();
   }
     /**********************************************

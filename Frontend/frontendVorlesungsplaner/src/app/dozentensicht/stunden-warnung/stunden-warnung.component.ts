@@ -10,7 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
     styleUrls: ['./stunden-warnung.component.css']
 })
 
-//TODO: Muss noch in den Kalender implementiert werden => Ist maxStunden erreicht, Warnung
+//TODO Muss noch in den Kalender implementiert werden => Ist maxStunden erreicht, Warnung
 export class StundenWarnungComponent {
     labelPosition: 'before' | 'after' = 'after';
 }

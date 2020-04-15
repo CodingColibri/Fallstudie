@@ -85,7 +85,7 @@ export class SemesteranlegenComponent {
   }
 
   public async onSubmit() {
-    //TODO: Nachfragen => "Erfolgreich, aber blocked by CORS policy"
+    //TODO Nachfragen => "Erfolgreich, aber blocked by CORS policy"
     const semesters: Semester[] = [];
     this.formSemester.value.semesterData.forEach(semester => {
       semesters.push(semester);
@@ -105,7 +105,7 @@ export class SemesteranlegenComponent {
         this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
       }
     }
-    //TODO: Backend add overwrite all semesters
+    //TODO Backend add overwrite all semesters
   }
 
   public removeInput(index) {

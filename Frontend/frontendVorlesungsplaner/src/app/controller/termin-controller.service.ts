@@ -18,22 +18,13 @@ export class TerminController {
   }
 
   loadData() {
-    //TODO: GET Request
-    // const url = this.backendUrl + "vpn";
-    // this.httpClient.get(url).subscribe((data: any[]) => {
-    //   let vpnPeers: VPNPeer[] = data.map(item => {
-    //     return this.vpnPeerAdapter.adapt(item);
-    //   });
-    //   this.kursListe.next(vpnPeers);
-    // });
-    let temp: Termin[] = [
-        new Termin(new Date(2020, 3, 2),3,new Date(2020,3,3,9,0),new Date(2020,3,3,12,15),'morning',
-        [],[]), //TODO: Vorlesung in den Termin pushen
-        new Termin(new Date(2020, 3, 24),3,new Date(2020,3,4,13,15),new Date(2020,3,24,16,30),'afternoon',
-        [],[]), 
-    ];
-
-    this.terminListe.next(temp); //pusht in Beh. Subject
+    // let temp: Termin[] = [
+    //     new Termin(new Date(2020, 3, 2),3,new Date(2020,3,3,9,0),new Date(2020,3,3,12,15),'morning',
+    //     [],[]), 
+    //     new Termin(new Date(2020, 3, 24),3,new Date(2020,3,4,13,15),new Date(2020,3,24,16,30),'afternoon',
+    //     [],[]), 
+    // ];
+    // this.terminListe.next(temp); //pusht in Beh. Subject
   }
 
   addTermin(termin: Termin) {

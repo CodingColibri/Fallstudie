@@ -44,6 +44,9 @@ button:hover {
 #form-nachname {
     width: 110px;
 }
+#form-password {
+    width: 110px;
+}
 #form-mail {
     width: 230px;
 }

@@ -21,7 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { UserRoleEnum } from './models/user';
 
-//TODO: Routes je nach Login anpassen => Admin-/ Dozentensicht => data: { roles: [UserRoleEnum.Admin] }
+//TODO Routes je nach Login anpassen => Admin-/ Dozentensicht => data: { roles: [UserRoleEnum.Admin] }
 const routes: Routes = [
   { path: '', component: WelcomebuttonsComponent, canActivate:[AuthGuard]},
   { path: 'login', component: LoginComponent },

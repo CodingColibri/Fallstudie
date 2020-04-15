@@ -12,8 +12,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'vorlesung-eintragen',
-  templateUrl: '././vorlesung-eintragen.component.html',
-  styleUrls: ['././vorlesung-eintragen.component.css']
+  templateUrl: './vorlesung-eintragen.component.html',
+  styleUrls: ['./vorlesung-eintragen.component.css']
 })
 
 export class VorlesungEintragenComponent {
@@ -33,10 +33,10 @@ export class VorlesungEintragenComponent {
   ];
 
   addVorlesung(): void {
-  //TODO: POST Request an Backend Service
+  //TODO POST Request an Backend Service
     this.dialogRef.close(this.calenderDay);
   }
-  //TODO: Dialogfester => Vorlesung löschen implementieren oder leere Vorlesung = null?
+  //TODO Dialogfester => Vorlesung löschen implementieren oder leere Vorlesung = null?
   close():void {
     this.dialogRef.close();
   }
@@ -45,30 +45,26 @@ export class VorlesungEintragenComponent {
   
   handleTimeStartMorning(date) {
     var array = date.split(":")
-    this.calenderDay.morning.startDate.setHours(array[0],array[1]);
+    this.calenderDay.morning.start.setHours(array[0],array[1]);
   }
   handleTimeEndMorning(date) {
     var array = date.split(":")
-    this.calenderDay.morning.endDate.setHours(array[0],array[1]);
+    this.calenderDay.morning.ende.setHours(array[0],array[1]);
   }
   handleTimeStartAfternoon(date) {
     var array = date.split(":")
-    this.calenderDay.afternoon.startDate.setHours(array[0],array[1]);
+    this.calenderDay.afternoon.start.setHours(array[0],array[1]);
   }
   handleTimeEndAfternoon(date) {
     var array = date.split(":")
-    this.calenderDay.afternoon.endDate.setHours(array[0],array[1]);
+    this.calenderDay.afternoon.ende.setHours(array[0],array[1]);
   }
 
   constructor(
     private dialogRef: MatDialogRef<VorlesungEintragenComponent>,
     @Inject(MAT_DIALOG_DATA) data
   ) {
-    //console.log(this.calenderDay.afternoon.endDate);
     this.calenderDay = data;
-    //this.afternoonStartDate = this.calenderDay.afternoon?.startDate || new Date(this.calenderDay.afternoon.startDate.setHours(13,15));
-    //=> "||" if else inline; if (1) true, dann Wert als Value gesetzt, ansonsten (2)
-    //this.afternoonEndDate = this.calenderDay.afternoon?.endDate || new Date(this.calenderDay.afternoon.startDate.setHours(16,30));
     console.log("(DialogComponent) Übergebene Daten: " + this.calenderDay); 
   }
 }

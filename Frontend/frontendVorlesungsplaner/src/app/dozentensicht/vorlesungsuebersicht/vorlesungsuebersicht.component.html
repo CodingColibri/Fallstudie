@@ -2,8 +2,15 @@
 <div class="title">
     <h1>Vorlesungsübersicht</h1>
 </div>
-
-<div class="vorlesungsliste">
+<mat-card class="error" *ngIf="!currentKurs">
+    <mat-card-content>
+        <p>
+            Es wurde noch kein Kurs ausgewählt.<br />
+            Bitte wählen Sie oben einen Kurs!
+        </p>
+    </mat-card-content>
+</mat-card>
+<div class="vorlesungsliste" *ngIf="currentKurs != null">
     <div *ngFor="let vorlesung of vlService.vorlesungen">
         <tr>
             <td class="tdDate">{{vorlesung.date|date: 'EE, dd.MM.y'}}</td>

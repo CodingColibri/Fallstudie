@@ -24,7 +24,7 @@ export interface User {
     mail: string;
     firstName: string;
     lastName: string;
-    password?: string; //TODO: Remove
+    password?: string; //TODO Remove
     role: UserRoleEnum;
 }
 

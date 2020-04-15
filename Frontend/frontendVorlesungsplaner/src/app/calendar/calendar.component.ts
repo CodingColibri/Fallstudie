@@ -37,7 +37,7 @@ export class KalenderComponent {
     calenderData: CalenderData = {
         weeks: []
     }
-//TODO: Previous + Next Methode Fehlerbehebung (Klicken funktioniert nur 2x)
+//TODO Previous + Next Methode Fehlerbehebung (Klicken funktioniert nur 2x)
     previous() {
         this.currentMonth = this.months[this.selectedMonth-1].name;
         this.selectedMonth = this.selectedMonth-1;
@@ -76,8 +76,8 @@ export class KalenderComponent {
                 name: data.morning.name,
                 startDate: data.morning.startDate,
                 endDate: data.morning.endDate
-                //TODO: Kurs mit übergeben
-                //TODO: Anzahl Stunden mit übergeben (berechnen)
+                //TODO Kurs mit übergeben
+                //TODO Anzahl Stunden mit übergeben (berechnen)
             }
             let updateAfternoon = {
                 date: data.date,
@@ -85,13 +85,13 @@ export class KalenderComponent {
                 name: data.afternoon.name,
                 startDate: data.afternoon.startDate,
                 endDate: data.afternoon.endDate
-                //TODO: Kurs mit übergeben
-                //TODO: Anzahl Stunden mit übergeben (berechnen)
+                //TODO Kurs mit übergeben
+                //TODO Anzahl Stunden mit übergeben (berechnen)
             }
             if (data.morning.morningOrAfternoon ==="morning" && data.morning.name !== null) {
                 this.vlService.vorlesungen.push(updateMorning);
             } 
-            //TODO: Leere Vorlesungen sollen nicht in der Vorlesungsübersicht angezeigt werden
+            //TODO Leere Vorlesungen sollen nicht in der Vorlesungsübersicht angezeigt werden
             if (data.afternoon.morningOrAfternoon ==="afternoon" && data.afternoon.name !== null){
                 this.vlService.vorlesungen.push(updateAfternoon);
             }
@@ -168,15 +168,15 @@ export class KalenderComponent {
                                 this.calenderDay.morning = {
                                     date: vl.date,
                                     name: vl.name,
-                                    endDate: vl.endDate,
-                                    startDate: vl.startDate
+                                    ende: vl.ende,
+                                    start: vl.start
                                 }
                             } else {
                                 this.calenderDay.afternoon = {
                                     date: vl.date,
                                     name: vl.name,
-                                    endDate: vl.endDate,
-                                    startDate: vl.startDate
+                                    ende: vl.ende,
+                                    start: vl.start
                                 }
                             } 
                         });

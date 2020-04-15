@@ -33,12 +33,14 @@ export class DozentenanlegenComponent {
         this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
             this.kursListe = kurse;
         });
-        this.dozentenController.dozentenListe.subscribe((dozenten: Dozent[]) => {
-            this.dozentenListe = dozenten;
-        });
+        // this.dozentenController.dozentenListe.subscribe((dozenten: Dozent[]) => {
+        //     this.dozentenListe = dozenten;
+        // });
         this.formDozenten = this.fb.group({
             dozentenDaten: this.fb.array([])
         });
+        //TODO Wieso werden Dozenten nicht gespeichert?
+        console.log(this.dozenten);
     }
 
     public get dozentenDaten(): FormArray {
@@ -52,20 +54,19 @@ export class DozentenanlegenComponent {
             vorname: undefined,
             nachname: undefined,
             mail: undefined,
-            role: 'dozent'
+            role: 'dozent',
+            password: undefined
         } as Dozent))
     }
 
-    public async onSubmit() {
-        //TODO: Nachfragen: 400 Bad Request, Missing Mail Parameter?!
-                
+    public async onSubmit() { 
         try {
-            this.formDozenten.value.dozentenDaten.forEach(dozent => {
-                this.dozenten.push(dozent);
+            this.formDozenten.controls.dozentenDaten.value.forEach(async dozentValues => {
+            const response = await this.dozentenController.saveDozenten(dozentValues);
+            this.dozenten.push(dozentValues);
+                console.log(this.dozenten);
             });
-            console.log(this.dozenten);
-            const response = await this.dozentenController.saveDozenten(this.dozenten);
-            this.toastService.addSuccess("Semester erfolgreich gespeichert");
+            this.toastService.addSuccess("Erfolgreich gespeichert");
         } catch (err) {
             if (err instanceof HttpErrorResponse) {
                 console.error(err);

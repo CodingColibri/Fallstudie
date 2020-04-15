@@ -23,11 +23,10 @@ import { BackendErrorResponse } from '@app/models/user';
 export class VorlesunganlegenComponent {
 
   kurse: Kurs[]= [];
-  dozent: Dozent[]= [];
+  dozenten: Dozent[]= [];
   
   public currentKurs: string;
   private kursListe: Kurs[];
-  private dozentenListe: Dozent[];
   public formKurs: FormGroup;
   error = '';
   formVorlesungen: FormGroup;
@@ -47,9 +46,10 @@ export class VorlesunganlegenComponent {
         this.kursChanged();
       });
       this.dozentenController.dozentenListe.subscribe(dozent => {
-        this.dozentenListe = dozent;
-        this.kursChanged();
+        this.dozenten = dozent;
+        // this.kursChanged();
       }); 
+      console.log(this.dozenten);
   }
 
   private kursChanged() {
@@ -71,7 +71,7 @@ export class VorlesunganlegenComponent {
     for (const vorlesung of kurs.vorlesungen) {
       this.vorlesungenStunden.push(
         this.fb.group({
-          name: vorlesung.name,
+        name: vorlesung.name,
         maxStunden: vorlesung.maxStunden,
         dozent: vorlesung.dozenten
         } as Vorlesung)
@@ -92,7 +92,7 @@ export class VorlesunganlegenComponent {
   }
 
   public async onSubmit() {
-    //TODO: Nachfragen => Blocked by CORS policy
+    //TODO Nachfragen => Blocked by CORS policy
     const vorlesungen: Vorlesung[] = [];
     this.formVorlesungen.value.vorlesungenStunden.forEach(vorlesung => {
       vorlesungen.push(vorlesung);

@@ -47,7 +47,7 @@ export class KursanlegenComponent {
 
   public async onSubmit() {
     // const kurse: Kurs[]= [];
-    //TODO: Nachfragen => Wird angelegt, jedoch 2x
+    //TODO Nachfragen => Wird angelegt, jedoch 2x
     try {
       this.formKurs.value.kursData.forEach(async kurs => {
         this.kurse.push(kurs);
