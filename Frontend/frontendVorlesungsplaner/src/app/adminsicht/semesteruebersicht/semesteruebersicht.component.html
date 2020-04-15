@@ -2,20 +2,16 @@
 <div class="title">
     <h1>Semesterübersicht</h1>
 </div>
-<div class="selectStudienJg">
-<mat-form-field> 
-    <mat-label class="wählen">Studienjahrgang wählen</mat-label>
-        <mat-select> 
-            <mat-option *ngFor="let studienjahrgang of studienjahrgang" [value]="studienjahrgang.jahr"> 
-                {{studienjahrgang.jahr}}
-            </mat-option>
-        </mat-select>
-</mat-form-field>  
-</div>
-<div class="kursliste">
-
-
-    <div *ngFor="let kurs of kurse">
+<mat-card class="error" *ngIf="!currentKurs">
+    <mat-card-content>
+        <p>
+            Es wurde noch kein Kurs ausgewählt.<br />
+            Bitte wählen Sie oben einen Kurs!
+        </p>
+    </mat-card-content>
+</mat-card>
+<div class="kursliste" *ngIf="currentKurs != null">
+    <div *ngFor="let kurs of kursliste">
         <div *ngFor="let semester of kurs.semester">
         <tr>
             <td class="semesterNr">{{semester.nummer}}. Semester</td>

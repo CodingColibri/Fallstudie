@@ -8,6 +8,8 @@ import { first } from 'rxjs/operators';
 import { Kurs } from '@app/models/kurse-models';
 import { KursController } from '@app/controller/kurs-controller.service';
 import { MatSelectChange } from '@angular/material/select';
+import { Studienjahrgang } from '@app/models/studienjahrgang-models';
+import { StudienjahrgangController } from '@app/controller/studienjahrgang-controller.service';
 
 @Component({
     selector: 'adminheader',
@@ -23,7 +25,8 @@ export class AdminheaderComponent {
     constructor(private userService: UserService,
         private router: Router,
         private authenticationService: AuthenticationService,
-        public kursController: KursController) {
+        public kursController: KursController,
+        public studienJgController: StudienjahrgangController) {
         this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
             this.kurse = kurse;
         });

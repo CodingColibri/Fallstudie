@@ -5,19 +5,17 @@
     </a>
 
 </div>
-
 <div class="user-kurse">
     <mat-form-field> 
-        <!-- TODO: Ausgewählter Kurs soll während der Session gespeichert werden 
-        (& in die jeweiligen Formulare schon mit übergeben werden) -->
+
         <mat-label class="wählen">  Kurs auswählen </mat-label>
             <mat-select (selectionChange)="changeKurs($event)"> 
                 <mat-option *ngFor="let kurs of kurse" [value]="kurs.name"> 
                     {{kurs.name}}
                 </mat-option>
             </mat-select>
-    </mat-form-field>   
-    <!-- TODO: Name des eingeloggten Users soll angezeigt werden -->
+    </mat-form-field>  
+
     <label class="admin" *ngFor="let user of users">{{user.mail}}</label>
     <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">
 

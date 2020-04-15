@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Kurs } from '@app/models/kurse-models';
 import { KursController } from '@app/controller/kurs-controller.service';
-import { Studienjahrgang } from '@app/models/studienjahrgang-models';
-import { StudienjahrgangController } from '@app/controller/studienjahrgang-controller.service';
+import { ToastService } from '@app/services/toast.service';
 
 @Component({
   selector: 'semesteruebersicht',
@@ -12,22 +11,19 @@ import { StudienjahrgangController } from '@app/controller/studienjahrgang-contr
 export class SemesteruebersichtComponent {
 
   kurse: Kurs[]= [];
-  studienjahrgang: Studienjahrgang[] = [];
+  public currentKurs: string;
+  private kursListe: Kurs[]
+
   //TODO: Semesterübersicht soll sich nach select Studienjahrgang aktualisieren (=> Verknüpfung)
   constructor(public kursController: KursController,
-    public studienJgController: StudienjahrgangController) {
-    this.kursController.kursListe.subscribe((data: Kurs[])=> {
-      this.kurse = data;
+    private toastService: ToastService) {
+    this.kursController.currentKurs.subscribe(kurs => {
+      this.currentKurs = kurs;
     });
-    this.studienJgController.studienjahrListe.subscribe((data: Studienjahrgang[])=> {
-      this.studienjahrgang = data;
+
+    this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
+      this.kursListe = kurse;
     });
-    this.kursController.loadData();
-    this.studienJgController.loadData();
-  }
-  
-  reloadData() {
-    this.kursController.loadData();
   }
 
 }

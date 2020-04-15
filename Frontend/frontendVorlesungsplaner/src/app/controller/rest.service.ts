@@ -5,6 +5,7 @@ import { Semester, SemestersRequest, SemestersResponse } from '@app/models/semes
 import { LoginRequest, LoginResponse } from '@app/models/user';
 import { environment } from '@environments/environment';
 import { map } from 'rxjs/operators';
+import { Dozent, DozentenResponse, DozentenRequest } from '@app/models/dozenten-models';
 
 @Injectable({
   providedIn: 'root'
@@ -93,5 +94,24 @@ export class RestService {
       })
     }
     return await this.http.post<SemestersResponse>(`${environment.backendUrl}/kurs/${kurs_name}/semester`, body).toPromise();
+  }
+    /**********************************************
+  /* Dozenten Requests
+  /**********************************************/
+  public async saveDozenten(dozenten: Dozent[]): Promise<DozentenResponse> {
+    const body = {
+      dozenten: []
+    } as DozentenRequest;
+    for (const dozent of dozenten) {
+      body.dozenten.push({
+        titel: dozent.titel,
+        vorname: dozent.vorname,
+        nachname: dozent.nachname,
+        mail: dozent.mail,
+        role: dozent.role
+      })
+    }
+    // TODO: Backend wird noch gechanged: (`${environment.backendUrl}/kurs/${kurs_name}/semester`, body)
+    return await this.http.post<DozentenResponse>(`${environment.backendUrl}/dozent`, body).toPromise();
   }
 }

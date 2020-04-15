@@ -2,9 +2,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
-import { Semester } from '../../models/semester-models';
 import { KursController } from '@app/controller/kurs-controller.service';
 import { Kurs } from '@app/models/kurse-models';
+import { ToastService } from '@app/services/toast.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { BackendErrorResponse } from '@app/models/user';
 
 @Component({
   selector: 'kurs-anlegen',
@@ -15,63 +17,56 @@ import { Kurs } from '@app/models/kurse-models';
 
 export class KursanlegenComponent {
 
-  formKurs: FormGroup;
-  formVorlesungen: FormGroup;
-  Kursname: string;
-  Jahr: number;
-  Semester: number;
-  Studiengangsleiter: string;
-
+  public formKurs: FormGroup;
+  error = '';
+  public currentKurs: string;
   kurse: Kurs[]= [];
 
   constructor(private fb: FormBuilder,
-    public kursController: KursController) {
+    public kursController: KursController,
+    private toastService: ToastService) {
     this.formKurs = this.fb.group({
       kursData: this.fb.array([
       ])
     });
-      this.kursController.kursListe.subscribe((data: Kurs[]) => {
-        this.kurse = data;
-      });
-      this.kursController.loadData();
+    this.kursController.kursListe.subscribe((data: Kurs[]) => {
+      this.kurse = data;
+    });
   }
-
-  addInput() {
+//addInput() = dynamic rows im html
+  public addInput() {
     const vlStunden = this.formKurs.controls.kursData as FormArray;
     vlStunden.push(this.fb.group({
-      Kursname: '',
-      Jahr: '',
-      Studiengangsleiter: ''
-    }))
+      name: undefined,
+      semester: undefined,
+      studienjahrgang: undefined,
+      studiengangsleiter: undefined,
+      vorlesungen: undefined
+    }as Kurs))
   }
 
   public async onSubmit() {
-    const kurse: Kurs[]= [];
-    this.formKurs.value.kursData.forEach(kurs => {
-      kurse.push(kurs);
-    });
-    console.log(kurse);
-
+    // const kurse: Kurs[]= [];
+    //TODO: Nachfragen => "Erfolgreich, aber blocked by CORS policy"
     try {
-      const kurs_name = this.currentKurs;
-      const response = await this.kursController.addKurs(kurs_name, semesters);
-      console.log("Daten wurden erfolgreich gesendet");
+      this.formKurs.value.kursData.forEach(async kurs => {
+        this.kurse.push(kurs);
+        const response = await this.kursController.createKurs(kurs);
+        
+      }); 
+      console.log(this.kurse);
+      this.toastService.addSuccess("Kurs erfolgreich gespeichert");
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         console.error(err);
         const error = err.error as BackendErrorResponse;
         this.error = error.msg;
+        this.toastService.addError(error.msg);
       } else {
-        console.error("Unknown error occured");
         console.error(err);
+        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
       }
-    }
-
-    //TODO: Daten aus dem Formular in den kursController schreiben + Request an das Backend
-    //TODO: Update Funktion addKurs() in kursController
-
-    // console.log(this.kursController)
-    // this.kursController.addKurs(new Kurs("WWI2016X", 2020, [], "test"));
+    } 
   }
 
   removeInput(index) {
