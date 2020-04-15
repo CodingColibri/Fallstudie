@@ -47,12 +47,11 @@ export class KursanlegenComponent {
 
   public async onSubmit() {
     // const kurse: Kurs[]= [];
-    //TODO: Nachfragen => "Erfolgreich, aber blocked by CORS policy"
+    //TODO: Nachfragen => Wird angelegt, jedoch 2x
     try {
       this.formKurs.value.kursData.forEach(async kurs => {
         this.kurse.push(kurs);
         const response = await this.kursController.createKurs(kurs);
-        
       }); 
       console.log(this.kurse);
       this.toastService.addSuccess("Kurs erfolgreich gespeichert");

@@ -27,9 +27,7 @@ export class DozentenController {
 
   public async saveDozenten(dozenten: Dozent[]): Promise<DozentenResponse> {
     const response = await this.restService.saveDozenten(dozenten);
-    
-    // Update Kurse
-    this.kursController.loadData();
+
     return response;
   }
 }

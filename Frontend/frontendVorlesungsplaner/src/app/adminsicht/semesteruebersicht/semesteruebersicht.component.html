@@ -1,6 +1,6 @@
 <adminheader></adminheader>
 <div class="title">
-    <h1>Semesterübersicht</h1>
+    <h1>Semesterübersicht für {{currentKurs}}</h1>
 </div>
 <mat-card class="error" *ngIf="!currentKurs">
     <mat-card-content>
@@ -11,7 +11,7 @@
     </mat-card-content>
 </mat-card>
 <div class="kursliste" *ngIf="currentKurs != null">
-    <div *ngFor="let kurs of kursliste">
+    <div *ngFor="let kurs of kursListe">
         <div *ngFor="let semester of kurs.semester">
         <tr>
             <td class="semesterNr">{{semester.nummer}}. Semester</td>
