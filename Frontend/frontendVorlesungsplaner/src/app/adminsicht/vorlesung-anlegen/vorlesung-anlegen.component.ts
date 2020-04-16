@@ -49,7 +49,6 @@ export class VorlesunganlegenComponent {
         this.dozenten = dozent;
         // this.kursChanged();
       }); 
-      console.log(this.dozenten);
   }
 
   private kursChanged() {
@@ -92,7 +91,7 @@ export class VorlesunganlegenComponent {
   }
 
   public async onSubmit() {
-    //TODO Nachfragen => Blocked by CORS policy
+    //INFO Blocked by CORS policy => Backend Problem
     const vorlesungen: Vorlesung[] = [];
     this.formVorlesungen.value.vorlesungenStunden.forEach(vorlesung => {
       vorlesungen.push(vorlesung);

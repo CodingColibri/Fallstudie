@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Vorlesung } from '../models/vorlesungen-models';
 
-//TODO Service löschen und durch Vorlesungen-Controller ersetzen 
-//=> Kein extra Interface VorlesungDTO
-//Interface/Klasse Vorlesung soll aufgeteilt werden in Vorlesung+ Termin
 export interface VorlesungDTO {
   date: Date;
   name?: string;
@@ -16,7 +13,6 @@ export interface VorlesungDTO {
   providedIn: 'root'
 })
 export class VorlesungenService {
-//TODO HTTP GET Request vom Backend...
   public vorlesungen: VorlesungDTO[] = [
     {
       date: new Date(2020, 3, 2),

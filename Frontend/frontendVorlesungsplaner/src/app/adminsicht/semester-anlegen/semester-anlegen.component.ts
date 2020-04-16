@@ -105,7 +105,6 @@ export class SemesteranlegenComponent {
         this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
       }
     }
-    //TODO Backend add overwrite all semesters
   }
 
   public removeInput(index) {

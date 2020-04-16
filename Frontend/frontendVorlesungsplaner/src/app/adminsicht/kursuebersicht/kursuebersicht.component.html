@@ -6,15 +6,11 @@
 <div class="kursliste">
     <tr>
         <th>Kursname</th>
-        <!-- <th class="kursJahr">Jahr</th> -->
-        <!-- <th>Semester</th> -->
         <th class="kursSGL">Studiengangsleiter</th>
     </tr>
     <div *ngFor="let kurs of kurse">
         <tr>
             <td>{{kurs.name}}</td>
-            <!-- TODO Wenn noch Zeit: Sortierung nach Jahr aufsteigend -->
-            <!-- <td class="kursJahr">{{kurs.studienjahrgang}}</td> -->
             <td class="kursSGL">{{kurs.studiengangsleiter}}</td>
         </tr>
         
