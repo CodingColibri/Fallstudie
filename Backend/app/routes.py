@@ -274,7 +274,7 @@ def save_dozenten():
     db.session.commit()
 
     dozenten_out = []
-    dozenten = Dozenten.query.all()
+    dozenten = Dozent.query.all()
     for dozent in dozenten:
         dozenten_out.append(dozent.to_public())
 
