@@ -119,9 +119,26 @@ def vorlesung_fordozent(dozent_identity=None):
     return jsonify({"termine": termine_out}), 200
 
 @app.route('/dozent', methods=['GET'])
+@jwt_required
+def get_dozenten():
+    jwt_claims = get_jwt_claims()
+    if jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
+    
+    dozenten = Dozent.query.all()
+    if not dozenten:
+        return jsonify({"dozenten": []}), 200
+
+    dozenten_out = []
+    for dozent in dozenten_out:
+        dozenten_out.append(dozent.to_public())
+    
+    return jsonify({"dozenten": dozenten_out}), 200
+
+@app.route('/dozent/jwt', methods=['GET'])
 @app.route('/dozent/<string:dozent_identity>', methods=['GET'])
 @jwt_required
-def get_dozent(dozent_identity=None):
+def get_dozent_by_id(dozent_identity=None):
     jwt_identity = get_jwt_identity()
     jwt_claims = get_jwt_claims()
     
