@@ -27,7 +27,7 @@ export class DozentenheaderComponent {
         this.kursController.kursListe.subscribe((data: Kurs[])=> {
         this.kurse = data;
       });
-      this.kursController.loadData();
+     this.kursController.loadData();
     }
     
     ngOnInit() {

@@ -15,7 +15,7 @@ export class JwtInterceptor implements HttpInterceptor {
             return next.handle(request);
         }
 
-        // console.log("adding jwt header");
+        console.log("adding jwt header");
         // add authorization header with jwt token if available
         const userToken = this.authenticationService.getUserToken();
         if (userToken && userToken.access_token && !this.authenticationService.isExpired(userToken.access_token)) {

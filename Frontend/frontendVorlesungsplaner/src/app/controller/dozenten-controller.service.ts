@@ -22,9 +22,8 @@ export class DozentenController {
   }
 
   public async loadData() {
-    //TODO get request anpassen
-    // const response = await this.restService.getDozenten();
-    // this.dozentenListe.next(response.dozenten);
+    const response = await this.restService.getDozenten();
+    this.dozentenListe.next(response.dozenten);
   }
 
   public async saveDozenten(dozenten: Dozent[]): Promise<DozentenResponse>{

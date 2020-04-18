@@ -5,8 +5,6 @@ export interface Dozent {
     mail: string;
     role: string;
     password: string;
-    //belegteVorlesungen: Vorlesung[]; //TODO Macht das Sinn? Innerhalb der Vorlesung steht der Dozent
-
   }
   export interface DozentRequest {
     titel: string;
