@@ -130,11 +130,11 @@ def get_dozenten():
         return jsonify({"msg": "Permission denied"}), 403
     
     dozenten = Dozent.query.all()
-    if not dozenten:
-        return jsonify({"dozenten": []}), 200
+    """if not dozenten:
+        return jsonify({"dozenten": []}), 200"""
 
     dozenten_out = []
-    for dozent in dozenten_out:
+    for dozent in dozenten:
         dozenten_out.append(dozent.to_public())
     
     return jsonify({"dozenten": dozenten_out}), 200
