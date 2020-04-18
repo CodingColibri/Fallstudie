@@ -5,6 +5,7 @@ from app.models import Dozent, Kurs, Semester, Vorlesung, Termin
 from datetime import timedelta, date, datetime
 from sqlalchemy import and_
 from functools import wraps
+from flask_cors import cross_origin
 
 #Decorators
 ############################################
