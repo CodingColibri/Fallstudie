@@ -91,7 +91,6 @@ export class VorlesunganlegenComponent {
   }
 
   public async onSubmit() {
-    //INFO Blocked by CORS policy => Backend Problem
     const vorlesungen: Vorlesung[] = [];
     this.formVorlesungen.value.vorlesungenStunden.forEach(vorlesung => {
       vorlesungen.push(vorlesung);

@@ -5,7 +5,7 @@ import { Semester, SemestersRequest, SemestersResponse } from '@app/models/semes
 import { LoginRequest, LoginResponse } from '@app/models/user';
 import { environment } from '@environments/environment';
 import { map } from 'rxjs/operators';
-import { Dozent, DozentenResponse, DozentenRequest } from '@app/models/dozenten-models';
+import { Dozent, DozentenResponse, DozentenRequest, DozentRequest, DozentResponse } from '@app/models/dozenten-models';
 import { Vorlesung, VorlesungResponse, VorlesungRequest } from '@app/models/vorlesungen-models';
 
 @Injectable({
@@ -96,10 +96,14 @@ export class RestService {
     }
     return await this.http.post<SemestersResponse>(`${environment.backendUrl}/kurs/${kurs_name}/semester`, body).toPromise();
   }
-    /**********************************************
-  /* Dozenten Requests
-  /**********************************************/
-  public async saveDozenten(dozent: Dozent): Promise<DozentenResponse> {
+  /**********************************************
+/* Dozenten Requests
+/**********************************************/
+  private deserializeDozenten(dozent: Dozent): Dozent {
+    return dozent;
+  }
+
+  public async saveDozent(dozent: Dozent): Promise<DozentResponse> {
     const body = {
       titel: dozent.titel,
       vorname: dozent.vorname,
@@ -107,11 +111,55 @@ export class RestService {
       mail: dozent.mail,
       role: dozent.role,
       password: dozent.password,
-    } as DozentenRequest;
+    } as DozentRequest;
 
-    return await this.http.post<DozentenResponse>(`${environment.backendUrl}/dozent`, body).toPromise();
+    return await this.http.post<DozentResponse>(`${environment.backendUrl}/dozent`, body).pipe(
+      map(resp => {
+        this.deserializeDozenten(resp.dozent);
+        return resp;
+      })
+    ).toPromise();
   }
-    /**********************************************
+
+  public async saveDozenten(dozenten: Dozent[]): Promise<DozentenResponse> {
+    const body = {
+      dozenten: []
+    } as DozentenRequest;
+    debugger
+    for (const dozent of dozenten) {
+      body.dozenten.push({
+        titel: dozent.titel,
+        vorname: dozent.vorname,
+        nachname: dozent.nachname,
+        mail: dozent.mail,
+        role: dozent.role,
+        password: dozent.password,
+      });
+
+      return await this.http.post<DozentenResponse>(`${environment.backendUrl}/dozenten`, body).pipe(
+        map(resp => {
+          console.log(resp);
+          for (let dozent of resp.dozenten) {
+            this.deserializeDozenten(dozent);
+          }
+          return resp;
+        })
+      ).toPromise();
+    }
+  }
+
+  public async getDozenten(): Promise<DozentenResponse> {
+    return await this.http.get<DozentenResponse>(`${this.endpoint}/dozent`).pipe(
+      map(resp => {
+        for (let dozent of resp.dozenten) {
+          this.deserializeDozenten(dozent);
+        }
+        return resp;
+      })
+    ).toPromise();
+  }
+  
+  /**********************************************
   /* Vorlesungen Requests
   /**********************************************/
   public async saveVorlesungen(kurs_name: string, vorlesungen: Vorlesung[]): Promise<VorlesungResponse> {

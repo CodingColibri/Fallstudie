@@ -4,6 +4,7 @@ import { KursController } from './controller/kurs-controller.service';
 import { StudienjahrgangController } from './controller/studienjahrgang-controller.service';
 import { User, UserRoleEnum } from './models/user';
 import { AuthenticationService } from './services/authentication.service';
+import { DozentenController } from './controller/dozenten-controller.service';
 
 
 @Component({
@@ -20,12 +21,14 @@ export class AppComponent {
     private router: Router,
     private authenticationService: AuthenticationService,
     private kursController: KursController,
-    private studienJgController: StudienjahrgangController
+    private studienJgController: StudienjahrgangController,
+    private dozentenController: DozentenController
   ) {
     this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
       this.kursController.loadData();
       this.studienJgController.loadData();
+      this.dozentenController.loadData();
     });
   }
 

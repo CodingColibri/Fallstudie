@@ -8,7 +8,7 @@ export interface Dozent {
     //belegteVorlesungen: Vorlesung[]; //TODO Macht das Sinn? Innerhalb der Vorlesung steht der Dozent
 
   }
-  export interface DozentenRequest {
+  export interface DozentRequest {
     titel: string;
     vorname: string;
     nachname: string;
@@ -16,7 +16,14 @@ export interface Dozent {
     role: string;
     password: string;
   }
+  export interface DozentResponse {
+    dozent: Dozent;
+  }
+  export interface DozentenRequest {
+    dozenten: DozentRequest[];
+  }
 
   export interface DozentenResponse {
     dozenten: Dozent[];
   }
+

@@ -8,7 +8,6 @@ import { RestService } from './rest.service';
   providedIn: "root"
 })
 export class SemesterController {
-  public semesterListe: BehaviorSubject<Semester[]>;
   public currentKurs: string = undefined;
 
   constructor(
