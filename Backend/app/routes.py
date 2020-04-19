@@ -22,17 +22,19 @@ def json_required(f):
 
 @app.route('/login', methods=['POST'])
 @json_required
-@cross_origin()
 def login():
     mail = request.json.get('mail', None)
     password = request.json.get('password', None)
     if not mail:
+        print("missing mail")
         return jsonify({"msg": "Missing mail parameter"}), 400
     if not password:
+        print("missing pw")
         return jsonify({"msg": "Missing password parameter"}), 400
 
     user = Dozent.query.filter_by(mail=mail).first()
     if user is None or not user.check_password(password):
+        print("wrong credential")
         return jsonify({"msg": "Bad username or password"}), 401
 
     user_out = {}
@@ -53,7 +55,6 @@ def login():
 
 # Best practice would be GET with URL args ?kurs=XXX&start=XXX&end=XXX
 @app.route('/termin/fortimeandkurs', methods=['POST'])
-@cross_origin()
 @jwt_required
 def vorlesung_fortimeandkurs():
     kurs = request.json.get("kurs", None)
@@ -92,7 +93,6 @@ def vorlesung_fortimeandkurs():
 @app.route('/termin/dozent', methods=['GET'])
 @app.route('/termin/dozent/<string:dozent_identity>', methods=['GET'])
 @jwt_required
-@cross_origin()
 def vorlesung_fordozent(dozent_identity=None):
     jwt_identity = get_jwt_identity()
     jwt_claims = get_jwt_claims()
@@ -124,7 +124,6 @@ def vorlesung_fordozent(dozent_identity=None):
 
 @app.route('/dozent', methods=['GET'])
 @jwt_required
-@cross_origin()
 def get_dozenten():
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -143,7 +142,6 @@ def get_dozenten():
 @app.route('/dozent/jwt', methods=['GET'])
 @app.route('/dozent/<string:dozent_identity>', methods=['GET'])
 @jwt_required
-@cross_origin()
 def get_dozent_by_id(dozent_identity=None):
     jwt_identity = get_jwt_identity()
     jwt_claims = get_jwt_claims()
@@ -162,7 +160,6 @@ def get_dozent_by_id(dozent_identity=None):
 
 @app.route('/kurs', methods=['GET'])
 @jwt_required
-@cross_origin()
 def get_alle_kurse():
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -180,7 +177,6 @@ def get_alle_kurse():
 
 @app.route('/kurs/<string:kurs_name>', methods=['GET'])
 @jwt_required
-@cross_origin()
 def get_kurs(kurs_name):
     kurs = Kurs.query.get(kurs_name)
     if not kurs:
@@ -190,7 +186,6 @@ def get_kurs(kurs_name):
 
 @app.route('/kurs/<string:kurs_name>/vorlesungen', methods=['GET'])
 @jwt_required
-@cross_origin()
 def get_vorlesungen_by_kurs(kurs_name):
     kurs = Kurs.query.get(kurs_name)
     if not kurs:
@@ -204,7 +199,6 @@ def get_vorlesungen_by_kurs(kurs_name):
 
 @app.route('/kurs/<string:kurs_name>/semester', methods=['GET'])
 @jwt_required
-@cross_origin()
 def get_semester_by_kurs(kurs_name):
     kurs = Kurs.query.get(kurs_name)
     if not kurs:
@@ -255,7 +249,6 @@ def save_dozent(obj):
 @app.route('/dozent', methods=['POST'])
 @jwt_required
 @json_required
-@cross_origin()
 def sign_up():
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -272,7 +265,6 @@ def sign_up():
 @app.route('/dozenten', methods=['POST'])
 @jwt_required
 @json_required
-@cross_origin()
 def save_dozenten():
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -295,7 +287,6 @@ def save_dozenten():
 @app.route('/kurs', methods=['POST'])
 @jwt_required
 @json_required
-@cross_origin()
 def create_kurs():
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -317,7 +308,6 @@ def create_kurs():
 @app.route('/kurs/<string:kurs_name>/semester', methods=['POST'])
 @jwt_required
 @json_required
-@cross_origin()
 def save_semester_by_kurs(kurs_name):
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -364,7 +354,6 @@ def save_semester_by_kurs(kurs_name):
 @app.route('/kurs/<string:kurs_name>/vorlesung', methods=['POST'])
 @jwt_required
 @json_required
-@cross_origin()
 def create_vorlesung_by_kurs(kurs_name):
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -398,7 +387,6 @@ def create_vorlesung_by_kurs(kurs_name):
 ###########################################
 @app.route('/kurs/<string:kurs_name>', methods=['DELETE'])
 @jwt_required
-@cross_origin()
 def delete_kurs(kurs_name):
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -435,7 +423,6 @@ def delete_kurs(kurs_name):
 
 @app.route('/change/dozentgibtvorlesung', methods=['POST'])
 @jwt_required
-@cross_origin()
 def dozentgibtvorlesung():
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':

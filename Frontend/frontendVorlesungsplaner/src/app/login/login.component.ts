@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AppComponent } from '../app.component';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-
-import { AuthenticationService } from '../services/authentication.service';
-import { LoginRequest, BackendErrorResponse } from '@app/models/user';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BackendErrorResponse, LoginRequest } from '@app/models/user';
+import { AuthenticationService } from '../services/authentication.service';
+
 @Component({
     selector: 'login',
     templateUrl: 'login.component.html',

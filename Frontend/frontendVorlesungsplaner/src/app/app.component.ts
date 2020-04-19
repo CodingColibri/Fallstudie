@@ -26,16 +26,18 @@ export class AppComponent {
   ) {
     this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
-      this.kursController.loadData();
-      this.studienJgController.loadData();
-      this.dozentenController.loadData();
+      if (user) {
+        this.kursController.loadData();
+        this.studienJgController.loadData();
+        this.dozentenController.loadData();
+      }
     });
   }
 
   get isAdmin() {
     return this.currentUser && this.currentUser.role === UserRoleEnum.Admin;
   }
-  
+
   public logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
