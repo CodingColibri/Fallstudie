@@ -219,7 +219,7 @@ def get_semester_by_kurs(kurs_name):
 #Creater
 ###########################################
 
-@app.route('/vorlesung/<int:id>/termin', methods=['POST'])
+@app.route('/vorlesung/<int:id>/termin', methods=['POST']) #id = Vorlesung.id
 @jwt_required
 @json_required
 def add_termine(id):
