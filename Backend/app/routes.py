@@ -256,8 +256,11 @@ def sign_up():
 
     obj = request.get_json()
     # TODO: Check if error was returned and return it here again
-    # e.g. check if return was a string => error, dozent = object
+    # e.g. check if return was a string => error, dozent = object 
+    # Done?
     dozent = save_dozent(obj)
+    if type(dozent) is not Dozent:
+        return dozent
     db.session.commit()
     
     return jsonify({"msg": "User created", "user": dozent.to_public() }), 201
@@ -273,7 +276,10 @@ def save_dozenten():
     for obj in request.json.get("dozenten", []):
         # TODO: Check if error was returned and return it here again
         # e.g. check if return was a string => error, dozent = object
-        save_dozent(obj)
+        #Done?
+        cur_dozent = save_dozent(obj)
+        if cur_dozent is not Dozent:
+            return cur_dozent
         
     db.session.commit()
 
