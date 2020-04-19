@@ -22,7 +22,7 @@ export class DozentenanlegenComponent {
     public currentKurs: string;
     private kursListe: Kurs[];
     private dozentenListe: Dozent[];
-    dozenten: Dozent[] = []; 
+    dozenten: Dozent[] = [];
     error = '';
 
     constructor(private fb: FormBuilder,
@@ -59,13 +59,17 @@ export class DozentenanlegenComponent {
         } as Dozent))
     }
 
-    public async onSubmit() { 
+    public async onSubmit() {
         try {
-            this.formDozenten.controls.dozentenDaten.value.forEach(async dozentValues => {
-            const response = await this.dozentenController.saveDozenten(dozentValues);
-            this.dozenten.push(dozentValues);
-                console.log(this.dozenten);
+            this.formDozenten.value.dozentenDaten.forEach(async dozent => {
+                const response = await this.dozentenController.saveDozent(dozent);                
             });
+            console.log(this.dozenten);
+            // this.formDozenten.controls.dozentenDaten.value.forEach(async dozentValues => {
+            //     const response = await this.dozentenController.saveDozenten(dozentValues);
+            //     this.dozenten.push(dozentValues);
+            //     console.log(this.dozenten);
+            // });
             this.toastService.addSuccess("Erfolgreich gespeichert");
         } catch (err) {
             if (err instanceof HttpErrorResponse) {

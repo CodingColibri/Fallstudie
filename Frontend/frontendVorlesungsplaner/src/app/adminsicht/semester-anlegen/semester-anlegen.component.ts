@@ -85,7 +85,6 @@ export class SemesteranlegenComponent {
   }
 
   public async onSubmit() {
-    //TODO Nachfragen => "Erfolgreich, aber blocked by CORS policy"
     const semesters: Semester[] = [];
     this.formSemester.value.semesterData.forEach(semester => {
       semesters.push(semester);

@@ -50,7 +50,6 @@ export class KursanlegenComponent {
     //TODO Nachfragen => Wird angelegt, jedoch 2x
     try {
       this.formKurs.value.kursData.forEach(async kurs => {
-        this.kurse.push(kurs);
         const response = await this.kursController.createKurs(kurs);
       }); 
       console.log(this.kurse);
