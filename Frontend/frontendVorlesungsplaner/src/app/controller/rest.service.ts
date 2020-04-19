@@ -7,6 +7,7 @@ import { environment } from '@environments/environment';
 import { map } from 'rxjs/operators';
 import { Dozent, DozentenResponse, DozentenRequest, DozentRequest, DozentResponse } from '@app/models/dozenten-models';
 import { Vorlesung, VorlesungResponse, VorlesungRequest } from '@app/models/vorlesungen-models';
+import { Termin, TermineResponse, TermineRequest } from '@app/models/termin-models';
 
 @Injectable({
   providedIn: 'root'
@@ -149,7 +150,7 @@ export class RestService {
   }
 
   public async getDozenten(): Promise<DozentenResponse> {
-    return await this.http.get<DozentenResponse>(`${this.endpoint}/dozent`).pipe(
+      return await this.http.get<DozentenResponse>(`${environment.backendUrl}/dozent`).pipe(
       map(resp => {
         for (let dozent of resp.dozenten) {
           this.deserializeDozenten(dozent);
@@ -174,5 +175,22 @@ export class RestService {
       })
     }
     return await this.http.post<VorlesungResponse>(`${environment.backendUrl}/kurs/${kurs_name}/vorlesung`, body).toPromise();
+  }
+
+  /**********************************************
+  /* Termine Requests
+  /**********************************************/
+  public async saveTermine(vorlesung_name: string, vorlesung_id: number, termine: Termin[]): Promise<TermineResponse> {
+    const body = {
+      termine: []
+    } as TermineRequest;
+    for (const termin of termine) {
+      body.termine.push({
+        ende: termin.ende,
+        start: termin.start
+      })
+    }
+    //TODO Vorlesung ID bekommt man mit der Vorlesung vom Backend zurück
+    return await this.http.post<TermineResponse>(`${environment.backendUrl}/vorlesung/${vorlesung_id}/${vorlesung_name}/termin`, body).toPromise();
   }
 }

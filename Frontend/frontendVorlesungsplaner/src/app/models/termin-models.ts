@@ -10,3 +10,13 @@ export interface Termin {
     morningOrAfternoon?: String
     dozent?: Dozent[]; //=>TODO Soll von Login übergeben werden
 }
+export interface TerminValues {
+    start: Date;
+    ende: Date;
+}
+export interface TermineRequest {
+    termine: TerminValues[];
+  }
+export interface TermineResponse {
+    termine: Termin[];
+}

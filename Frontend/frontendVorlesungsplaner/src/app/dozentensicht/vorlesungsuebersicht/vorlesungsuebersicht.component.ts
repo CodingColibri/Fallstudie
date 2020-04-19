@@ -19,7 +19,6 @@ export class VorlesungsuebersichtComponent {
     public currentKurs: string;
     public kursListe: Kurs[];
     
-//TODO Nachfragen => Mit Kursservice verknüpfen?
     constructor(
         public vlService: VorlesungenService,
         public kursController: KursController,

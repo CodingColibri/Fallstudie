@@ -11,10 +11,10 @@ import { ToastService } from '@app/services/toast.service';
 export class SemesteruebersichtComponent {
 
   kurse: Kurs[]= [];
+  kurs: Kurs;
   public currentKurs: string;
   public kursListe: Kurs[];
 
-  //TODO Semesterübersicht soll sich nach select Studienjahrgang aktualisieren (=> Verknüpfung)
   constructor(public kursController: KursController,
     private toastService: ToastService) {
     this.kursController.currentKurs.subscribe(kurs => {
@@ -28,19 +28,17 @@ export class SemesteruebersichtComponent {
     });
   }
 
-  private kursChanged() {
+  public kursChanged() {
     if (!this.kursListe || !this.currentKurs) {
       return;
     }
-
-    const kurs = this.kursListe.find(kurs => {
+    this.kurs = this.kursListe.find(kurs => {
       return kurs.name == this.currentKurs;
     });
-    if (!kurs) {
+    if (!this.kurs) {
       this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
       return;
     }
-    // console.log(this.kursListe);
   }
 
 }
