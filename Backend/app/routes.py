@@ -378,6 +378,8 @@ def create_vorlesung_by_kurs(kurs_name):
 
     vorlesung = Vorlesung(std_anzahl=std_anzahl, name=name,kurs_name=kurs_name)
 
+    if type(dozenten) is not list:
+        return jsonify({"msg": 'Please enter an array for field: dozenten'}), 400
     for dozent_identify in dozenten:
         dozent = Dozent.query.get(dozent_identify)
         if not dozent:
