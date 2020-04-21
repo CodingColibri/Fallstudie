@@ -16,6 +16,7 @@ import { Kurs } from '@app/models/kurse-models';
 export class VorlesungsuebersichtComponent {
 
     kurse: Kurs[]= [];
+    kurs: Kurs;
     public currentKurs: string;
     public kursListe: Kurs[];
     
@@ -26,10 +27,27 @@ export class VorlesungsuebersichtComponent {
     ) {
         this.kursController.currentKurs.subscribe(kurs => {
             this.currentKurs = kurs;
+            this.kursChanged();
           });
       
           this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
             this.kursListe = kurse;
+            this.kursChanged();
           });
     }
+
+    public kursChanged() {
+        if (!this.kursListe || !this.currentKurs) {
+          return;
+        }
+        this.kurs = this.kursListe.find(kurs => {
+          return kurs.name == this.currentKurs;
+
+        });
+        console.log(this.kurs);
+        if (!this.kurs) {
+          this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
+          return;
+        }
+      }
 }

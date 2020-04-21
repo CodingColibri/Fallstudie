@@ -20,7 +20,7 @@
             <mat-form-field>
                 <mat-label>Vorlesung wählen</mat-label>
                 <mat-select [(ngModel)]="calenderDay.morning.name">
-                    <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
+                    <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.id">
                         {{vorlesung.name}}
                     </mat-option>
                 </mat-select>

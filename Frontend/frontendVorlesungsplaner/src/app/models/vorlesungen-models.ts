@@ -6,7 +6,7 @@ export interface Vorlesung {
     //date?: Date; //Delete => ist in Termin (Kalender muss angepasst werden)
     id?: number;
     name?: String;
-    maxStunden?: number;
+    std_anzahl?: number;
     //stunden?: number; //Delete => ist in Termin (Kalender muss angepasst werden)
     //startDate?: Date; // Delete => ist in Termin (Kalender muss angepasst werden)
     //endDate?: Date; // Delete => ist in Termin (Kalender muss angepasst werden)
@@ -15,9 +15,9 @@ export interface Vorlesung {
     dozenten?: Dozent[];
     termine?: Termin[];
 
-    // constructor(name: String, maxStunden: number, kurs: Kurs[], dozent: Dozent[]) {
+    // constructor(name: String, std_anzahl: number, kurs: Kurs[], dozent: Dozent[]) {
     //     this.name = name;
-    //     this.maxStunden = maxStunden;
+    //     this.std_anzahl = std_anzahl;
     //     this.kurs = kurs
     //     this.dozent = dozent;
     //   }
@@ -29,7 +29,7 @@ export interface VorlesungResponse {
 
 export interface VorlesungRequestValues {
   name: String;
-  maxStunden: number;
+  std_anzahl: number;
   dozenten: Dozent[];
 }
 export interface VorlesungRequest {

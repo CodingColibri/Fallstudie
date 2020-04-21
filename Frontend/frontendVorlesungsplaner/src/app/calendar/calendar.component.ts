@@ -14,6 +14,7 @@ import { VorlesungEintragenComponent } from '../dozentensicht/vorlesung-eintrage
 import { StundenWarnungComponent } from '../dozentensicht/stunden-warnung/stunden-warnung.component';
 import { VorlesungenService } from '../services/vorlesungen.service';
 import { Time } from '@angular/common';
+import { KursController } from '@app/controller/kurs-controller.service';
 
 @Component({
     selector: 'calendar',
@@ -59,16 +60,16 @@ export class KalenderComponent {
     }
 
     //Öffnet Dialog-Fenster "Vorlesung eintragen"
-    openDialog(day): void {
+    openDialog(day:CalenderDay): void {
         //console.log("Ausgewählter Tag: " + day.date); //day von table-cell mitgegeben
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true; //Dialog kann nicht durch außerhalb klicken geschlossen werden
-        dialogConfig.data = day; //Daten über das dialogConfig object übergeben
+        dialogConfig.data = new CalenderDay(day); //Daten über das dialogConfig object übergeben
         //console.log("(KalenderComponent) Übergebene Daten: " + dialogConfig.data);
         let dialogRef = this.dialog.open(VorlesungEintragenComponent, dialogConfig); 
         dialogRef.afterClosed().subscribe(data => {
             //this.vlService.vorlesungen = data;
-            console.log(data);
+            //console.log(data);
             let updateMorning = {
                 date: data.date,
                 morningOrAfternoon: data.morning.morningOrAfternoon,
@@ -88,11 +89,11 @@ export class KalenderComponent {
                 //TODO Anzahl Stunden mit übergeben (berechnen)
             }
             if (data.morning.morningOrAfternoon ==="morning" && data.morning.name !== null) {
-                this.vlService.vorlesungen.push(updateMorning);
+                this.vlService.termine.push(updateMorning);
             } 
             //TODO Leere Vorlesungen sollen nicht in der Vorlesungsübersicht angezeigt werden
             if (data.afternoon.morningOrAfternoon ==="afternoon" && data.afternoon.name !== null){
-                this.vlService.vorlesungen.push(updateAfternoon);
+                this.vlService.termine.push(updateAfternoon);
             }
             
             // this.vlService.vorlesungen.push(data);
@@ -110,7 +111,8 @@ export class KalenderComponent {
 
     constructor(
         public dialog: MatDialog,
-        public vlService: VorlesungenService) {
+        public vlService: VorlesungenService,
+        public kursController: KursController) {
         this.date = new Date(); //aktuelles Datum
 
         let year = this.date.getFullYear(); //Rückgabe 2020
@@ -157,24 +159,22 @@ export class KalenderComponent {
                     if (currentDayCounter < daysInMonth) {
                         currentDayCounter = currentDayCounter+1;
                         this.calenderDay = new CalenderDay(new Date(currentDay));
-                        this.vlService.vorlesungen.filter(vl => //gibt neues gefiltertes Array aus vlService zurück
-                            vl.date.getFullYear() == currentDay.getFullYear()
-                            && vl.date.getMonth() == currentDay.getMonth()
-                            && vl.date.getDate() == currentDay.getDate()
-                        ).forEach(vl => {
-                            if (vl.morningOrAfternoon === "morning") {
+                        this.vlService.termine.filter(termin => //gibt neues gefiltertes Array aus vlService zurück
+                            termin.date.getFullYear() == currentDay.getFullYear()
+                            && termin.date.getMonth() == currentDay.getMonth()
+                            && termin.date.getDate() == currentDay.getDate()
+                        ).forEach(termin => {
+                            if (termin.morningOrAfternoon === "morning") {
                                 this.calenderDay.morning = {
-                                    date: vl.date,
-                                    name: vl.name,
-                                    ende: vl.ende,
-                                    start: vl.start
+                                    date: termin.date,
+                                    endDate: termin.endDate,
+                                    startDate: termin.startDate
                                 }
                             } else {
                                 this.calenderDay.afternoon = {
-                                    date: vl.date,
-                                    name: vl.name,
-                                    ende: vl.ende,
-                                    start: vl.start
+                                    date: termin.date,
+                                    endDate: termin.endDate,
+                                    startDate: termin.startDate
                                 }
                             } 
                         });

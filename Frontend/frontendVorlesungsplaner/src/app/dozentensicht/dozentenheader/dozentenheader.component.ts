@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/services/authentication.service';
 import { first } from 'rxjs/operators';
 import { KursController } from '@app/controller/kurs-controller.service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
     selector: 'dozentenheader',
@@ -24,10 +25,9 @@ export class DozentenheaderComponent {
         private router: Router,
         private authenticationService: AuthenticationService,
         public kursController: KursController) {
-        this.kursController.kursListe.subscribe((data: Kurs[])=> {
-        this.kurse = data;
+        this.kursController.kursListe.subscribe((kurse: Kurs[])=> {
+        this.kurse = kurse;
       });
-      this.kursController.loadData();
     }
     
     ngOnInit() {
@@ -40,5 +40,9 @@ export class DozentenheaderComponent {
     logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
+    }
+    public changeKurs(event: MatSelectChange) {
+        console.log("changeKurs", event);
+        this.kursController.setCurrentKurs(event.value);
     }
 }

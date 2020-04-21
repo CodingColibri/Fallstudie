@@ -9,6 +9,9 @@ import { Vorlesung } from '../../models/vorlesungen-models';
 import { Modul } from '../../models/module-models';
 import { KalenderComponent } from 'src/app/calendar/calendar.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { KursController } from '@app/controller/kurs-controller.service';
+import { ToastService } from '@app/services/toast.service';
+import { Kurs } from '@app/models/kurse-models';
 
 @Component({
   selector: 'vorlesung-eintragen',
@@ -17,6 +20,43 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 
 export class VorlesungEintragenComponent {
+  
+  public currentKurs: string;
+  private kursListe: Kurs[]
+  public currentKursObject: Kurs;
+
+  constructor(private kursController: KursController,
+    private toastService: ToastService,
+    private dialogRef: MatDialogRef<VorlesungEintragenComponent>,
+    @Inject(MAT_DIALOG_DATA) data
+  ) {
+    this.kursController.currentKurs.subscribe(kurs => {
+      this.currentKurs = kurs;
+      this.kursChanged();
+    });
+
+    this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
+      this.kursListe = kurse;
+      this.kursChanged();
+    });
+    this.calenderDay = data;
+    console.log("(DialogComponent) Übergebene Daten: " + this.calenderDay); 
+  }
+
+  public kursChanged() {
+    if (!this.kursListe || !this.currentKurs) {
+      return;
+    }
+
+    const kurs = this.kursListe.find(kurs => {
+      return kurs.name == this.currentKurs;
+    });
+    if (!kurs) {
+      this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
+      return;
+    }
+    this.currentKursObject = kurs;
+  }
 
   selectedVorlesung: string; //ausgewählte Vorlesung im Dialog
 
@@ -45,26 +85,18 @@ export class VorlesungEintragenComponent {
   
   handleTimeStartMorning(date) {
     var array = date.split(":")
-    this.calenderDay.morning.start.setHours(array[0],array[1]);
+    this.calenderDay.morning.startDate.setHours(array[0],array[1]);
   }
   handleTimeEndMorning(date) {
     var array = date.split(":")
-    this.calenderDay.morning.ende.setHours(array[0],array[1]);
+    this.calenderDay.morning.endDate.setHours(array[0],array[1]);
   }
   handleTimeStartAfternoon(date) {
     var array = date.split(":")
-    this.calenderDay.afternoon.start.setHours(array[0],array[1]);
+    this.calenderDay.afternoon.startDate.setHours(array[0],array[1]);
   }
   handleTimeEndAfternoon(date) {
     var array = date.split(":")
-    this.calenderDay.afternoon.ende.setHours(array[0],array[1]);
-  }
-
-  constructor(
-    private dialogRef: MatDialogRef<VorlesungEintragenComponent>,
-    @Inject(MAT_DIALOG_DATA) data
-  ) {
-    this.calenderDay = data;
-    console.log("(DialogComponent) Übergebene Daten: " + this.calenderDay); 
+    this.calenderDay.afternoon.endDate.setHours(array[0],array[1]);
   }
 }

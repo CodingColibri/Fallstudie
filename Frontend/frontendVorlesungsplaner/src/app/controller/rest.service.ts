@@ -38,10 +38,7 @@ export class RestService {
       semester.ende = new Date(semester.ende as any * 1000);
     }
     for (const vorlesung of kurs.vorlesungen) {
-      for (const termin of vorlesung.termine) {
-        termin.start = new Date(termin.start as any * 1000);
-        termin.ende = new Date(termin.ende as any * 1000);
-      }
+      this.deserializeVorlesungen(vorlesung)
     }
     return kurs;
   }
@@ -150,7 +147,7 @@ export class RestService {
   }
 
   public async getDozenten(): Promise<DozentenResponse> {
-      return await this.http.get<DozentenResponse>(`${environment.backendUrl}/dozent`).pipe(
+    return await this.http.get<DozentenResponse>(`${environment.backendUrl}/dozent`).pipe(
       map(resp => {
         for (let dozent of resp.dozenten) {
           this.deserializeDozenten(dozent);
@@ -159,10 +156,29 @@ export class RestService {
       })
     ).toPromise();
   }
-  
+
   /**********************************************
   /* Vorlesungen Requests
   /**********************************************/
+  private deserializeVorlesungen(vorlesung: Vorlesung): Vorlesung {
+    for (const termin of vorlesung.termine) {
+      termin.startDate = new Date(termin.startDate as any * 1000);
+      termin.endDate = new Date(termin.endDate as any * 1000);
+      termin.date = termin.date;
+      termin.vorlesungsID = vorlesung.id;
+      if(termin.startDate<new Date(new Date(termin.startDate).setHours(12))) {
+        termin.morningOrAfternoon = 'morning'
+      } else {
+        termin.morningOrAfternoon = 'afternoon'
+      }
+      
+    }
+    for (const dozent of vorlesung.dozenten) {
+      this.deserializeDozenten(dozent);
+    }
+    return vorlesung;
+  }
+
   public async saveVorlesungen(kurs_name: string, vorlesungen: Vorlesung[]): Promise<VorlesungResponse> {
     const body = {
       vorlesungen: []
@@ -170,27 +186,39 @@ export class RestService {
     for (const vorlesung of vorlesungen) {
       body.vorlesungen.push({
         name: vorlesung.name,
-        maxStunden: vorlesung.maxStunden,
+        std_anzahl: vorlesung.std_anzahl,
         dozenten: vorlesung.dozenten
       })
     }
     return await this.http.post<VorlesungResponse>(`${environment.backendUrl}/kurs/${kurs_name}/vorlesung`, body).toPromise();
   }
 
+  public async getVorlesungenByKurs(kurs_name: string): Promise<VorlesungResponse> {
+    return await this.http.get<VorlesungResponse>(`${environment.backendUrl}/kurs/${kurs_name}/vorlesungen`).pipe(
+      map(resp => {
+        for (let vorlesung of resp.vorlesungen) {
+          this.deserializeVorlesungen(vorlesung);
+        }
+        return resp;
+      })
+    ).toPromise();
+  }
+
   /**********************************************
   /* Termine Requests
   /**********************************************/
-  public async saveTermine(vorlesung_name: string, vorlesung_id: number, termine: Termin[]): Promise<TermineResponse> {
+  //mitgetVorlesungenByKurs() die ID auslesen und hier mitgeben
+  public async saveTermine(vorlesung_id: number, termine: Termin[]): Promise<TermineResponse> {
     const body = {
       termine: []
     } as TermineRequest;
     for (const termin of termine) {
       body.termine.push({
-        ende: termin.ende,
-        start: termin.start
+        endDate: termin.endDate,
+        startDate: termin.startDate
       })
     }
-    //TODO Vorlesung ID bekommt man mit der Vorlesung vom Backend zurück
-    return await this.http.post<TermineResponse>(`${environment.backendUrl}/vorlesung/${vorlesung_id}/${vorlesung_name}/termin`, body).toPromise();
+
+    return await this.http.post<TermineResponse>(`${environment.backendUrl}/vorlesung/${vorlesung_id}/termin`, body).toPromise();
   }
 }
