@@ -369,9 +369,9 @@ def delete_kurs(kurs_name):
     print(semester)
     return jsonify({"msg": "Kurs (and all references) delted"}), 200
 
-@app.route('/Vorlesung/<int:vorlesung_id>/termin/<int:termin_id>', methods=['DELETE'])
+@app.route('/vorlesung/<int:vorlesung_id>/termin/<int:termin_id>', methods=['DELETE'])
 @jwt_required
-def delete_termin(termin_id):
+def delete_termin(termin_id, vorlesung_id):
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
         return jsonify({"msg": "Permission denied"}), 403
@@ -411,15 +411,19 @@ def dozentgibtvorlesung():
 
 """
     Params:     current_user: mail of the user, making this request
-                check: list of vorlesungen(id), checking privileges for
+                pCheck: list of vorlesungen(id), checking privileges for
     Return:     True if the user "gibt" all the vorlesungen
 """
-def check_privileges(current_user, check):
-    print(type(check))
-    if not ((type(check) is int) or (type(check) is list)):
+#TODO: Rework for Admin and testing
+def check_privileges(current_user, pCheck):
+    print(type(pCheck))
+    if (type(pCheck) is int):
+        check = []
+        check.append(check)
+    elif (type(pCheck) is list):
+        check = pCheck
+    else:
         raise ValueError("Check has to be a list or an integer")
-    check = []
-    check.append(check)
 
     user = Dozent.query.filter_by(mail=current_user).first()
     if user is None:
@@ -445,11 +449,11 @@ def termin_helper(id, obj, jwt_token):
     vorlesung = Vorlesung.query.get(id)
 
     if vorlesung is None:
-        abort(400, {'message' : 'No Vorlesung found for id '+id})
+        abort(400, {'message' : 'No Vorlesung found for id '+str(id)})
     if not is_period_free(str(vorlesung.kurs), startDate, endDate):
         abort(400, {'message' : 'timeframe is occupied: ' + startDate+" - "+endDate})
-    if not check_privileges(jwt_token, [vorlesung]):
-        abort(403, {'message': 'No permissions to create Termin for ' + str(v_id.name)})
+    """if not check_privileges(jwt_token, [vorlesung]):
+        abort(403, {'message': 'No permissions to create Termin for ' + str(vorlesung.name)})"""
     
     return Termin(start=startDate, ende=endDate, vorlesung_id = id)
 
