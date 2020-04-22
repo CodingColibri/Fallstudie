@@ -1,8 +1,11 @@
 <div class="pop-up-calendar">
-    <!-- TODO Date Objekt German (Montag statt Monday, Januar statt Januaray) -->
-    <h3 id="monats-titel">{{calenderDay.date | date:'MMMM'}} <span
-            class="text-grey">{{calenderDay.date | date:'yyyy'}}<br>
-            {{calenderDay.date | date: 'EEEE, dd.MM.y'}}</span></h3>
+    <h3 id="monats-titel">
+        {{ calenderDay.date | date:'MMMM' }}
+        <span class="text-grey">
+            {{ calenderDay.date | date:'yyyy' }}<br>
+            {{ calenderDay.date | date: 'EEEE, dd.MM.y' }}
+        </span>
+    </h3>
 
     <!-- <h4 id="titel-der-vorlesung">Titel der Vorlesung</h4> -->
 
@@ -11,16 +14,19 @@
         <p>
             <span class="text-grey">
                 <div class="time-frame-box">
-                    <input type="time" class="time-box" [ngModel]="calenderDay.morning.start | date: 'hh:mm'" (ngModelChange)="handleTimeStartMorning($event)">
-                    <p>-</p><input type="time" class="time-box" [ngModel]="calenderDay.morning.ende | date: 'hh:mm'" (ngModelChange)="handleTimeEndMorning($event)">
+                    <input type="time" class="time-box" [ngModel]="calenderDay.morning.startDate | date: 'hh:mm'"
+                        (ngModelChange)="handleTimeStartMorning($event)">
+                    <p>-</p>
+                    <input type="time" class="time-box" [ngModel]="calenderDay.morning.endDate | date: 'hh:mm'"
+                        (ngModelChange)="handleTimeEndMorning($event)">
                 </div>
             </span>
         </p>
         <div class="select-vorlesung">
             <mat-form-field>
                 <mat-label>Vorlesung wählen</mat-label>
-                <mat-select [(ngModel)]="calenderDay.morning.name">
-                    <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.id">
+                <mat-select [(ngModel)]="calenderDay.morning.vorlesungsID">
+                    <mat-option *ngFor="let vorlesung of currentKursObject.vorlesungen" [value]="vorlesung.id">
                         {{vorlesung.name}}
                     </mat-option>
                 </mat-select>
@@ -32,17 +38,19 @@
         <p>
             <span class="text-grey">
                 <div class="time-frame-box">
-                    <input type="time" class="time-box" [ngModel]="calenderDay.afternoon.start | date: 'HH:mm'" (ngModelChange)="handleTimeStartAfternoon($event)">
+                    <input type="time" class="time-box" [ngModel]="calenderDay.afternoon.startDate | date: 'HH:mm'"
+                        (ngModelChange)="handleTimeStartAfternoon($event)">
                     <p>-</p>
-                    <input type="time" class="time-box" [ngModel]="calenderDay.afternoon.ende | date: 'HH:mm'" (ngModelChange)="handleTimeEndAfternoon($event)">
+                    <input type="time" class="time-box" [ngModel]="calenderDay.afternoon.endDate | date: 'HH:mm'"
+                        (ngModelChange)="handleTimeEndAfternoon($event)">
                 </div>
             </span>
         </p>
         <div class="select-vorlesung">
             <mat-form-field>
                 <mat-label>Vorlesung wählen</mat-label>
-                <mat-select [(ngModel)]="calenderDay.afternoon.name">
-                    <mat-option *ngFor="let vorlesung of vorlesungen" [value]="vorlesung.name">
+                <mat-select [(ngModel)]="calenderDay.afternoon.vorlesungsID">
+                    <mat-option *ngFor="let vorlesung of currentKursObject.vorlesungen" [value]="vorlesung.id">
                         {{vorlesung.name}}
                     </mat-option>
                 </mat-select>

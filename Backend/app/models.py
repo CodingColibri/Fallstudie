@@ -51,8 +51,8 @@ class Termin(db.Model):
     def to_public(self):
         out = {}
         out['id'] = self.id
-        out['start'] = self.start.timestamp()
-        out['ende'] = self.ende.timestamp()
+        out['startDate'] = self.start.timestamp()
+        out['endDate'] = self.ende.timestamp()
         return out
 
 class Kurs(db.Model):

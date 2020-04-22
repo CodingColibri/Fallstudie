@@ -7,7 +7,7 @@ import { environment } from '@environments/environment';
 import { map } from 'rxjs/operators';
 import { Dozent, DozentenResponse, DozentenRequest, DozentRequest, DozentResponse } from '@app/models/dozenten-models';
 import { Vorlesung, VorlesungResponse, VorlesungRequest } from '@app/models/vorlesungen-models';
-import { Termin, TermineResponse, TermineRequest } from '@app/models/termin-models';
+import { Termin, TermineResponse, TermineRequest, TerminRequest } from '@app/models/termin-models';
 
 @Injectable({
   providedIn: 'root'
@@ -164,14 +164,13 @@ export class RestService {
     for (const termin of vorlesung.termine) {
       termin.startDate = new Date(termin.startDate as any * 1000);
       termin.endDate = new Date(termin.endDate as any * 1000);
-      termin.date = termin.date;
       termin.vorlesungsID = vorlesung.id;
-      if(termin.startDate<new Date(new Date(termin.startDate).setHours(12))) {
+      if (termin.startDate < new Date(new Date(termin.startDate).setHours(12))) {
         termin.morningOrAfternoon = 'morning'
       } else {
         termin.morningOrAfternoon = 'afternoon'
       }
-      
+
     }
     for (const dozent of vorlesung.dozenten) {
       this.deserializeDozenten(dozent);
@@ -213,10 +212,14 @@ export class RestService {
       termine: []
     } as TermineRequest;
     for (const termin of termine) {
-      body.termine.push({
-        endDate: termin.endDate,
-        startDate: termin.startDate
-      })
+      const obj = {
+        endDate: termin.endDate.getTime() / 1000,
+        startDate: termin.startDate.getTime() / 1000
+      } as TerminRequest;
+      if (termin.id) {
+        obj.id = termin.id;
+      }
+      body.termine.push(obj);
     }
 
     return await this.http.post<TermineResponse>(`${environment.backendUrl}/vorlesung/${vorlesung_id}/termin`, body).toPromise();

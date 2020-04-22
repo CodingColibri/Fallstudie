@@ -12,6 +12,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { KursController } from '@app/controller/kurs-controller.service';
 import { ToastService } from '@app/services/toast.service';
 import { Kurs } from '@app/models/kurse-models';
+import { Termin } from '@app/models/termin-models';
+import { TerminController } from '@app/controller/termin-controller.service';
 
 @Component({
   selector: 'vorlesung-eintragen',
@@ -20,15 +22,20 @@ import { Kurs } from '@app/models/kurse-models';
 })
 
 export class VorlesungEintragenComponent {
-  
+
   public currentKurs: string;
   private kursListe: Kurs[]
   public currentKursObject: Kurs;
 
-  constructor(private kursController: KursController,
+  oldCalenderDay: CalenderDay;
+  calenderDay: CalenderDay;
+
+  constructor(
+    private kursController: KursController,
+    private terminController: TerminController,
     private toastService: ToastService,
     private dialogRef: MatDialogRef<VorlesungEintragenComponent>,
-    @Inject(MAT_DIALOG_DATA) data
+    @Inject(MAT_DIALOG_DATA) day: CalenderDay
   ) {
     this.kursController.currentKurs.subscribe(kurs => {
       this.currentKurs = kurs;
@@ -39,8 +46,26 @@ export class VorlesungEintragenComponent {
       this.kursListe = kurse;
       this.kursChanged();
     });
-    this.calenderDay = data;
-    console.log("(DialogComponent) Übergebene Daten: " + this.calenderDay); 
+
+    this.oldCalenderDay = day;
+    this.calenderDay = { //Create new object to not modify original one
+      date: day.date,
+      morning: {
+        id: day.morning.id,
+        startDate: day.morning.startDate,
+        endDate: day.morning.endDate,
+        vorlesungsID: day.morning.vorlesungsID,
+        morningOrAfternoon: day.morning.morningOrAfternoon
+      },
+      afternoon: {
+        id: day.afternoon.id,
+        startDate: day.afternoon.startDate,
+        endDate: day.afternoon.endDate,
+        vorlesungsID: day.afternoon.vorlesungsID,
+        morningOrAfternoon: day.afternoon.morningOrAfternoon
+      }
+    } as CalenderDay;;
+    console.log("Dialog übergebene Daten", day);
   }
 
   public kursChanged() {
@@ -55,48 +80,49 @@ export class VorlesungEintragenComponent {
       this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
       return;
     }
+
     this.currentKursObject = kurs;
   }
 
-  selectedVorlesung: string; //ausgewählte Vorlesung im Dialog
-
-  vorlesungen: Vorlesung[] = [
-    {
-      name: 'Wissenschaftliches Arbeiten'
-    },
-    {
-      name: 'Digitale Transformation'
-    },
-    {
-      name: 'Wirtschaftsinformatik'
-    },
-  ];
-
   addVorlesung(): void {
-  //TODO POST Request an Backend Service
-    this.dialogRef.close(this.calenderDay);
+      const termin1 = this.calenderDay.morning;
+      //Check if termin has had an id and if vorlesungsID was changed
+      if (termin1.id && termin1.vorlesungsID != this.oldCalenderDay.morning.vorlesungsID) {
+        //TODO: Check if updated kursListe (see controller) makes problems on comming operations
+        this.terminController.deleteTermin(termin1.id)
+        delete termin1.id; // Delete id as the termin has to be recreated for the new Vorlesung
+      }
+      this.terminController.saveTermine(termin1.vorlesungsID, [termin1]);
+
+      const termin2 = this.calenderDay.afternoon;
+      if (termin2.id && termin2.vorlesungsID != this.oldCalenderDay.afternoon.vorlesungsID) {
+        this.terminController.deleteTermin(termin2.id)
+        delete termin2.id; // Delete id as the termin has to be recreated for the new Vorlesung
+      }
+      this.terminController.saveTermine(termin2.vorlesungsID, [termin2]);
+
+      this.dialogRef.close(this.calenderDay);
   }
+
   //TODO Dialogfester => Vorlesung löschen implementieren oder leere Vorlesung = null?
-  close():void {
+  close(): void {
     this.dialogRef.close();
   }
 
-  calenderDay: CalenderDay;
-  
   handleTimeStartMorning(date) {
     var array = date.split(":")
-    this.calenderDay.morning.startDate.setHours(array[0],array[1]);
+    this.calenderDay.morning.startDate.setHours(array[0], array[1]);
   }
   handleTimeEndMorning(date) {
     var array = date.split(":")
-    this.calenderDay.morning.endDate.setHours(array[0],array[1]);
+    this.calenderDay.morning.endDate.setHours(array[0], array[1]);
   }
   handleTimeStartAfternoon(date) {
     var array = date.split(":")
-    this.calenderDay.afternoon.startDate.setHours(array[0],array[1]);
+    this.calenderDay.afternoon.startDate.setHours(array[0], array[1]);
   }
   handleTimeEndAfternoon(date) {
     var array = date.split(":")
-    this.calenderDay.afternoon.endDate.setHours(array[0],array[1]);
+    this.calenderDay.afternoon.endDate.setHours(array[0], array[1]);
   }
 }
