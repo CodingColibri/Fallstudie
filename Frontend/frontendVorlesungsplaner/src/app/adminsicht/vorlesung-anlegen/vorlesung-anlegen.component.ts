@@ -71,7 +71,7 @@ export class VorlesunganlegenComponent {
       this.vorlesungenStunden.push(
         this.fb.group({
         name: vorlesung.name,
-        maxStunden: vorlesung.maxStunden,
+        std_anzahl: vorlesung.std_anzahl,
         dozent: vorlesung.dozenten
         } as Vorlesung)
       )
@@ -85,7 +85,7 @@ export class VorlesunganlegenComponent {
   public addInput() {
     this.vorlesungenStunden.push(this.fb.group({
       name: undefined,
-      maxStunden: undefined,
+      std_anzahl: undefined,
       dozent: undefined
     } as Vorlesung))
   }
@@ -93,6 +93,7 @@ export class VorlesunganlegenComponent {
   public async onSubmit() {
     const vorlesungen: Vorlesung[] = [];
     this.formVorlesungen.value.vorlesungenStunden.forEach(vorlesung => {
+      vorlesung.dozenten = [vorlesung.dozent];
       vorlesungen.push(vorlesung);
     });
     console.log(vorlesungen);

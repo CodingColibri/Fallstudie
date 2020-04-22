@@ -19,6 +19,7 @@ import { StudienjahrgangController } from '@app/controller/studienjahrgang-contr
 
 export class AdminheaderComponent {
     loading = false;
+    public currentUser: User;
     users: User[];
     kurse: Kurs[] = [];
 
@@ -34,10 +35,8 @@ export class AdminheaderComponent {
 
     ngOnInit() {
         this.loading = true;
-        this.userService.getAll().pipe(first()).subscribe(users => {
-            this.loading = false;
-            this.users = users;
-        });
+        this.currentUser = this.authenticationService.currentUserValue;
+        console.log(this.currentUser);
     }
 
     public logout() {

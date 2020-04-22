@@ -5,7 +5,6 @@ from app.models import Dozent, Kurs, Semester, Vorlesung, Termin
 from datetime import timedelta, date, datetime
 from sqlalchemy import and_
 from functools import wraps
-from flask_cors import cross_origin
 
 #Decorators
 ############################################
@@ -22,7 +21,6 @@ def json_required(f):
 
 @app.route('/login', methods=['POST'])
 @json_required
-@cross_origin()
 def login():
     mail = request.json.get('mail', None)
     password = request.json.get('password', None)
@@ -53,7 +51,6 @@ def login():
 
 # Best practice would be GET with URL args ?kurs=XXX&start=XXX&end=XXX
 @app.route('/termin/fortimeandkurs', methods=['POST'])
-@cross_origin()
 @jwt_required
 def vorlesung_fortimeandkurs():
     kurs = request.json.get("kurs", None)
@@ -92,7 +89,6 @@ def vorlesung_fortimeandkurs():
 @app.route('/termin/dozent', methods=['GET'])
 @app.route('/termin/dozent/<string:dozent_identity>', methods=['GET'])
 @jwt_required
-@cross_origin()
 def vorlesung_fordozent(dozent_identity=None):
     jwt_identity = get_jwt_identity()
     jwt_claims = get_jwt_claims()
@@ -123,28 +119,9 @@ def vorlesung_fordozent(dozent_identity=None):
     return jsonify({"termine": termine_out}), 200
 
 @app.route('/dozent', methods=['GET'])
-@jwt_required
-@cross_origin()
-def get_dozenten():
-    jwt_claims = get_jwt_claims()
-    if jwt_claims['role'] != 'admin':
-        return jsonify({"msg": "Permission denied"}), 403
-    
-    dozenten = Dozent.query.all()
-    """if not dozenten:
-        return jsonify({"dozenten": []}), 200"""
-
-    dozenten_out = []
-    for dozent in dozenten:
-        dozenten_out.append(dozent.to_public())
-    
-    return jsonify({"dozenten": dozenten_out}), 200
-
-@app.route('/dozent/jwt', methods=['GET'])
 @app.route('/dozent/<string:dozent_identity>', methods=['GET'])
 @jwt_required
-@cross_origin()
-def get_dozent_by_id(dozent_identity=None):
+def get_dozent(dozent_identity=None):
     jwt_identity = get_jwt_identity()
     jwt_claims = get_jwt_claims()
     
@@ -162,7 +139,6 @@ def get_dozent_by_id(dozent_identity=None):
 
 @app.route('/kurs', methods=['GET'])
 @jwt_required
-@cross_origin()
 def get_alle_kurse():
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -180,7 +156,6 @@ def get_alle_kurse():
 
 @app.route('/kurs/<string:kurs_name>', methods=['GET'])
 @jwt_required
-@cross_origin()
 def get_kurs(kurs_name):
     kurs = Kurs.query.get(kurs_name)
     if not kurs:
@@ -190,7 +165,6 @@ def get_kurs(kurs_name):
 
 @app.route('/kurs/<string:kurs_name>/vorlesungen', methods=['GET'])
 @jwt_required
-@cross_origin()
 def get_vorlesungen_by_kurs(kurs_name):
     kurs = Kurs.query.get(kurs_name)
     if not kurs:
@@ -204,7 +178,6 @@ def get_vorlesungen_by_kurs(kurs_name):
 
 @app.route('/kurs/<string:kurs_name>/semester', methods=['GET'])
 @jwt_required
-@cross_origin()
 def get_semester_by_kurs(kurs_name):
     kurs = Kurs.query.get(kurs_name)
     if not kurs:
@@ -230,10 +203,17 @@ def add_termine(id):
     db.session.commit()
     return jsonify({"msg": "Termine erstellt"}), 201
 
-# Used to store dozent in db session
-def save_dozent(obj):
-    mail = obj.get('mail', None)
-    password = obj.get('password', None)
+@app.route('/sign_up', methods=['POST'])
+@app.route('/dozent', methods=['POST'])
+@jwt_required
+@json_required
+def sign_up():
+    jwt_claims = get_jwt_claims()
+    if jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
+
+    mail = request.json.get('mail', None)
+    password = request.json.get('password', None)
     if mail is None:
         return jsonify({"msg": "Missing mail parameter"}), 400
     if password is None:
@@ -242,60 +222,20 @@ def save_dozent(obj):
     if Dozent.query.filter_by(mail=mail).first() is not None:
         return jsonify({"msg": "User with this mail address already exists"}), 400
 
-    titel = obj.get('titel', None)
-    vorname = obj.get('vorname', None)
-    nachname = obj.get('nachname', None)
+    titel = request.json.get('titel', None)
+    vorname = request.json.get('vorname', None)
+    nachname = request.json.get('nachname', None)
     dozent = Dozent(mail=mail, titel=titel, vorname=vorname, nachname=nachname, role="Dozent")
     dozent.set_password(password)
     db.session.add(dozent)
-
-    return dozent
-
-@app.route('/sign_up', methods=['POST'])
-@app.route('/dozent', methods=['POST'])
-@jwt_required
-@json_required
-@cross_origin()
-def sign_up():
-    jwt_claims = get_jwt_claims()
-    if jwt_claims['role'] != 'admin':
-        return jsonify({"msg": "Permission denied"}), 403
-
-    obj = request.get_json()
-    # TODO: Check if error was returned and return it here again
-    # e.g. check if return was a string => error, dozent = object
-    dozent = save_dozent(obj)
     db.session.commit()
-    
+    #TODO: Beim erstellen Vorlesung hinzufügen
     return jsonify({"msg": "User created", "user": dozent.to_public() }), 201
 
-@app.route('/dozenten', methods=['POST'])
-@jwt_required
-@json_required
-@cross_origin()
-def save_dozenten():
-    jwt_claims = get_jwt_claims()
-    if jwt_claims['role'] != 'admin':
-        return jsonify({"msg": "Permission denied"}), 403
-
-    for obj in request.json.get("dozenten", []):
-        # TODO: Check if error was returned and return it here again
-        # e.g. check if return was a string => error, dozent = object
-        save_dozent(obj)
-        
-    db.session.commit()
-
-    dozenten_out = []
-    dozenten = Dozent.query.all()
-    for dozent in dozenten:
-        dozenten_out.append(dozent.to_public())
-
-    return jsonify({"msg": "Dozenten saved", "dozenten": dozenten_out}), 201
 
 @app.route('/kurs', methods=['POST'])
 @jwt_required
 @json_required
-@cross_origin()
 def create_kurs():
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -317,7 +257,6 @@ def create_kurs():
 @app.route('/kurs/<string:kurs_name>/semester', methods=['POST'])
 @jwt_required
 @json_required
-@cross_origin()
 def save_semester_by_kurs(kurs_name):
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -327,7 +266,8 @@ def save_semester_by_kurs(kurs_name):
     if kurs is None:
         return jsonify({"msg": 'The kurs '+kurs_name+' does not exist'}), 404
     
-    if len(kurs.semester) > 6:
+    #TODO: Test this if statement
+    if len(kurs.semester.all()) > 6:
         return jsonify({"msg": 'The kurs '+kurs_name+' has reached the maximum amount of semester (6)'}), 404
 
     for obj in request.json.get("semesters", []):
@@ -364,7 +304,6 @@ def save_semester_by_kurs(kurs_name):
 @app.route('/kurs/<string:kurs_name>/vorlesung', methods=['POST'])
 @jwt_required
 @json_required
-@cross_origin()
 def create_vorlesung_by_kurs(kurs_name):
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -398,12 +337,13 @@ def create_vorlesung_by_kurs(kurs_name):
 ###########################################
 @app.route('/kurs/<string:kurs_name>', methods=['DELETE'])
 @jwt_required
-@cross_origin()
 def delete_kurs(kurs_name):
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
         return jsonify({"msg": "Permission denied"}), 403
 
+    #TODO: Implement delete in db with all foreign keys: 
+    # vorlesungen, termine, referenced dozenten
     kurs = Kurs.query.get(kurs_name)
     vorlesungen = kurs.vorlesungen
     termine = []
@@ -429,13 +369,30 @@ def delete_kurs(kurs_name):
     print(semester)
     return jsonify({"msg": "Kurs (and all references) delted"}), 200
 
+@app.route('/vorlesung/<int:vorlesung_id>/termin/<int:termin_id>', methods=['DELETE'])
+@jwt_required
+def delete_termin(termin_id, vorlesung_id):
+    jwt_claims = get_jwt_claims()
+    if jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
+
+    termin = Termin.query.get(termin_id)
+    db.session.delete(termin) #Delete Termin 
+
+    try:
+        db.session.commit()
+        return jsonify({"msg": "Termin deleted"}), 200
+    except:
+        db.session.rollback()
+        return jsonify({"msg": "Could not fullfill prerequisites for deleting this termin"}), 500
+
+    
 
 #Changer
 ###########################################
 
 @app.route('/change/dozentgibtvorlesung', methods=['POST'])
 @jwt_required
-@cross_origin()
 def dozentgibtvorlesung():
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
@@ -454,15 +411,19 @@ def dozentgibtvorlesung():
 
 """
     Params:     current_user: mail of the user, making this request
-                check: list of vorlesungen(id), checking privileges for
+                pCheck: list of vorlesungen(id), checking privileges for
     Return:     True if the user "gibt" all the vorlesungen
 """
-def check_privileges(current_user, check):
-    print(type(check))
-    if not ((type(check) is int) or (type(check) is list)):
+#TODO: Rework for Admin and testing
+def check_privileges(current_user, pCheck):
+    print(type(pCheck))
+    if (type(pCheck) is int):
+        check = []
+        check.append(check)
+    elif (type(pCheck) is list):
+        check = pCheck
+    else:
         raise ValueError("Check has to be a list or an integer")
-    check = []
-    check.append(check)
 
     user = Dozent.query.filter_by(mail=current_user).first()
     if user is None:
@@ -488,11 +449,11 @@ def termin_helper(id, obj, jwt_token):
     vorlesung = Vorlesung.query.get(id)
 
     if vorlesung is None:
-        abort(400, {'message' : 'No Vorlesung found for id '+id})
+        abort(400, {'message' : 'No Vorlesung found for id '+str(id)})
     if not is_period_free(str(vorlesung.kurs), startDate, endDate):
         abort(400, {'message' : 'timeframe is occupied: ' + startDate+" - "+endDate})
-    if not check_privileges(jwt_token, [vorlesung]):
-        abort(403, {'message': 'No permissions to create Termin for ' + str(v_id.name)})
+    """if not check_privileges(jwt_token, [vorlesung]):
+        abort(403, {'message': 'No permissions to create Termin for ' + str(vorlesung.name)})"""
     
     return Termin(start=startDate, ende=endDate, vorlesung_id = id)
 

@@ -33,16 +33,30 @@ export class DozentenanlegenComponent {
         this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
             this.kursListe = kurse;
         });
-        // this.dozentenController.dozentenListe.subscribe((dozenten: Dozent[]) => {
-        //     this.dozentenListe = dozenten;
-        // });
+        
+        this.dozentenController.dozentenListe.subscribe((dozenten: Dozent[]) => {
+            this.dozentenListe = dozenten;
+            this.loadDozenten();
+            console.log(this.dozentenListe);
+        });
         this.formDozenten = this.fb.group({
             dozentenDaten: this.fb.array([])
         });
-        //TODO Wieso werden Dozenten nicht gespeichert?
-        console.log(this.dozenten);
     }
 
+    public loadDozenten() {
+        for (const dozent of this.dozenten) {
+            this.dozentenDaten.push(
+              this.fb.group({
+                titel: dozent.titel,
+                vorname: dozent.vorname,
+                nachname: dozent.nachname,
+                mail: dozent.mail,
+                role: dozent.role
+              } as Dozent)
+            )
+          }
+    }
     public get dozentenDaten(): FormArray {
         return this.formDozenten.get('dozentenDaten') as FormArray;
     }
@@ -62,7 +76,8 @@ export class DozentenanlegenComponent {
     public async onSubmit() {
         try {
             this.formDozenten.value.dozentenDaten.forEach(async dozent => {
-                const response = await this.dozentenController.saveDozent(dozent);                
+                const response = await this.dozentenController.saveDozent(dozent);    
+                console.log(dozent);            
             });
             console.log(this.dozenten);
             // this.formDozenten.controls.dozentenDaten.value.forEach(async dozentValues => {

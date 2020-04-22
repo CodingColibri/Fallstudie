@@ -85,6 +85,7 @@ export class SemesteranlegenComponent {
   }
 
   public async onSubmit() {
+    //TODO Abfrage: Nachfragen: Wollen Sie die Semester für alle Studiengänge WWI2018 aktualisieren?
     const semesters: Semester[] = [];
     this.formSemester.value.semesterData.forEach(semester => {
       semesters.push(semester);

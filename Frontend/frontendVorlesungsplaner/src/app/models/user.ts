@@ -22,8 +22,9 @@ export interface UserTokenData {
 export interface User {
     id: number;
     mail: string;
-    firstName: string;
-    lastName: string;
+    titel?: string;
+    vorname: string;
+    nachname: string;
     password?: string; //TODO Remove
     role: UserRoleEnum;
 }

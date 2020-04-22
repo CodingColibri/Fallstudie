@@ -11,13 +11,12 @@
     </mat-card-content>
 </mat-card>
 <div class="kursliste" *ngIf="currentKurs != null">
-    <div *ngFor="let kurs of kursListe">
-        <div *ngFor="let semester of kurs.semester">
+    <div *ngFor="let semester of kurs.semester">
         <tr>
-            <td class="semesterNr">{{semester.nummer}}. Semester</td>
-            <td class="zeitraum">{{semester.startDate |date:'dd.MM.yyyy'}} - {{semester.endDate |date:'dd.MM.yyyy'}}</td>
+            <td class="semesterNr">{{semester.semesterID}}. Semester</td>
+            <td class="zeitraum">{{semester.start |date:'dd.MM.yyyy'}} - {{semester.ende |date:'dd.MM.yyyy'}}
+            </td>
 
         </tr>
-        </div>
     </div>
 </div>

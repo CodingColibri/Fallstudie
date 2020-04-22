@@ -18,6 +18,7 @@ export class VorlesungsuebersichtComponent {
     kurse: Kurs[]= [];
     public currentKurs: string;
     public kursListe: Kurs[];
+    public currentKursObject: Kurs;
     
     constructor(
         public vlService: VorlesungenService,
@@ -26,10 +27,28 @@ export class VorlesungsuebersichtComponent {
     ) {
         this.kursController.currentKurs.subscribe(kurs => {
             this.currentKurs = kurs;
+            this.kursChanged();
           });
       
           this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
             this.kursListe = kurse;
+            this.kursChanged();
           });
     }
+
+    public kursChanged() {
+      if (!this.kursListe || !this.currentKurs) {
+        return;
+      }
+  
+      const kurs = this.kursListe.find(kurs => {
+        return kurs.name == this.currentKurs;
+      });
+      if (!kurs) {
+        this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
+        return;
+      }
+  
+      this.currentKursObject = kurs;
+      }
 }

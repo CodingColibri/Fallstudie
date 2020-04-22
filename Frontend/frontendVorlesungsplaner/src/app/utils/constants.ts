@@ -1,5 +1,5 @@
 
-export const WEEKDAYNAMES: string[] = ['Mon', 'Tue', 'Wed', 'Thur', 'Frid', 'Sat', 'Sun'];
+export const WEEKDAYNAMES: string[] = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 
 export const MONTHS = [
     { id: 0, number: 0, name: "Januar", days: 31 },

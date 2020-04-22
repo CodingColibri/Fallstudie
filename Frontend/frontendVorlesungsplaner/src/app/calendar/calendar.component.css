@@ -1,3 +1,8 @@
+.outdated {
+    background: #999;
+    opacity: 0.5;
+}
+
 .kalender-container {
     width: 70%;
     margin: auto;
@@ -52,14 +57,13 @@ th:hover {
 .previous-monat-next {
     float: right;
     margin-right: 265px;
-    margin-top: -30px;
+    margin-top: -50px;
 }
 
 
 /*Previous-Button*/
 
 #previous {
-    background-color: white;
     border-radius: 5px;
     color: black;
     padding: 7px 10px;
@@ -76,7 +80,6 @@ th:hover {
 /*Next-Button*/
 
 #next {
-    background-color: white;
     border-radius: 5px;
     color: black;
     padding: 7px 10px;
@@ -122,7 +125,16 @@ th:hover {
 .th-display-none {
     visibility: hidden;
 }
-
+th {
+    background-color: white;
+    opacity: 80%;
+    height: 30px;
+    border: 0.1px solid #ccc;
+}
+td{
+    background-color: white;
+    opacity: 80%;
+}
 td:hover {
     background-color: #df0019;
     color: white;
@@ -130,4 +142,11 @@ td:hover {
 
 .select-month-year {
     width: 80px;
+}
+.background-image-calendar {
+    background-image: url('src/assets/img/dhbw_forschung.jpg');
+    background-size: cover;
+    height: 70vh;
+    /* display: flex; */
+    align-items: center;
 }

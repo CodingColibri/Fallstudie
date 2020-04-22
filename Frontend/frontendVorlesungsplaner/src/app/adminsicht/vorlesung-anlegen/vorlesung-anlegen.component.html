@@ -24,13 +24,13 @@
                     </mat-form-field>
                     <mat-form-field appearance="legacy">
                         <mat-label>Anzahl der Stunden</mat-label>
-                        <input matInput formControlName="maxStunden">
+                        <input matInput formControlName="std_anzahl">
                     </mat-form-field>
                     <mat-form-field id="dozentenAuswahl"> 
                         <mat-label class="wählen">Dozent auswählen</mat-label>
                             <mat-select formControlName="dozent"> 
                                 <mat-option *ngFor="let dozent of dozenten" [value]="dozent.mail"> 
-                                    {{dozent.mail}}
+                                    {{dozent.titel}} {{dozent.vorname}} {{dozent.nachname}}
                                 </mat-option>
                             </mat-select>
                     </mat-form-field>  

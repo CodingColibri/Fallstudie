@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from '../../environments/environment';
-import { User, UserTokenData, LoginResponse, LoginRequest } from '../models/user';
 import { RestService } from '@app/controller/rest.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { LoginRequest, LoginResponse, User, UserTokenData } from '../models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
