@@ -13,7 +13,7 @@
             <th *ngFor="let weekDayName of weekDayNames">{{ weekDayName }}</th>
         </tr>
         <tr *ngFor="let week of calenderData.weeks">
-            <td *ngFor="let day of week.days" (click)="openDialog(day)">
+            <td *ngFor="let day of week.days" [ngClass]="{'outdated': !isDayInMonth(day)}" (click)="openDialog(day)">
                 <div [ngClass]="{'tdRed': day.morning.vorlesungsID != 0 }">
                     <span class="tdContent">{{ day.date | date: 'd'}}</span>
                 </div>

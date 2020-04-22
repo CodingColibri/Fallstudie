@@ -107,9 +107,16 @@ export class KalenderComponent {
 
     generateCalenderData() {
         this.calenderData.weeks = [];
-        const daysInMonth = this.selectedDate.getDate(); //month + 1?
-        let currentDay = new Date(this.selectedDate);
-        currentDay.setDate(1);
+
+        // Get last day of month; day 0 = last day of previous month
+        const lastDayMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0);
+        const daysInMonth = lastDayMonth.getDate(); //month + 1?
+
+        // Used to detect when the first day of month starts on which weekday        
+        const lastMonday = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1);
+        lastMonday.setDate(lastMonday.getDate() - lastMonday.getDay()); //Substract days to last monday
+
+        let currentDay = new Date(lastMonday);
         var currentDayCounter = 0;
         var weekNumber = 1;
         while (currentDayCounter < daysInMonth) {
@@ -166,5 +173,11 @@ export class KalenderComponent {
         return t1.getFullYear() == t2.getFullYear()
             && t1.getMonth() == t2.getMonth()
             && t1.getDate() == t2.getDate()
+    }
+
+    public isDayInMonth(calenderDay: CalenderDay) {
+        const firstDayMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1, 0, 0, 0, 0)
+        const lastDayMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0, 24, 0, 0, 0);
+        return calenderDay.date > firstDayMonth && calenderDay.date < lastDayMonth;
     }
 } //close export class KalenderComponent
