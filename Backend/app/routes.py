@@ -277,10 +277,10 @@ def save_semester_by_kurs(kurs_name):
         return jsonify({"msg": 'The kurs '+kurs_name+' does not exist'}), 404
     
     #TODO: Test this if statement
-    if len(kurs.semester.all()) > 6:
+    if len(kurs.semester) > 6:
         return jsonify({"msg": 'The kurs '+kurs_name+' has reached the maximum amount of semester (6)'}), 404
 
-    for obj in request.json.get("semesters", []):
+    for obj in request.json.get("semesters", []): 
         semesterID = obj.get("semesterID", None)
         start = obj.get("start")
         start = date.fromtimestamp(start)
