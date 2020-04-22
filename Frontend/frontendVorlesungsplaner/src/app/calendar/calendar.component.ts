@@ -114,7 +114,7 @@ export class KalenderComponent {
 
         // Used to detect when the first day of month starts on which weekday        
         const lastMonday = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1);
-        lastMonday.setDate(lastMonday.getDate() - lastMonday.getDay()); //Substract days to last monday
+        lastMonday.setDate(lastMonday.getDate() - lastMonday.getDay() + 1); //Substract days to last monday
 
         let currentDay = new Date(lastMonday);
         var currentDayCounter = 0;
