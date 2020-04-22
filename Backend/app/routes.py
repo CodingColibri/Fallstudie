@@ -199,8 +199,18 @@ def add_termine(id):
     json, token = request.get_json(), get_jwt_identity()
     for obj in json["termine"]: 
         termin = termin_helper(id, obj, token)
-        db.session.add(termin)
-    db.session.commit()
+        try:
+            old_termin = Termin.query.get(obj['id'])
+            old_termin.start = termin.start
+            old_termin.ende = termin.ende
+            old_vorlesung_id = termin.vorlesung_id
+            db.session.commit()
+            return jsonify({"msg": "Termine geupdated"}), 201
+
+        except Exception as e:
+            print(e)
+            db.session.add(termin)
+            db.session.commit()
     return jsonify({"msg": "Termine erstellt"}), 201
 
 @app.route('/sign_up', methods=['POST'])
@@ -369,6 +379,7 @@ def delete_kurs(kurs_name):
     print(semester)
     return jsonify({"msg": "Kurs (and all references) delted"}), 200
 
+#TODO:/vorlesung/<int:vorlesung_id>/ benötigt?
 @app.route('/vorlesung/<int:vorlesung_id>/termin/<int:termin_id>', methods=['DELETE'])
 @jwt_required
 def delete_termin(termin_id, vorlesung_id):
@@ -449,7 +460,7 @@ def termin_helper(id, obj, jwt_token):
     vorlesung = Vorlesung.query.get(id)
 
     if vorlesung is None:
-        abort(400, {'message' : 'No Vorlesung found for id '+str(id)})
+        abort(400, {'message' : 'No Vorlesung found for id '+ str(id)})
     if not is_period_free(str(vorlesung.kurs), startDate, endDate):
         abort(400, {'message' : 'timeframe is occupied: ' + startDate+" - "+endDate})
     """if not check_privileges(jwt_token, [vorlesung]):
@@ -463,7 +474,7 @@ def termin_helper(id, obj, jwt_token):
                 start:  start of the checking period
                 end:    end of the checking period
     Return:     True if nothing is happening for the kurs form start to end
-"""
+"""#TODO: check me
 def is_period_free(kurs, start, ende):
     vorlesungen = Vorlesung.query.filter_by(kurs_name=kurs).all()
     termine = []
