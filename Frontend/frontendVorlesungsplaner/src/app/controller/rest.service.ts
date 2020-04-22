@@ -7,12 +7,7 @@ import { environment } from '@environments/environment';
 import { map } from 'rxjs/operators';
 import { Dozent, DozentenResponse, DozentenRequest, DozentRequest, DozentResponse } from '@app/models/dozenten-models';
 import { Vorlesung, VorlesungResponse, VorlesungRequest } from '@app/models/vorlesungen-models';
-<<<<<<< HEAD
-import { Termin, TermineResponse, TermineRequest } from '@app/models/termin-models';
-
-=======
 import { Termin, TermineResponse, TermineRequest, TerminRequest } from '@app/models/termin-models';
->>>>>>> develop
 
 @Injectable({
   providedIn: 'root'
@@ -197,12 +192,6 @@ export class RestService {
     return await this.http.post<VorlesungResponse>(`${environment.backendUrl}/kurs/${kurs_name}/vorlesung`, body).toPromise();
   }
 
-<<<<<<< HEAD
-  /**********************************************
-  /* Termine Requests
-  /**********************************************/
-  public async saveTermine(vorlesung_name: string, vorlesung_id: number, termine: Termin[]): Promise<TermineResponse> {
-=======
   public async getVorlesungenByKurs(kurs_name: string): Promise<VorlesungResponse> {
     return await this.http.get<VorlesungResponse>(`${environment.backendUrl}/kurs/${kurs_name}/vorlesungen`).pipe(
       map(resp => {
@@ -219,22 +208,10 @@ export class RestService {
   /**********************************************/
   //mitgetVorlesungenByKurs() die ID auslesen und hier mitgeben
   public async saveTermine(vorlesung_id: number, termine: Termin[]): Promise<TermineResponse> {
->>>>>>> develop
     const body = {
       termine: []
     } as TermineRequest;
     for (const termin of termine) {
-<<<<<<< HEAD
-      body.termine.push({
-        ende: termin.ende,
-        start: termin.start
-      })
-    }
-    //TODO Vorlesung ID bekommt man mit der Vorlesung vom Backend zurück
-    return await this.http.post<TermineResponse>(`${environment.backendUrl}/vorlesung/${vorlesung_id}/${vorlesung_name}/termin`, body).toPromise();
-  }
-}
-=======
       const obj = {
         endDate: termin.endDate.getTime() / 1000,
         startDate: termin.startDate.getTime() / 1000
@@ -248,4 +225,3 @@ export class RestService {
     return await this.http.post<TermineResponse>(`${environment.backendUrl}/vorlesung/${vorlesung_id}/termin`, body).toPromise();
   }
 }
->>>>>>> develop
