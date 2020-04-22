@@ -23,6 +23,12 @@ export class TerminController {
     });
   }
 
+  public async deleteTermin(terminID: number) {
+    //TODO: Add Rest Route
+
+    this.kursController.loadData();
+  }
+
   public async saveTermine(vorlesung_id: number, termine: Termin[]): Promise<TermineResponse> {
     const response = await this.restService.saveTermine(vorlesung_id, termine);
     
