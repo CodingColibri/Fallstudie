@@ -5,7 +5,6 @@ from app.models import Dozent, Kurs, Semester, Vorlesung, Termin
 from datetime import timedelta, date, datetime
 from sqlalchemy import and_
 from functools import wraps
-from flask_cors import cross_origin
 
 #Decorators
 ############################################
@@ -26,15 +25,12 @@ def login():
     mail = request.json.get('mail', None)
     password = request.json.get('password', None)
     if not mail:
-        print("missing mail")
         return jsonify({"msg": "Missing mail parameter"}), 400
     if not password:
-        print("missing pw")
         return jsonify({"msg": "Missing password parameter"}), 400
 
     user = Dozent.query.filter_by(mail=mail).first()
     if user is None or not user.check_password(password):
-        print("wrong credential")
         return jsonify({"msg": "Bad username or password"}), 401
 
     user_out = {}
@@ -123,26 +119,9 @@ def vorlesung_fordozent(dozent_identity=None):
     return jsonify({"termine": termine_out}), 200
 
 @app.route('/dozent', methods=['GET'])
-@jwt_required
-def get_dozenten():
-    jwt_claims = get_jwt_claims()
-    if jwt_claims['role'] != 'admin':
-        return jsonify({"msg": "Permission denied"}), 403
-    
-    dozenten = Dozent.query.all()
-    """if not dozenten:
-        return jsonify({"dozenten": []}), 200"""
-
-    dozenten_out = []
-    for dozent in dozenten:
-        dozenten_out.append(dozent.to_public())
-    
-    return jsonify({"dozenten": dozenten_out}), 200
-
-@app.route('/dozent/jwt', methods=['GET'])
 @app.route('/dozent/<string:dozent_identity>', methods=['GET'])
 @jwt_required
-def get_dozent_by_id(dozent_identity=None):
+def get_dozent(dozent_identity=None):
     jwt_identity = get_jwt_identity()
     jwt_claims = get_jwt_claims()
     
@@ -213,7 +192,7 @@ def get_semester_by_kurs(kurs_name):
 #Creater
 ###########################################
 
-@app.route('/vorlesung/<int:id>/termin', methods=['POST']) #id = Vorlesung.id
+@app.route('/vorlesung/<int:id>/termin', methods=['POST'])
 @jwt_required
 @json_required
 def add_termine(id):
@@ -224,27 +203,6 @@ def add_termine(id):
     db.session.commit()
     return jsonify({"msg": "Termine erstellt"}), 201
 
-# Used to store dozent in db session
-def save_dozent(obj):
-    mail = obj.get('mail', None)
-    password = obj.get('password', None)
-    if mail is None:
-        return jsonify({"msg": "Missing mail parameter"}), 400
-    if password is None:
-        return jsonify({"msg": "Missing password parameter"}), 400
-
-    if Dozent.query.filter_by(mail=mail).first() is not None:
-        return jsonify({"msg": "User with this mail address already exists"}), 400
-
-    titel = obj.get('titel', None)
-    vorname = obj.get('vorname', None)
-    nachname = obj.get('nachname', None)
-    dozent = Dozent(mail=mail, titel=titel, vorname=vorname, nachname=nachname, role="Dozent")
-    dozent.set_password(password)
-    db.session.add(dozent)
-
-    return dozent
-
 @app.route('/sign_up', methods=['POST'])
 @app.route('/dozent', methods=['POST'])
 @jwt_required
@@ -254,41 +212,26 @@ def sign_up():
     if jwt_claims['role'] != 'admin':
         return jsonify({"msg": "Permission denied"}), 403
 
-    obj = request.get_json()
-    # TODO: Check if error was returned and return it here again
-    # e.g. check if return was a string => error, dozent = object 
-    # Done?
-    dozent = save_dozent(obj)
-    if type(dozent) is not Dozent:
-        return dozent
+    mail = request.json.get('mail', None)
+    password = request.json.get('password', None)
+    if mail is None:
+        return jsonify({"msg": "Missing mail parameter"}), 400
+    if password is None:
+        return jsonify({"msg": "Missing password parameter"}), 400
+
+    if Dozent.query.filter_by(mail=mail).first() is not None:
+        return jsonify({"msg": "User with this mail address already exists"}), 400
+
+    titel = request.json.get('titel', None)
+    vorname = request.json.get('vorname', None)
+    nachname = request.json.get('nachname', None)
+    dozent = Dozent(mail=mail, titel=titel, vorname=vorname, nachname=nachname, role="Dozent")
+    dozent.set_password(password)
+    db.session.add(dozent)
     db.session.commit()
-    
+    #TODO: Beim erstellen Vorlesung hinzufügen
     return jsonify({"msg": "User created", "user": dozent.to_public() }), 201
 
-@app.route('/dozenten', methods=['POST'])
-@jwt_required
-@json_required
-def save_dozenten():
-    jwt_claims = get_jwt_claims()
-    if jwt_claims['role'] != 'admin':
-        return jsonify({"msg": "Permission denied"}), 403
-
-    for obj in request.json.get("dozenten", []):
-        # TODO: Check if error was returned and return it here again
-        # e.g. check if return was a string => error, dozent = object
-        #Done?
-        cur_dozent = save_dozent(obj)
-        if cur_dozent is not Dozent:
-            return cur_dozent
-        
-    db.session.commit()
-
-    dozenten_out = []
-    dozenten = Dozent.query.all()
-    for dozent in dozenten:
-        dozenten_out.append(dozent.to_public())
-
-    return jsonify({"msg": "Dozenten saved", "dozenten": dozenten_out}), 201
 
 @app.route('/kurs', methods=['POST'])
 @jwt_required
@@ -323,7 +266,8 @@ def save_semester_by_kurs(kurs_name):
     if kurs is None:
         return jsonify({"msg": 'The kurs '+kurs_name+' does not exist'}), 404
     
-    if len(kurs.semester) > 6:
+    #TODO: Test this if statement
+    if len(kurs.semester.all()) > 6:
         return jsonify({"msg": 'The kurs '+kurs_name+' has reached the maximum amount of semester (6)'}), 404
 
     for obj in request.json.get("semesters", []):
@@ -378,8 +322,6 @@ def create_vorlesung_by_kurs(kurs_name):
 
     vorlesung = Vorlesung(std_anzahl=std_anzahl, name=name,kurs_name=kurs_name)
 
-    if type(dozenten) is not list:
-        return jsonify({"msg": 'Please enter an array for field: dozenten'}), 400
     for dozent_identify in dozenten:
         dozent = Dozent.query.get(dozent_identify)
         if not dozent:
@@ -400,6 +342,8 @@ def delete_kurs(kurs_name):
     if jwt_claims['role'] != 'admin':
         return jsonify({"msg": "Permission denied"}), 403
 
+    #TODO: Implement delete in db with all foreign keys: 
+    # vorlesungen, termine, referenced dozenten
     kurs = Kurs.query.get(kurs_name)
     vorlesungen = kurs.vorlesungen
     termine = []
@@ -425,6 +369,24 @@ def delete_kurs(kurs_name):
     print(semester)
     return jsonify({"msg": "Kurs (and all references) delted"}), 200
 
+@app.route('/Vorlesung/<int:vorlesung_id>/termin/<int:termin_id>', methods=['DELETE'])
+@jwt_required
+def delete_termin(termin_id):
+    jwt_claims = get_jwt_claims()
+    if jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
+
+    termin = Termin.query.get(termin_id)
+    db.session.delete(termin) #Delete Termin 
+
+    try:
+        db.session.commit()
+        return jsonify({"msg": "Termin deleted"}), 200
+    except:
+        db.session.rollback()
+        return jsonify({"msg": "Could not fullfill prerequisites for deleting this termin"}), 500
+
+    
 
 #Changer
 ###########################################
