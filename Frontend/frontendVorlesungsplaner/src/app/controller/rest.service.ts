@@ -4,7 +4,7 @@ import { Kurs, KurseResponse, KursRequest, KursResponse } from '@app/models/kurs
 import { Semester, SemestersRequest, SemestersResponse } from '@app/models/semester-models';
 import { LoginRequest, LoginResponse } from '@app/models/user';
 import { environment } from '@environments/environment';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Dozent, DozentenResponse, DozentenRequest, DozentRequest, DozentResponse } from '@app/models/dozenten-models';
 import { Vorlesung, VorlesungResponse, VorlesungRequest } from '@app/models/vorlesungen-models';
 import { Termin, TermineResponse, TermineRequest, TerminRequest } from '@app/models/termin-models';
@@ -223,5 +223,11 @@ export class RestService {
     }
 
     return await this.http.post<TermineResponse>(`${environment.backendUrl}/vorlesung/${vorlesung_id}/termin`, body).toPromise();
+  }
+
+  public async deleteTermin(vorlesung_id: number, terminID: number) {
+    return await this.http.delete(`${this.endpoint}/vorlesung/${vorlesung_id}/termin/${terminID}`).pipe
+    ()
+
   }
 }

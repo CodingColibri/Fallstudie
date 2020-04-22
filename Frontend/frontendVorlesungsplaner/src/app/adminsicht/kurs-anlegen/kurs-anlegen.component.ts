@@ -46,8 +46,6 @@ export class KursanlegenComponent {
   }
 
   public async onSubmit() {
-    // const kurse: Kurs[]= [];
-    //TODO Nachfragen => Wird angelegt, jedoch 2x
     try {
       this.formKurs.value.kursData.forEach(async kurs => {
         const response = await this.kursController.createKurs(kurs);

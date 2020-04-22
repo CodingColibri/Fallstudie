@@ -36,7 +36,6 @@ export class AdminheaderComponent {
     ngOnInit() {
         this.loading = true;
         this.currentUser = this.authenticationService.currentUserValue;
-        console.log(this.currentUser);
     }
 
     public logout() {

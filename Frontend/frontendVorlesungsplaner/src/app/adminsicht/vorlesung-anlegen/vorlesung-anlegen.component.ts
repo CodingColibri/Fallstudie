@@ -47,7 +47,7 @@ export class VorlesunganlegenComponent {
       });
       this.dozentenController.dozentenListe.subscribe(dozent => {
         this.dozenten = dozent;
-        // this.kursChanged();
+        this.kursChanged();
       }); 
   }
 

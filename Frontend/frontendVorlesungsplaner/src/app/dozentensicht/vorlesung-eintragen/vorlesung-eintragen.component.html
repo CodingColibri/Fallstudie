@@ -31,6 +31,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <button class="delete-button" mat-button (click)="deleteTerminMorning()" cdkFocusInitial>X</button>
         </div>
     </div>
     <div class="vorlesungsblock">
@@ -55,12 +56,13 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <button class="delete-button" mat-button (click)="deleteTerminMorning()" cdkFocusInitial>X</button>
         </div>
     </div>
     <div class="add-vorlesung">
 
         <button class="add-button" mat-button (click)="addVorlesung()" cdkFocusInitial>+</button>
-        <button mat-button (click)="close()" cdkFocusInitial>Schließen</button>
+        <button class="close" mat-button (click)="close()" cdkFocusInitial>Schließen</button>
         <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Hinzufügen</button> -->
     </div>
 </div>

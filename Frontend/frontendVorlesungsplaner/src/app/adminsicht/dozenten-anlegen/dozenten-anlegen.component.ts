@@ -36,8 +36,9 @@ export class DozentenanlegenComponent {
         
         this.dozentenController.dozentenListe.subscribe((dozenten: Dozent[]) => {
             this.dozentenListe = dozenten;
-            this.loadDozenten();
             console.log(this.dozentenListe);
+
+            this.loadDozenten();
         });
         this.formDozenten = this.fb.group({
             dozentenDaten: this.fb.array([])

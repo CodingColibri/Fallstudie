@@ -59,6 +59,12 @@ th:hover {
     margin-right: 265px;
     margin-top: -50px;
 }
+.switch-month-year {
+    float: right;
+    margin-right: 265px;
+    margin-top: -48px;
+    opacity: 70%;
+}
 
 
 /*Previous-Button*/
@@ -142,6 +148,8 @@ td:hover {
 
 .select-month-year {
     width: 80px;
+    font-size: 12px;
+    height: 20px;
 }
 .background-image-calendar {
     background-image: url('src/assets/img/dhbw_forschung.jpg');

@@ -5,6 +5,25 @@
         <h4 class="monatstitel"> {{ selectedDate | date: 'MMMM yyyy' }} </h4>
         <p id="next" (click)="next()">&#8250;</p>
     </div>
+    <!-- TODO Evtl. löschen -->
+    <!-- <div class="switch-month-year">
+        <mat-form-field class="select-month-year">
+            <mat-label>Jahr</mat-label>
+            <mat-select [ngModel]="changedYear" (ngModelChange)="changedYear($event)">
+                <mat-option *ngFor="let year of years" [value]="year.name">
+                    {{year.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="select-month-year">
+            <mat-label>Monat</mat-label>
+            <mat-select [ngModel]="changedYear" (ngModelChange)="changedMonth($event)">
+                <mat-option *ngFor="let month of months" [value]="month.number">
+                    {{month.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div> -->
 </div>
 <mat-card class="error" *ngIf="!currentKurs">
     <mat-card-content>
@@ -15,41 +34,27 @@
     </mat-card-content>
 </mat-card>
 <div class="background-image-calendar" *ngIf="currentKurs != null">
-<div class="kalender-container">
+    <div class="kalender-container">
 
-    <table class="monats-tabelle">
-        <tr>
-            <th *ngFor="let weekDayName of weekDayNames">{{ weekDayName }}</th>
-        </tr>
-        <tr *ngFor="let week of calenderData.weeks">
-            <td *ngFor="let day of week.days" [ngClass]="{'outdated': !isDayInMonth(day)}" (click)="openDialog(day)">
-                <div [ngClass]="{'tdRed': day.morning.vorlesungsID != 0 }">
-                    <span class="tdContent">{{ day.date | date: 'd'}}</span>
-                </div>
-                <div [ngClass]="{'tdRed': day.afternoon.vorlesungsID != 0 }"></div>
-            </td>
-        </tr>
-    </table>
+        <table class="monats-tabelle">
+            <tr>
+                <th *ngFor="let weekDayName of weekDayNames">{{ weekDayName }}</th>
+            </tr>
+            <tr *ngFor="let week of calenderData.weeks">
+                <td *ngFor="let day of week.days" [ngClass]="{'outdated': !isDayInMonth(day)}"
+                    (click)="openDialog(day)">
+                    <div [ngClass]="{'tdRed': day.morning.vorlesungsID != 0 }">
+                        <span class="tdContent">{{ day.date | date: 'd'}}</span>
+                    </div>
+                    <div [ngClass]="{'tdRed': day.afternoon.vorlesungsID != 0 }"></div>
+                </td>
+            </tr>
+        </table>
 
-    <mat-form-field class="select-month-year">
-        <mat-label>Jahr</mat-label>
-        <mat-select [ngModel]="changedYear" (ngModelChange)="changedYear($event)">
-            <mat-option *ngFor="let year of years" [value]="year.name">
-                {{year.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field class="select-month-year">
-        <mat-label>Monat</mat-label>
-        <mat-select [ngModel]="changedYear" (ngModelChange)="changedMonth($event)">
-            <mat-option *ngFor="let month of months" [value]="month.number">
-                {{month.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <h4 (click)="openWarning()">Test Popup Stundenwarnung</h4>
-    <!-- <a (click)="openWarning()" routerLink="/stunden-warnung" routerLinkActive="active">Test Popup Stundenwarnung</a> -->
 
-    <br />
-</div>
+        <h4 (click)="openWarning()">Test Popup Stundenwarnung</h4>
+        <!-- <a (click)="openWarning()" routerLink="/stunden-warnung" routerLinkActive="active">Test Popup Stundenwarnung</a> -->
+
+        <br />
+    </div>
 </div>

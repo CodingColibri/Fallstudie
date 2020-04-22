@@ -23,8 +23,8 @@ export class TerminController {
     });
   }
 
-  public async deleteTermin(terminID: number) {
-    //TODO: Add Rest Route
+  public async deleteTermin(vorlesung_id: number, terminID: number) {
+    const response = await this.restService.deleteTermin(vorlesung_id, terminID);
 
     this.kursController.loadData();
   }
