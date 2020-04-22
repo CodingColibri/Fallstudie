@@ -119,6 +119,23 @@ def vorlesung_fordozent(dozent_identity=None):
     return jsonify({"termine": termine_out}), 200
 
 @app.route('/dozent', methods=['GET'])
+@jwt_required
+def get_dozenten():
+    jwt_claims = get_jwt_claims()
+    if jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
+    
+    dozenten = Dozent.query.all()
+    if dozenten is None:
+        return jsonify({"dozenten": []}), 200
+
+    dozenten_out = []
+    for dozent in dozenten_out:
+        dozenten_out.append(dozent.to_public())
+    
+    return jsonify({"dozenten": dozenten_out}), 200
+
+@app.route('/dozent/jwt', methods=['GET'])
 @app.route('/dozent/<string:dozent_identity>', methods=['GET'])
 @jwt_required
 def get_dozent(dozent_identity=None):
@@ -133,7 +150,7 @@ def get_dozent(dozent_identity=None):
 
     dozent = Dozent.query.get(dozent_identity)
     if not dozent:
-        return jsonify({"msg": "Dozent not exists"}), 404
+        return jsonify({"msg": "Dozent does not exists"}), 404
     
     return jsonify(dozent.to_public()), 200
 
@@ -191,6 +208,32 @@ def get_semester_by_kurs(kurs_name):
 
 #Creater
 ###########################################
+
+@app.route('/dozenten', methods=['POST'])
+@jwt_required
+@json_required
+def save_dozenten():
+    jwt_claims = get_jwt_claims()
+    if jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
+
+    for obj in request.json.get("dozenten", []):
+        # TODO: Check if error was returned and return it here again
+        # e.g. check if return was a string => error, dozent = object
+        #Done?
+        cur_dozent = save_dozent(obj)
+        if cur_dozent is not Dozent:
+            return cur_dozent
+        
+    db.session.commit()
+
+    dozenten_out = []
+    dozenten = Dozent.query.all()
+    for dozent in dozenten:
+        dozenten_out.append(dozent.to_public())
+
+    return jsonify({"msg": "Dozenten saved", "dozenten": dozenten_out}), 201
+
 
 @app.route('/vorlesung/<int:id>/termin', methods=['POST'])
 @jwt_required
