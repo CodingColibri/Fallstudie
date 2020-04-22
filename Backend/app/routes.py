@@ -234,6 +234,46 @@ def save_dozenten():
 
     return jsonify({"msg": "Dozenten saved", "dozenten": dozenten_out}), 201
 
+# Used to store dozent in db session
+def save_dozent(obj):
+    mail = obj.get('mail', None)
+    password = obj.get('password', None)
+    if mail is None:
+        return jsonify({"msg": "Missing mail parameter"}), 400
+    if password is None:
+        return jsonify({"msg": "Missing password parameter"}), 400
+
+    if Dozent.query.filter_by(mail=mail).first() is not None:
+        return jsonify({"msg": "User with this mail address already exists"}), 400
+
+    titel = obj.get('titel', None)
+    vorname = obj.get('vorname', None)
+    nachname = obj.get('nachname', None)
+    dozent = Dozent(mail=mail, titel=titel, vorname=vorname, nachname=nachname, role="Dozent")
+    dozent.set_password(password)
+    db.session.add(dozent)
+
+    return dozent
+
+@app.route('/sign_up', methods=['POST'])
+@app.route('/dozent', methods=['POST'])
+@jwt_required
+@json_required
+def sign_up():
+    jwt_claims = get_jwt_claims()
+    if jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
+
+    obj = request.get_json()
+    # TODO: Check if error was returned and return it here again
+    # e.g. check if return was a string => error, dozent = object 
+    # Done?
+    dozent = save_dozent(obj)
+    if type(dozent) is not Dozent:
+        return dozent
+    db.session.commit()
+    
+    return jsonify({"msg": "User created", "user": dozent.to_public() }), 201
 
 @app.route('/vorlesung/<int:id>/termin', methods=['POST'])
 @jwt_required
@@ -249,42 +289,11 @@ def add_termine(id):
             old_vorlesung_id = termin.vorlesung_id
             db.session.commit()
             return jsonify({"msg": "Termine geupdated"}), 201
-
         except Exception as e:
             print(e)
             db.session.add(termin)
             db.session.commit()
     return jsonify({"msg": "Termine erstellt"}), 201
-
-@app.route('/sign_up', methods=['POST'])
-@app.route('/dozent', methods=['POST'])
-@jwt_required
-@json_required
-def sign_up():
-    jwt_claims = get_jwt_claims()
-    if jwt_claims['role'] != 'admin':
-        return jsonify({"msg": "Permission denied"}), 403
-
-    mail = request.json.get('mail', None)
-    password = request.json.get('password', None)
-    if mail is None:
-        return jsonify({"msg": "Missing mail parameter"}), 400
-    if password is None:
-        return jsonify({"msg": "Missing password parameter"}), 400
-
-    if Dozent.query.filter_by(mail=mail).first() is not None:
-        return jsonify({"msg": "User with this mail address already exists"}), 400
-
-    titel = request.json.get('titel', None)
-    vorname = request.json.get('vorname', None)
-    nachname = request.json.get('nachname', None)
-    dozent = Dozent(mail=mail, titel=titel, vorname=vorname, nachname=nachname, role="Dozent")
-    dozent.set_password(password)
-    db.session.add(dozent)
-    db.session.commit()
-    #TODO: Beim erstellen Vorlesung hinzufügen
-    return jsonify({"msg": "User created", "user": dozent.to_public() }), 201
-
 
 @app.route('/kurs', methods=['POST'])
 @jwt_required
@@ -319,7 +328,6 @@ def save_semester_by_kurs(kurs_name):
     if kurs is None:
         return jsonify({"msg": 'The kurs '+kurs_name+' does not exist'}), 404
     
-    #TODO: Test this if statement
     if len(kurs.semester) > 6:
         return jsonify({"msg": 'The kurs '+kurs_name+' has reached the maximum amount of semester (6)'}), 404
 
@@ -395,8 +403,6 @@ def delete_kurs(kurs_name):
     if jwt_claims['role'] != 'admin':
         return jsonify({"msg": "Permission denied"}), 403
 
-    #TODO: Implement delete in db with all foreign keys: 
-    # vorlesungen, termine, referenced dozenten
     kurs = Kurs.query.get(kurs_name)
     vorlesungen = kurs.vorlesungen
     termine = []
