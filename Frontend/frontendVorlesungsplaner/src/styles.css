@@ -161,9 +161,9 @@ h3 {
 }
 /*Error bei fehlender Kursauswahl*/
 mat-card.error {
-    color: #856404;
-    background-color: #fff3cd;
-    border-color: #ffeeba;
+    color: #505050;
+    background-color: #f2f2f2;
+    border-color: #f2f2f2;
     width: 300px; 
     margin-left: 40px;
 }
