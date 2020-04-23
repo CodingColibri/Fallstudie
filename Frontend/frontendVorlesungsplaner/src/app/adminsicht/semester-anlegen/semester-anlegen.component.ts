@@ -10,7 +10,6 @@ import { BackendErrorResponse } from '@app/models/user';
 import { SEMESTERNUMBERS } from '../../utils/constants';
 import { ToastService } from '@app/services/toast.service';
 
-
 @Component({
   selector: 'semester-anlegen',
   templateUrl: './semester-anlegen.component.html',
@@ -105,6 +104,7 @@ export class SemesteranlegenComponent {
         this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
       }
     }
+
   }
 
   public removeInput(index) {

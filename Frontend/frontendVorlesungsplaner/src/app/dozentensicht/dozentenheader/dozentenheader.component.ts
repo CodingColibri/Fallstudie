@@ -18,6 +18,7 @@ import { MatSelectChange } from '@angular/material/select';
 export class DozentenheaderComponent {
 
     loading = false;
+    public currentUser: User;
     users: User[];
     kurse: Kurs[]= [];
   
@@ -32,10 +33,7 @@ export class DozentenheaderComponent {
     
     ngOnInit() {
         this.loading = true;
-        this.userService.getAll().pipe(first()).subscribe(users => {
-            this.loading = false;
-            this.users = users;
-        });
+        this.currentUser = this.authenticationService.currentUserValue;
     }
     logout() {
         this.authenticationService.logout();

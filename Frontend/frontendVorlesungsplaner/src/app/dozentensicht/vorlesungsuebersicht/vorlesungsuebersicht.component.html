@@ -14,6 +14,7 @@
     <div *ngFor="let vorlesung of currentKursObject.vorlesungen">
         <div *ngFor="let termin of vorlesung.termine">
         <tr>
+            <!-- TODO Nachfragen Termine aufsteigend sortieren? -->
             <td class="tdDate">{{termin.startDate|date: 'EEEE, dd.MM.y'}}</td>
             <td class="tdTimeframe">{{termin.startDate|date: 'HH:mm'}} - {{termin.endDate|date: 'HH:mm'}}</td>
             <td class="tdNameVorlesung">{{vorlesung.name}}</td>
@@ -21,4 +22,3 @@
         <p> </p>
     </div>
 </div>
-    <!-- <div *ngFor="let day of calenderData.weeks.week">{{day.date|date:'d.m'}}</div> -->

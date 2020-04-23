@@ -27,6 +27,7 @@ export class TerminController {
     const response = await this.restService.deleteTermin(vorlesung_id, terminID);
 
     this.kursController.loadData();
+    return response;
   }
 
   public async saveTermine(vorlesung_id: number, termine: Termin[]): Promise<TermineResponse> {

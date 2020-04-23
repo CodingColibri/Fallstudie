@@ -226,8 +226,6 @@ export class RestService {
   }
 
   public async deleteTermin(vorlesung_id: number, terminID: number) {
-    return await this.http.delete(`${this.endpoint}/vorlesung/${vorlesung_id}/termin/${terminID}`).pipe
-    ()
-
+    return await this.http.delete(`${this.endpoint}/vorlesung/${vorlesung_id}/termin/${terminID}`).subscribe(data => {});
   }
 }

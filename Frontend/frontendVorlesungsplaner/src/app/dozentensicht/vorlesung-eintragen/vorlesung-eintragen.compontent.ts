@@ -14,6 +14,8 @@ import { ToastService } from '@app/services/toast.service';
 import { Kurs } from '@app/models/kurse-models';
 import { Termin } from '@app/models/termin-models';
 import { TerminController } from '@app/controller/termin-controller.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { BackendErrorResponse } from '@app/models/user';
 
 @Component({
   selector: 'vorlesung-eintragen',
@@ -26,6 +28,7 @@ export class VorlesungEintragenComponent {
   public currentKurs: string;
   private kursListe: Kurs[]
   public currentKursObject: Kurs;
+  error = '';
 
   oldCalenderDay: CalenderDay;
   calenderDay: CalenderDay;
@@ -85,6 +88,7 @@ export class VorlesungEintragenComponent {
   }
 
   addVorlesung(): void {
+    try{
       const termin1 = this.calenderDay.morning;
       //Check if termin has had an id and if vorlesungsID was changed
       if (termin1.id && termin1.vorlesungsID != this.oldCalenderDay.morning.vorlesungsID) {
@@ -100,16 +104,55 @@ export class VorlesungEintragenComponent {
         delete termin2.id; // Delete id as the termin has to be recreated for the new Vorlesung
       }
       this.terminController.saveTermine(termin2.vorlesungsID, [termin2]);
-
+      this.toastService.addSuccess("Vorlesung erfolgreich angelegt");
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        console.error(err);
+        const error = err.error as BackendErrorResponse;
+        this.error = error.msg;
+        this.toastService.addError(error.msg);
+      } else {
+        console.error(err);
+        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+      }
+    }
       this.dialogRef.close(this.calenderDay);
   }
   deleteTerminMorning(){
     const termin1 = this.calenderDay.morning;
-    this.terminController.deleteTermin(termin1.vorlesungsID, termin1.id)
+    try{
+      this.terminController.deleteTermin(termin1.vorlesungsID, termin1.id);
+      this.toastService.addSuccess("Vorlesung erfolgreich gelöscht");
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        console.error(err);
+        const error = err.error as BackendErrorResponse;
+        this.error = error.msg;
+        this.toastService.addError(error.msg);
+      } else {
+        console.error(err);
+        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+      }
+    }
+    this.dialogRef.close(this.calenderDay);
   }
   deleteTerminAfternoon(){
     const termin2 = this.calenderDay.afternoon;
-    this.terminController.deleteTermin(termin2.vorlesungsID, termin2.id)
+    try {
+      this.terminController.deleteTermin(termin2.vorlesungsID, termin2.id)
+      this.toastService.addSuccess("Vorlesung erfolgreich gelöscht");
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        console.error(err);
+        const error = err.error as BackendErrorResponse;
+        this.error = error.msg;
+        this.toastService.addError(error.msg);
+      } else {
+        console.error(err);
+        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+      }
+    }
+    this.dialogRef.close(this.calenderDay);
   }
 
   close(): void {
