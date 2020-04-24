@@ -470,7 +470,7 @@ def delete_vorlesung(vorlesung_id):
     for termin in temp_termine:
         db.session.delete(termin) #Delete Termine for Vorlesung
 
-    db.session.delete(vorlesung) #Delete Vorlesung 
+    db.session.delete(vorlesung) #Delete Vorlesung
 
     try:
         db.session.commit()
