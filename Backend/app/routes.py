@@ -404,6 +404,10 @@ def delete_kurs(kurs_name):
         return jsonify({"msg": "Permission denied"}), 403
 
     kurs = Kurs.query.get(kurs_name)
+
+    if kurs is None:
+        return jsonify({"msg": 'Kurs with name '+kurs_name+' does not exist'}), 400
+
     vorlesungen = kurs.vorlesungen
     termine = []
     for vorlesung in vorlesungen:
@@ -437,6 +441,10 @@ def delete_termin(termin_id, vorlesung_id):
         return jsonify({"msg": "Permission denied"}), 403
 
     termin = Termin.query.get(termin_id)
+    if termin is None:
+        return jsonify({"msg": 'Termin with id '+termin_id+' does not exist'}), 400
+
+        
     db.session.delete(termin) #Delete Termin 
 
     try:
@@ -446,7 +454,30 @@ def delete_termin(termin_id, vorlesung_id):
         db.session.rollback()
         return jsonify({"msg": "Could not fullfill prerequisites for deleting this termin"}), 500
 
-    
+
+@app.route('/vorlesung/<int:vorlesung_id>', methods=['DELETE'])
+@jwt_required
+def delete_vorlesung(vorlesung_id):
+    jwt_claims = get_jwt_claims()
+    if jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
+
+    vorlesung = Vorlesung.query.get(vorlesung_id)
+    if vorlesung is None:
+        return jsonify({"msg": 'Vorlesung with id '+vorlesung_id+' does not exist'}), 400
+    vorlesung.dozenten = [] #Delete Dozent Vorlesung reference
+    temp_termine = vorlesung.termine
+    for termin in temp_termine:
+        db.session.delete(termin) #Delete Termine for Vorlesung
+
+    db.session.delete(vorlesung) #Delete Vorlesung 
+
+    try:
+        db.session.commit()
+        return jsonify({"msg": "Vorlesung deleted"}), 200
+    except:
+        db.session.rollback()
+        return jsonify({"msg": "Could not fullfill prerequisites for deleting this Vorlesung"}), 500
 
 #Changer
 ###########################################
