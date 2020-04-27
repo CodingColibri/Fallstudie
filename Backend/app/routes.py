@@ -433,9 +433,9 @@ def delete_kurs(kurs_name):
     return jsonify({"msg": "Kurs (and all references) delted"}), 200
 
 #TODO:/vorlesung/<int:vorlesung_id>/ benötigt?
-@app.route('/vorlesung/<int:vorlesung_id>/termin/<int:termin_id>', methods=['DELETE'])
+@app.route('/termin/<int:termin_id>', methods=['DELETE'])
 @jwt_required
-def delete_termin(termin_id, vorlesung_id):
+def delete_termin(termin_id):
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
         return jsonify({"msg": "Permission denied"}), 403
