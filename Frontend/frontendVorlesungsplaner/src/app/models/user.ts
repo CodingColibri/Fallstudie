@@ -25,7 +25,7 @@ export interface User {
     titel?: string;
     vorname: string;
     nachname: string;
-    password?: string; //TODO Remove
+    password?: string;
     role: UserRoleEnum;
 }
 

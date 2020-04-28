@@ -12,6 +12,7 @@ import { Vorlesung } from '@app/models/vorlesungen-models';
 import { VorlesungenController } from '@app/controller/vorlesungen-controller.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BackendErrorResponse } from '@app/models/user';
+import { unwatchFile } from 'fs';
 
 @Component({
   selector: 'vorlesung-anlegen',
@@ -70,9 +71,10 @@ export class VorlesunganlegenComponent {
     for (const vorlesung of kurs.vorlesungen) {
       this.vorlesungenStunden.push(
         this.fb.group({
+        id: vorlesung.id,
         name: vorlesung.name,
         std_anzahl: vorlesung.std_anzahl,
-        dozent: vorlesung.dozenten
+        dozent: vorlesung.dozenten[0].mail
         } as Vorlesung)
       )
     }
@@ -84,9 +86,10 @@ export class VorlesunganlegenComponent {
 
   public addInput() {
     this.vorlesungenStunden.push(this.fb.group({
+      id: undefined,
       name: undefined,
       std_anzahl: undefined,
-      dozent: undefined
+      dozent: []
     } as Vorlesung))
   }
 
@@ -113,8 +116,27 @@ export class VorlesunganlegenComponent {
     }
   }
 
-  removeInput(index) {
-    this.formVorlesungen.controls.vorlesungenStunden["controls"].splice(index, 1)
+  deleteVorlesung(index) {
+    this.formVorlesungen.controls.vorlesungenStunden["controls"].splice(index, 1);
+
+    const vorlesung = this.formVorlesungen["controls"].vorlesungenStunden.value;
+    console.log(vorlesung);
+    const vorlesungID = vorlesung[index].id;
+    try{
+      this.vorlesungenController.deleteVorlesung(vorlesungID);
+      this.toastService.addSuccess("Kurs erfolgreich gelöscht");
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        console.error(err);
+        const error = err.error as BackendErrorResponse;
+        this.error = error.msg;
+        this.toastService.addError(error.msg);
+      } else {
+        console.error(err);
+        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+      }
+    }
+    this.kursController.loadData();
   }
 
 }

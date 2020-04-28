@@ -67,7 +67,7 @@ export class RestService {
     const body = {
       name: kurs.name,
       studiengangsleiter: kurs.studiengangsleiter,
-      studienjahrgang: kurs.studienjahrgang
+      studienjahr: kurs.studienjahr
     } as KursRequest;
     return await this.http.post<KursResponse>(`${this.endpoint}/kurs`, body).pipe(
       map(resp => {
@@ -75,6 +75,9 @@ export class RestService {
         return resp;
       })
     ).toPromise();
+  }
+  public async deleteKurs(kurs_name: string) {
+    return await this.http.delete(`${this.endpoint}/kurs/${kurs_name}`).subscribe(data => {});
   }
 
   /**********************************************
@@ -156,6 +159,9 @@ export class RestService {
       })
     ).toPromise();
   }
+  public async deleteDozent(dozent_mail: string) {
+    return await this.http.delete(`${this.endpoint}/dozent/${dozent_mail}`).subscribe(data => {});
+  }
 
   /**********************************************
   /* Vorlesungen Requests
@@ -203,6 +209,10 @@ export class RestService {
     ).toPromise();
   }
 
+  public async deleteVorlesung(vorlesung_id: number) {
+    return await this.http.delete(`${this.endpoint}/vorlesung/${vorlesung_id}`).subscribe(data => {});
+  }
+
   /**********************************************
   /* Termine Requests
   /**********************************************/
@@ -225,7 +235,7 @@ export class RestService {
     return await this.http.post<TermineResponse>(`${environment.backendUrl}/vorlesung/${vorlesung_id}/termin`, body).toPromise();
   }
 
-  public async deleteTermin(vorlesung_id: number, terminID: number) {
-    return await this.http.delete(`${this.endpoint}/vorlesung/${vorlesung_id}/termin/${terminID}`).subscribe(data => {});
+  public async deleteTermin(terminID: number) {
+    return await this.http.delete(`${this.endpoint}/termin/${terminID}`).subscribe(data => {});
   }
 }

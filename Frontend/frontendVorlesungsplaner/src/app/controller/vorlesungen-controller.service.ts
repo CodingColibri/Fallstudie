@@ -45,4 +45,10 @@ export class VorlesungenController {
     return response;
   }
 
+  public async deleteVorlesung(vorlesungID: number) {
+    const response = await this.restService.deleteVorlesung(vorlesungID);
+    this.kursController.loadData();
+    return response;
+  }
+
 }

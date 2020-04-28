@@ -93,14 +93,14 @@ export class VorlesungEintragenComponent {
       //Check if termin has had an id and if vorlesungsID was changed
       if (termin1.id && termin1.vorlesungsID != this.oldCalenderDay.morning.vorlesungsID) {
         //TODO: Check if updated kursListe (see controller) makes problems on comming operations
-        this.terminController.deleteTermin(termin1.vorlesungsID, termin1.id)
+        this.terminController.deleteTermin(termin1.id)
         delete termin1.id; // Delete id as the termin has to be recreated for the new Vorlesung
       }
       this.terminController.saveTermine(termin1.vorlesungsID, [termin1]);
 
       const termin2 = this.calenderDay.afternoon;
       if (termin2.id && termin2.vorlesungsID != this.oldCalenderDay.afternoon.vorlesungsID) {
-        this.terminController.deleteTermin(termin2.vorlesungsID, termin2.id)
+        this.terminController.deleteTermin(termin2.id)
         delete termin2.id; // Delete id as the termin has to be recreated for the new Vorlesung
       }
       this.terminController.saveTermine(termin2.vorlesungsID, [termin2]);
@@ -121,7 +121,7 @@ export class VorlesungEintragenComponent {
   deleteTerminMorning(){
     const termin1 = this.calenderDay.morning;
     try{
-      this.terminController.deleteTermin(termin1.vorlesungsID, termin1.id);
+      this.terminController.deleteTermin(termin1.id);
       this.toastService.addSuccess("Vorlesung erfolgreich gelöscht");
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
@@ -139,7 +139,7 @@ export class VorlesungEintragenComponent {
   deleteTerminAfternoon(){
     const termin2 = this.calenderDay.afternoon;
     try {
-      this.terminController.deleteTermin(termin2.vorlesungsID, termin2.id)
+      this.terminController.deleteTermin(termin2.id)
       this.toastService.addSuccess("Vorlesung erfolgreich gelöscht");
     } catch (err) {
       if (err instanceof HttpErrorResponse) {

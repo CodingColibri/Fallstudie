@@ -35,4 +35,10 @@ export class KursController {
   public setCurrentKurs(kurs: string) {
     this.currentKurs.next(kurs);
   }
+
+  public async deleteKurs(kursName: string) {
+    const response = await this.restService.deleteKurs(kursName);
+    this.loadData();
+    return response;
+  }
 }

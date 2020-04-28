@@ -15,13 +15,13 @@
                     </mat-form-field>
                     <mat-form-field appearance="legacy">
                         <mat-label>Jahr</mat-label>
-                        <input matInput formControlName="studienjahrgang" placeholder="Jahr">
+                        <input matInput formControlName="studienjahr" placeholder="Jahr">
                     </mat-form-field>
                     <mat-form-field appearance="legacy">
                         <mat-label>Studiengangsleiter</mat-label>
                         <input matInput formControlName="studiengangsleiter" placeholder="Studiengangsleiter">
                     </mat-form-field>
-                    <button id="removeVorlesung" (click)='removeInput(this.i)'>x</button>
+                    <button id="removeVorlesung" (click)='deleteKurs(this.i)'>x</button>
                 </div>
             </ng-contaner>
             <!---->

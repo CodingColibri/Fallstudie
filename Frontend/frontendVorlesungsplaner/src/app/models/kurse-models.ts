@@ -2,10 +2,10 @@ import { Semester } from './semester-models';
 import { Vorlesung } from './vorlesungen-models';
 
 export interface Kurs {
-  name: string; //=> im Backend gespeichert
-  studienjahrgang: number; //=> nicht im Backend gespeichert
-  semester: Semester[]; //=> nicht im Backend gespeichert
-  studiengangsleiter: string; //=> im Backend gespeichert
+  name: string; 
+  studienjahr: number; 
+  semester: Semester[]; 
+  studiengangsleiter: string; 
   vorlesungen: Vorlesung[];
 }
 
@@ -19,6 +19,6 @@ export interface KurseResponse {
 
 export interface KursRequest {
   name: string;
-  studienjahrgang: number;
+  studienjahr: number;
   studiengangsleiter: string;
 }

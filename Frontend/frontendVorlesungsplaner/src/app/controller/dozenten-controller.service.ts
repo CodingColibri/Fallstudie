@@ -41,4 +41,10 @@ export class DozentenController {
     this.loadData();
   }
 
+  public async deleteDozent(dozentMail: string) {
+    const response = await this.restService.deleteDozent(dozentMail);
+    this.loadData();
+    return response;
+  }
+
 }

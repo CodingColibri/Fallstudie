@@ -31,8 +31,8 @@ export class StudienjahrgangController {
     this.studienjahrListe.next(temp);
   }
 
-  addKurs(studienjahrgang: Studienjahrgang) {
-    this.studienjahrListe.next(this.studienjahrListe.getValue().concat([studienjahrgang]))
+  addKurs(studienjahr: Studienjahrgang) {
+    this.studienjahrListe.next(this.studienjahrListe.getValue().concat([studienjahr]))
   }
 
 }

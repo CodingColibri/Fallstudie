@@ -4,7 +4,7 @@ import { Vorlesung } from './vorlesungen-models';
 
 export class Semester {
   id: number;
-  studienjahrgang?: number; //=> nicht im Backend gespeichert
+  studienjahr?: number; //=> nicht im Backend gespeichert
   semesterID: number; //=> nicht im Backend gespeichert
   start?: Date; //=> im Backend gespeichert
   ende?: Date; //=> im Backend gespeichert
