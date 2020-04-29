@@ -479,6 +479,14 @@ def delete_vorlesung(vorlesung_id):
         db.session.rollback()
         return jsonify({"msg": "Could not fullfill prerequisites for deleting this Vorlesung"}), 500
 
+@app.route('/dozent/<string:mail>', methods=['DELETE'])
+@jwt_required
+def delete_dozent(mail):
+    jwt_claims = get_jwt_claims()
+    if jwt_claims['role'] != 'admin':
+        return jsonify({"msg": "Permission denied"}), 403
+    return jsonify({"msg": "Not yet implemented"}), 500
+
 #Changer
 ###########################################
 
