@@ -19,6 +19,6 @@ export interface KurseResponse {
 
 export interface KursRequest {
   name: string;
-  studienjahr: number;
+  studienjahrgang: number;
   studiengangsleiter: string;
 }

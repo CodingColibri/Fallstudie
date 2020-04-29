@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { Dozent, DozentenResponse, DozentResponse } from '@app/models/dozenten-models';
+import { Dozent, DozentenResponse, DozentResponse, DozentenRequest } from '@app/models/dozenten-models';
 import { RestService } from './rest.service';
 import { KursController } from './kurs-controller.service';
 

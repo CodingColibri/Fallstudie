@@ -14,7 +14,6 @@ import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-bu
 import { KalenderComponent } from './calendar/calendar.component';
 import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
 import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
-import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden-warnung.component';
 import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersicht/vorlesungsuebersicht.component';
 import { LoginViewsComponent } from './login-views/login-views.component';
 import { LoginComponent } from './login/login.component';
@@ -44,7 +43,6 @@ const routes: Routes = [
   { path: 'dwelcome', component: DwelcomebuttonsComponent },
   { path: 'dozentenkalender', component: DozentenKalenderComponent },
   { path: 'vorlesungsuebersicht', component: VorlesungsuebersichtComponent },
-  { path: 'stunden-warnung', component: StundenWarnungComponent },
 //SHARED
 { path: 'kalenderansicht', component: KalenderComponent },
 

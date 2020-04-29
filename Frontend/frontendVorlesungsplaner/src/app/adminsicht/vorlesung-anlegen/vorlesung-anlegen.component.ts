@@ -12,7 +12,6 @@ import { Vorlesung } from '@app/models/vorlesungen-models';
 import { VorlesungenController } from '@app/controller/vorlesungen-controller.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BackendErrorResponse } from '@app/models/user';
-import { unwatchFile } from 'fs';
 
 @Component({
   selector: 'vorlesung-anlegen',

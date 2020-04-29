@@ -45,7 +45,7 @@ export class KursanlegenComponent {
       this.kursData.push(
         this.fb.group({
           name: kurse.name,
-          studienjahr: kurse.studienjahr,
+          studienjahrgang: kurse.studienjahr,
           studiengangsleiter: kurse.studiengangsleiter,
         } as KursRequest)
       )
@@ -60,19 +60,24 @@ export class KursanlegenComponent {
     const vlStunden = this.formKurs.controls.kursData as FormArray;
     vlStunden.push(this.fb.group({
       name: undefined,
-      studienjahr: undefined,
+      studienjahrgang: null,
       studiengangsleiter: undefined,
     } as KursRequest))
   }
 
   public async onSubmit() {
-    console.log(this.formKurs.value.kursData);
+    //console.log(this.formKurs.value.kursData);
+    var kursValue: KursRequest;
+    this.formKurs.value.kursData.forEach(kurs => {
+      kursValue = kurs;
+      this.kurse.push(kurs);
+    });
+    console.log(this.kurse);
+    //TODO Nachfragen: Error 500? Studienjahrgang wird nicht mit übergeben?
     try {
-      this.formKurs.value.kursData.forEach(async kurs => {
-        debugger
-        const response = await this.kursController.createKurs(kurs);
-      });
-      console.log(this.kurse);
+        
+        console.log(kursValue);
+        const response = await this.kursController.createKurs(kursValue);
       this.toastService.addSuccess("Kurs erfolgreich gespeichert");
     } catch (err) {
       if (err instanceof HttpErrorResponse) {

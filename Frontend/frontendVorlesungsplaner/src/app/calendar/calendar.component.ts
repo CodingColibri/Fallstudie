@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { KursController } from '@app/controller/kurs-controller.service';
-import { StundenWarnungComponent } from '../dozentensicht/stunden-warnung/stunden-warnung.component';
 import { VorlesungEintragenComponent } from '../dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
 import { CalenderData, CalenderDay, Week } from '../models/calender-models';
-import { VorlesungenService } from '../services/vorlesungen.service';
 import { MONTHS, WEEKDAYNAMES, YEARS } from '../utils/constants';
 import { ToastService } from '@app/services/toast.service';
 import { Kurs } from '@app/models/kurse-models';
@@ -95,12 +93,6 @@ export class KalenderComponent {
         dialogRef.afterClosed().subscribe((calenderDay: CalenderDay) => {
             console.log("updated calenderDay", calenderDay);
             //KursListe is update automatically -> No more action required
-            console.log('The dialog was closed');
-        });
-    }
-    openWarning(): void {
-        let dialogRef = this.dialog.open(StundenWarnungComponent);
-        dialogRef.afterClosed().subscribe(data => {
             console.log('The dialog was closed');
         });
     }

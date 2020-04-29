@@ -6,7 +6,7 @@ import { DozentenController } from '@app/controller/dozenten-controller.service'
 import { Kurs } from '@app/models/kurse-models';
 import { KursController } from '@app/controller/kurs-controller.service';
 import { ToastService } from '@app/services/toast.service';
-import { Dozent, DozentRequest } from '@app/models/dozenten-models';
+import { Dozent, DozentRequest, DozentenRequest } from '@app/models/dozenten-models';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BackendErrorResponse } from '@app/models/user';
 
@@ -79,12 +79,18 @@ export class DozentenanlegenComponent {
     }
 
     public async onSubmit() {
+        var dozentenValue: Dozent;
+        this.formDozenten.value.dozentenDaten.forEach(dozent => {
+            dozentenValue = dozent;
+            this.dozenten.push(dozent);
+        })
+        console.log(this.dozenten);
         try {
-            this.formDozenten.value.dozentenDaten.forEach(async dozent => {
-                const response = await this.dozentenController.saveDozent(dozent);
-                this.dozenten.push(dozent);
-                console.log(dozent);            
-            });
+            // this.formDozenten.value.dozentenDaten.forEach(async dozent => {
+                const response = await this.dozentenController.saveDozent(dozentenValue);
+                // this.dozenten.push(dozent);
+                // console.log(dozent);            
+            // });
             console.log(this.dozenten);
             this.toastService.addSuccess("Erfolgreich gespeichert");
         } catch (err) {

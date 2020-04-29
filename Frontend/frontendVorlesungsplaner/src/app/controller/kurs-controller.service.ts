@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Kurs } from '@app/models/kurse-models';
+import { Kurs, KursRequest } from '@app/models/kurse-models';
 import { BehaviorSubject } from "rxjs";
 import { RestService } from './rest.service';
 
@@ -24,7 +24,7 @@ export class KursController {
     this.kursListe.next(response.kurse);
   }
 
-  public async createKurs(kurs: Kurs) {
+  public async createKurs(kurs: KursRequest) {
     const response = await this.restService.createKurs(kurs);
       
     const kursListe = this.kursListe.getValue();

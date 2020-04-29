@@ -33,7 +33,6 @@ import { KalenderComponent } from './calendar/calendar.component';
 import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
 import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
 import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
-import { StundenWarnungComponent } from './dozentensicht/stunden-warnung/stunden-warnung.component';
 import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
 import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersicht/vorlesungsuebersicht.component';
 import { ErrorInterceptor } from './helpers/error.interceptor';
@@ -63,7 +62,6 @@ registerLocaleData(localeDe, 'de-DE');
     KalenderComponent,
     VorlesungEintragenComponent,
     VorlesungsuebersichtComponent,
-    StundenWarnungComponent,
     DozentenKalenderComponent,
     AdminKalenderComponent,
     KursuebersichtComponent,

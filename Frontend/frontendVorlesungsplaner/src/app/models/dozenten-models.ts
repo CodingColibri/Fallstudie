@@ -1,5 +1,5 @@
 export interface Dozent {
-    titel: string;
+    titel?: string;
     vorname: string;
     nachname: string;
     mail: string;
@@ -7,7 +7,7 @@ export interface Dozent {
     password: string;
   }
   export interface DozentRequest {
-    titel: string;
+    titel?: string;
     vorname: string;
     nachname: string;
     mail: string;

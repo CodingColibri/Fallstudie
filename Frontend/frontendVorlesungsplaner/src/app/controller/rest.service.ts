@@ -63,11 +63,11 @@ export class RestService {
     ).toPromise();
   }
 
-  public async createKurs(kurs: Kurs): Promise<KursResponse> {
+  public async createKurs(kurs: KursRequest): Promise<KursResponse> {
     const body = {
       name: kurs.name,
       studiengangsleiter: kurs.studiengangsleiter,
-      studienjahr: kurs.studienjahr
+      studienjahrgang: kurs.studienjahrgang
     } as KursRequest;
     return await this.http.post<KursResponse>(`${this.endpoint}/kurs`, body).pipe(
       map(resp => {
