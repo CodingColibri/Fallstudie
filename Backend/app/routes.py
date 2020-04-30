@@ -432,7 +432,6 @@ def delete_kurs(kurs_name):
     print(semester)
     return jsonify({"msg": "Kurs (and all references) delted"}), 200
 
-#TODO:/vorlesung/<int:vorlesung_id>/ benötigt?
 @app.route('/termin/<int:termin_id>', methods=['DELETE'])
 @jwt_required
 def delete_termin(termin_id):
@@ -485,7 +484,18 @@ def delete_dozent(mail):
     jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
         return jsonify({"msg": "Permission denied"}), 403
-    return jsonify({"msg": "Not yet implemented"}), 500
+
+    dozent = Dozent.query.get(mail)
+    dozent.vorlesungen = []
+    db.session.delete(dozent)
+
+    try:
+        db.session.commit()
+        return jsonify({"msg": "Dozent deleted"}), 200
+    except:
+        db.session.rollback()
+        return jsonify({"msg": "Could not fullfill prerequisites for deleting this Dozent"}), 500
+
 
 #Changer
 ###########################################
