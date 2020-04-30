@@ -20,30 +20,30 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { UserRoleEnum } from './models/user';
 
-//TODO Routes je nach Login anpassen => Admin-/ Dozentensicht => data: { roles: [UserRoleEnum.Admin] }
+// TODO Routes je nach Login anpassen => Admin-/ Dozentensicht => data: { roles: [UserRoleEnum.Admin] }
 const routes: Routes = [
-  { path: '', component: WelcomebuttonsComponent, canActivate:[AuthGuard]},
+  { path: '', component: WelcomebuttonsComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'login-views', component: LoginViewsComponent },
-  //otherwise redirect to home
+  // otherwise redirect to home
   // { path: '**', redirectTo: ''},
-  //ADMIN-VIEW
-  { path: 'willkommen', component: WelcomebuttonsComponent, data: { roles: [UserRoleEnum.Admin] }}, 
+  // ADMIN-VIEW
+  { path: 'willkommen', component: WelcomebuttonsComponent, data: { roles: [UserRoleEnum.Admin] }},
   { path: 'dashboard', component: AdminDashboardComponent },
   { path: 'kurs-dozent-registrierung', component: KursDozentenRegistrierungComponent},
   { path: 'semester-anlegen', component: SemesteranlegenComponent },
-  { path: 'dozenten-anlegen', component: DozentenanlegenComponent }, 
+  { path: 'dozenten-anlegen', component: DozentenanlegenComponent },
   { path: 'kurs-anlegen', component: KursanlegenComponent },
   { path: 'administration', component: AdministrationComponent},
   { path: 'vorlesung-anlegen', component: VorlesunganlegenComponent},
   { path: 'kursuebersicht', component: KursuebersichtComponent },
   { path: 'semesteruebersicht', component: SemesteruebersichtComponent },
   { path: 'adminkalender', component: AdminKalenderComponent },
-//DOZENTEN-VIEW
+// DOZENTEN-VIEW
   { path: 'dwelcome', component: DwelcomebuttonsComponent },
   { path: 'dozentenkalender', component: DozentenKalenderComponent },
   { path: 'vorlesungsuebersicht', component: VorlesungsuebersichtComponent },
-//SHARED
+// SHARED
 { path: 'kalenderansicht', component: KalenderComponent },
 
   // [canActivate => Implementieren, Prüfung Admin/ Berechtigung]
@@ -51,9 +51,9 @@ const routes: Routes = [
 export const appRoutingModule = RouterModule.forRoot(routes);
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, 
+  imports: [RouterModule.forRoot(routes,
     {enableTracing: false })
-  
+
   ],
   exports: [RouterModule]
 })

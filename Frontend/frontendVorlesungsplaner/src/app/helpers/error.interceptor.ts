@@ -11,7 +11,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // Prevent adding token on specific routes
-        if (request.url.includes("login")) {
+        if (request.url.includes('login')) {
             return next.handle(request);
         }
 
@@ -23,6 +23,6 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
 
             return throwError(err);
-        }))
+        }));
     }
 }

@@ -24,8 +24,8 @@ export class KursanlegenComponent {
   private kursListe: Kurs[];
 
   constructor(private fb: FormBuilder,
-    public kursController: KursController,
-    private toastService: ToastService) {
+              public kursController: KursController,
+              private toastService: ToastService) {
 
     this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
       this.kursListe = kurse;
@@ -48,37 +48,37 @@ export class KursanlegenComponent {
           studienjahrgang: kurse.studienjahr,
           studiengangsleiter: kurse.studiengangsleiter,
         } as KursRequest)
-      )
+      );
     }
   }
 
   public get kursData(): FormArray {
     return this.formKurs.get('kursData') as FormArray;
   }
-  //addInput() = dynamic rows im html
+  // addInput() = dynamic rows im html
   public addInput() {
     const vlStunden = this.formKurs.controls.kursData as FormArray;
     vlStunden.push(this.fb.group({
       name: undefined,
       studienjahrgang: null,
       studiengangsleiter: undefined,
-    } as KursRequest))
+    } as KursRequest));
   }
 
   public async onSubmit() {
-    //console.log(this.formKurs.value.kursData);
-    var kursValue: KursRequest;
+    // console.log(this.formKurs.value.kursData);
+    let kursValue: KursRequest;
     this.formKurs.value.kursData.forEach(kurs => {
       kursValue = kurs;
       this.kurse.push(kurs);
     });
     console.log(this.kurse);
-    //TODO Nachfragen: Error 500? Studienjahrgang wird nicht mit übergeben?
+    // TODO Nachfragen: Error 500? Studienjahrgang wird nicht mit übergeben?
     try {
-        
+
         console.log(kursValue);
         const response = await this.kursController.createKurs(kursValue);
-      this.toastService.addSuccess("Kurs erfolgreich gespeichert");
+        this.toastService.addSuccess('Kurs erfolgreich gespeichert');
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         console.error(err);
@@ -87,18 +87,18 @@ export class KursanlegenComponent {
         this.toastService.addError(error.msg);
       } else {
         console.error(err);
-        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+        this.toastService.addError('Ein unbekannter Fehler ist aufgetreten');
       }
     }
   }
 
   deleteKurs(index) {
     this.formKurs.controls.kursData["controls"].splice(index, 1);
-    const kurs = this.formKurs["controls"].kursData.value;
+    const kurs = this.formKurs.controls.kursData.value;
     const kursName = kurs[index].name;
-    try{
+    try {
       this.kursController.deleteKurs(kursName);
-      this.toastService.addSuccess("Kurs erfolgreich gelöscht");
+      this.toastService.addSuccess('Kurs erfolgreich gelöscht');
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         console.error(err);
@@ -107,7 +107,7 @@ export class KursanlegenComponent {
         this.toastService.addError(error.msg);
       } else {
         console.error(err);
-        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+        this.toastService.addError('Ein unbekannter Fehler ist aufgetreten');
       }
     }
     this.loadKurse();

@@ -20,15 +20,15 @@ export class SemesteranlegenComponent {
 
   public formSemester: FormGroup;
   error = '';
-  //Konstante
+  // Konstante
   public semesternummer = SEMESTERNUMBERS;
 
   public currentKurs: string;
-  private kursListe: Kurs[]
+  private kursListe: Kurs[];
   constructor(private fb: FormBuilder,
-    private kursController: KursController,
-    private semesterController: SemesterController,
-    private toastService: ToastService
+              private kursController: KursController,
+              private semesterController: SemesterController,
+              private toastService: ToastService
   ) {
     this.kursController.currentKurs.subscribe(kurs => {
       this.currentKurs = kurs;
@@ -44,7 +44,7 @@ export class SemesteranlegenComponent {
   private kursChanged() {
     this.formSemester = this.fb.group({
       semesterData: this.fb.array([])
-    })
+    });
 
     if (!this.kursListe || !this.currentKurs) {
       return;
@@ -54,7 +54,7 @@ export class SemesteranlegenComponent {
       return kurs.name == this.currentKurs;
     });
     if (!kurs) {
-      this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
+      this.toastService.addError('Fehler aufgetreten, Kurs wurde nicht gefunden');
       return;
     }
 
@@ -66,7 +66,7 @@ export class SemesteranlegenComponent {
           start: semester.start,
           ende: semester.ende
         } as Semester)
-      )
+      );
     }
   }
 
@@ -80,11 +80,11 @@ export class SemesteranlegenComponent {
       semesterID: undefined,
       start: undefined,
       ende: undefined
-    } as Semester))
+    } as Semester));
   }
 
   public async onSubmit() {
-    //TODO Abfrage: Nachfragen: Wollen Sie die Semester für alle Studiengänge WWI2018 aktualisieren?
+    // TODO Abfrage: Nachfragen: Wollen Sie die Semester für alle Studiengänge WWI2018 aktualisieren?
     const semesters: Semester[] = [];
     this.formSemester.value.semesterData.forEach(semester => {
       semesters.push(semester);
@@ -92,7 +92,7 @@ export class SemesteranlegenComponent {
     console.log(semesters);
     try {
       const response = await this.semesterController.saveSemester(this.currentKurs, semesters);
-      this.toastService.addSuccess("Semester erfolgreich gespeichert");
+      this.toastService.addSuccess('Semester erfolgreich gespeichert');
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         console.error(err);
@@ -101,7 +101,7 @@ export class SemesteranlegenComponent {
         this.toastService.addError(error.msg);
       } else {
         console.error(err);
-        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+        this.toastService.addError('Ein unbekannter Fehler ist aufgetreten');
       }
     }
 
@@ -112,7 +112,7 @@ export class SemesteranlegenComponent {
   }
 
   public isSemesterNummerUsed(nr: number) {
-    for (let semester of this.semesterData.value as Semester[]) {
+    for (const semester of this.semesterData.value as Semester[]) {
       if (semester.semesterID == nr) {
         return true;
       }

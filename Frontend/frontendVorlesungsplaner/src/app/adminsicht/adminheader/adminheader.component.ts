@@ -24,10 +24,10 @@ export class AdminheaderComponent {
     kurse: Kurs[] = [];
 
     constructor(private userService: UserService,
-        private router: Router,
-        private authenticationService: AuthenticationService,
-        public kursController: KursController,
-        public studienJgController: StudienjahrgangController) {
+                private router: Router,
+                private authenticationService: AuthenticationService,
+                public kursController: KursController,
+                public studienJgController: StudienjahrgangController) {
         this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
             this.kurse = kurse;
         });
@@ -44,7 +44,7 @@ export class AdminheaderComponent {
     }
 
     public changeKurs(event: MatSelectChange) {
-        console.log("changeKurs", event);
+        console.log('changeKurs', event);
         this.kursController.setCurrentKurs(event.value);
     }
 }

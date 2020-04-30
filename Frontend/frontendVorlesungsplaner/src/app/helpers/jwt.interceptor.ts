@@ -10,12 +10,12 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // Prevent adding token on specific routes
-        if (request.url.includes("login") || request.url.includes("register") || request.url.includes("token")) {
+        if (request.url.includes('login') || request.url.includes('register') || request.url.includes('token')) {
             // console.log("Skipping jwt header");
             return next.handle(request);
         }
 
-        console.log("adding jwt header");
+        console.log('adding jwt header');
         // add authorization header with jwt token if available
         const userToken = this.authenticationService.getUserToken();
         if (userToken && userToken.access_token && !this.authenticationService.isExpired(userToken.access_token)) {

@@ -10,13 +10,13 @@ import { ToastService } from '@app/services/toast.service';
 })
 export class SemesteruebersichtComponent {
 
-  kurse: Kurs[]= [];
+  kurse: Kurs[] = [];
   kurs: Kurs;
   public currentKurs: string;
   public kursListe: Kurs[];
 
   constructor(public kursController: KursController,
-    private toastService: ToastService) {
+              private toastService: ToastService) {
     this.kursController.currentKurs.subscribe(kurs => {
       this.currentKurs = kurs;
       this.kursChanged();
@@ -36,7 +36,7 @@ export class SemesteruebersichtComponent {
       return kurs.name == this.currentKurs;
     });
     if (!this.kurs) {
-      this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
+      this.toastService.addError('Fehler aufgetreten, Kurs wurde nicht gefunden');
       return;
     }
   }

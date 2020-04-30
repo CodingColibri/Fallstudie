@@ -16,12 +16,12 @@ import { Toast } from 'src/app/models/toast';
   animations: [
     trigger('flyInOut', [
       state('in', style({
-        transform: 'translate(0, 0)', 
+        transform: 'translate(0, 0)',
         opacity: 1
       })),
       transition('void => *', [
         style({
-          transform: 'translate(50%, 10%)', 
+          transform: 'translate(50%, 10%)',
           opacity: 0
         }),
         animate(300)

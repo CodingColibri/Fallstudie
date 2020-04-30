@@ -2,10 +2,10 @@ import { Semester } from './semester-models';
 import { Vorlesung } from './vorlesungen-models';
 
 export interface Kurs {
-  name: string; 
-  studienjahr: number; 
-  semester: Semester[]; 
-  studiengangsleiter: string; 
+  name: string;
+  studienjahr: number;
+  semester: Semester[];
+  studiengangsleiter: string;
   vorlesungen: Vorlesung[];
 }
 

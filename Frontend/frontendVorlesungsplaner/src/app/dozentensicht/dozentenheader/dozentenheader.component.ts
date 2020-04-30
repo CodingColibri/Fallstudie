@@ -20,17 +20,17 @@ export class DozentenheaderComponent {
     loading = false;
     public currentUser: User;
     users: User[];
-    kurse: Kurs[]= [];
-  
+    kurse: Kurs[] = [];
+
     constructor(private userService: UserService,
-        private router: Router,
-        private authenticationService: AuthenticationService,
-        public kursController: KursController) {
-        this.kursController.kursListe.subscribe((kurse: Kurs[])=> {
+                private router: Router,
+                private authenticationService: AuthenticationService,
+                public kursController: KursController) {
+        this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
         this.kurse = kurse;
       });
     }
-    
+
     ngOnInit() {
         this.loading = true;
         this.currentUser = this.authenticationService.currentUserValue;
@@ -40,7 +40,7 @@ export class DozentenheaderComponent {
         this.router.navigate(['/login']);
     }
     public changeKurs(event: MatSelectChange) {
-        console.log("changeKurs", event);
+        console.log('changeKurs', event);
         this.kursController.setCurrentKurs(event.value);
     }
 }

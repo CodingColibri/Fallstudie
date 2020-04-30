@@ -29,14 +29,15 @@ export class AuthenticationService {
     }
 
     public getUserToken(): UserTokenData {
-        if (!this.token)
+        if (!this.token) {
             return undefined;
+        }
 
         const tokenUser = this.decodeToken(this.token).user_claims;
         return {
             access_token: this.token,
             user: tokenUser
-        } as UserTokenData
+        } as UserTokenData;
     }
 
     public isExpired(token: string): boolean {

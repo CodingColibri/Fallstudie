@@ -17,8 +17,8 @@ export class WelcomebuttonsComponent {
     users: User[];
 
     constructor(private userService: UserService,
-        private router: Router,
-        private authenticationService: AuthenticationService) { }
+                private router: Router,
+                private authenticationService: AuthenticationService) { }
 
     ngOnInit() {
         this.loading = true;

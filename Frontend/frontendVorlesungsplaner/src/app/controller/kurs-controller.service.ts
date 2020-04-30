@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Kurs, KursRequest } from '@app/models/kurse-models';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from 'rxjs';
 import { RestService } from './rest.service';
 
-//INFO: KursController als zentrale Datenverwaltung
+// INFO: KursController als zentrale Datenverwaltung
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class KursController {
   public kursListe: BehaviorSubject<Kurs[]>;
@@ -26,12 +26,12 @@ export class KursController {
 
   public async createKurs(kurs: KursRequest) {
     const response = await this.restService.createKurs(kurs);
-      
+
     const kursListe = this.kursListe.getValue();
     kursListe.push(response.kurs);
     this.kursListe.next(kursListe);
   }
-  
+
   public setCurrentKurs(kurs: string) {
     this.currentKurs.next(kurs);
   }

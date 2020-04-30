@@ -15,11 +15,11 @@ import { Kurs } from '@app/models/kurse-models';
 
 export class VorlesungsuebersichtComponent {
 
-    kurse: Kurs[]= [];
+    kurse: Kurs[] = [];
     public currentKurs: string;
     public kursListe: Kurs[];
     public currentKursObject: Kurs;
-    
+
     constructor(
         public vlService: VorlesungenService,
         public kursController: KursController,
@@ -29,8 +29,8 @@ export class VorlesungsuebersichtComponent {
             this.currentKurs = kurs;
             this.kursChanged();
           });
-      
-          this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
+
+        this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
             this.kursListe = kurse;
             this.kursChanged();
           });
@@ -40,15 +40,15 @@ export class VorlesungsuebersichtComponent {
       if (!this.kursListe || !this.currentKurs) {
         return;
       }
-  
+
       const kurs = this.kursListe.find(kurs => {
         return kurs.name == this.currentKurs;
       });
       if (!kurs) {
-        this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
+        this.toastService.addError('Fehler aufgetreten, Kurs wurde nicht gefunden');
         return;
       }
-  
+
       this.currentKursObject = kurs;
       }
 }

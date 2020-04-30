@@ -15,19 +15,19 @@ import { Termin } from '@app/models/termin-models';
 })
 
 export class KalenderComponent {
-    public selectedDate: Date; //aktueller Tag/ aktuelles Datum als Date-Objekt
-    
-    //Konstanten
-    weekDayNames = WEEKDAYNAMES; //Konstante weekday-Names
-    months = MONTHS; //Konstante months (Array Monatsnr., Monatsname)
-    years = YEARS; //Konstante months (Array Jahr-ID., Jahr-Name)
+    public selectedDate: Date; // aktueller Tag/ aktuelles Datum als Date-Objekt
+
+    // Konstanten
+    weekDayNames = WEEKDAYNAMES; // Konstante weekday-Names
+    months = MONTHS; // Konstante months (Array Monatsnr., Monatsname)
+    years = YEARS; // Konstante months (Array Jahr-ID., Jahr-Name)
 
     calenderData: CalenderData = {
         weeks: []
-    }
+    };
 
     public currentKurs: string;
-    private kursListe: Kurs[]
+    private kursListe: Kurs[];
     public currentKursObject: Kurs;
 
     constructor(
@@ -35,7 +35,7 @@ export class KalenderComponent {
         private kursController: KursController,
         private toastService: ToastService
     ) {
-        this.selectedDate = new Date(); //aktuelles Datum
+        this.selectedDate = new Date(); // aktuelles Datum
 
         this.kursController.currentKurs.subscribe(kurs => {
             this.currentKurs = kurs;
@@ -57,22 +57,22 @@ export class KalenderComponent {
             return kurs.name == this.currentKurs;
         });
         if (!kurs) {
-            this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
+            this.toastService.addError('Fehler aufgetreten, Kurs wurde nicht gefunden');
             return;
         }
         this.currentKursObject = kurs;
 
-        this.generateCalenderData()
+        this.generateCalenderData();
     }
 
     previous() {
         // Necessary to create new Date object that html page is updated
         // Angular does not recognize Date updates on html
-        this.selectedDate = new Date(this.selectedDate.setMonth(this.selectedDate.getMonth() - 1))
+        this.selectedDate = new Date(this.selectedDate.setMonth(this.selectedDate.getMonth() - 1));
         this.generateCalenderData();
     }
     next() {
-        this.selectedDate = new Date(this.selectedDate.setMonth(this.selectedDate.getMonth() + 1))
+        this.selectedDate = new Date(this.selectedDate.setMonth(this.selectedDate.getMonth() + 1));
         this.generateCalenderData();
     }
     changedMonth(value) {
@@ -84,15 +84,15 @@ export class KalenderComponent {
         this.generateCalenderData();
     }
 
-    //Öffnet Dialog-Fenster "Vorlesung eintragen"
+    // Öffnet Dialog-Fenster "Vorlesung eintragen"
     openDialog(day: CalenderDay): void {
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true; //Dialog kann nicht durch außerhalb klicken geschlossen werden
+        dialogConfig.disableClose = true; // Dialog kann nicht durch außerhalb klicken geschlossen werden
         dialogConfig.data = day;
-        let dialogRef = this.dialog.open(VorlesungEintragenComponent, dialogConfig);
+        const dialogRef = this.dialog.open(VorlesungEintragenComponent, dialogConfig);
         dialogRef.afterClosed().subscribe((calenderDay: CalenderDay) => {
-            console.log("updated calenderDay", calenderDay);
-            //KursListe is update automatically -> No more action required
+            console.log('updated calenderDay', calenderDay);
+            // KursListe is update automatically -> No more action required
             console.log('The dialog was closed');
         });
     }
@@ -102,21 +102,21 @@ export class KalenderComponent {
 
         // Get last day of month; day 0 = last day of previous month
         const lastDayMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0);
-        const daysInMonth = lastDayMonth.getDate(); //month + 1?
+        const daysInMonth = lastDayMonth.getDate(); // month + 1?
 
-        // Used to detect when the first day of month starts on which weekday        
+        // Used to detect when the first day of month starts on which weekday
         const lastMonday = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1);
-        lastMonday.setDate(lastMonday.getDate() - lastMonday.getDay() + 1); //Substract days to last monday
+        lastMonday.setDate(lastMonday.getDate() - lastMonday.getDay() + 1); // Substract days to last monday
 
-        let currentDay = new Date(lastMonday);
-        var currentDayCounter = 0;
-        var weekNumber = 1;
+        const currentDay = new Date(lastMonday);
+        let currentDayCounter = 0;
+        let weekNumber = 1;
         while (currentDayCounter < daysInMonth) {
-            let temp: Week = {
+            const temp: Week = {
                 weeknumber: weekNumber++,
                 days: []
-            }
-            for (var j = 0; j <= 6; j++) {
+            };
+            for (let j = 0; j <= 6; j++) {
                 // Hint: currentDay doesn't use the time -> can be overwritten temporary
                 const morningDateStart = new Date(currentDay.setHours(9, 0, 0, 0));
                 const morningDateEnd = new Date(currentDay.setHours(12, 15, 0, 0));
@@ -136,15 +136,15 @@ export class KalenderComponent {
                         endDate: afternoonDateEnd,
                         vorlesungsID: 0
                     } as Termin
-                } as CalenderDay
+                } as CalenderDay;
 
                 // if (currentDayCounter == 0 && j < firstDay.getUTCDay()) { //=> 6 für Sonntag
-                //if 1 < 31
+                // if 1 < 31
                 if (currentDayCounter < daysInMonth) {
                     for (const vorlesung of this.currentKursObject.vorlesungen) {
                         const termine = vorlesung.termine.filter(termin => this.isSameDay(termin.startDate, currentDay));
                         for (const termin of termine) {
-                            if (termin.morningOrAfternoon === "morning") {
+                            if (termin.morningOrAfternoon === 'morning') {
                                 initialCalenderDay.morning = termin;
                             } else {
                                 initialCalenderDay.afternoon = termin;
@@ -154,9 +154,9 @@ export class KalenderComponent {
                 }
 
                 temp.days.push(initialCalenderDay);
-                currentDay.setDate(currentDay.getDate() + 1); //set CurrentDay +1
+                currentDay.setDate(currentDay.getDate() + 1); // set CurrentDay +1
                 currentDayCounter++;
-            } //close for
+            } // close for
             this.calenderData.weeks.push(temp);
         }// close while
     }// close function generateCalenderData
@@ -164,12 +164,12 @@ export class KalenderComponent {
     private isSameDay(t1: Date, t2: Date): boolean {
         return t1.getFullYear() == t2.getFullYear()
             && t1.getMonth() == t2.getMonth()
-            && t1.getDate() == t2.getDate()
+            && t1.getDate() == t2.getDate();
     }
 
     public isDayInMonth(calenderDay: CalenderDay) {
-        const firstDayMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1, 0, 0, 0, 0)
+        const firstDayMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1, 0, 0, 0, 0);
         const lastDayMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0, 24, 0, 0, 0);
         return calenderDay.date > firstDayMonth && calenderDay.date < lastDayMonth;
     }
-} //close export class KalenderComponent
+} // close export class KalenderComponent

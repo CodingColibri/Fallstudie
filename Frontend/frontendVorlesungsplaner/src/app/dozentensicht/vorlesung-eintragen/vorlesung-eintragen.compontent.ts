@@ -26,7 +26,7 @@ import { BackendErrorResponse } from '@app/models/user';
 export class VorlesungEintragenComponent {
 
   public currentKurs: string;
-  private kursListe: Kurs[]
+  private kursListe: Kurs[];
   public currentKursObject: Kurs;
   error = '';
 
@@ -51,7 +51,7 @@ export class VorlesungEintragenComponent {
     });
 
     this.oldCalenderDay = day;
-    this.calenderDay = { //Create new object to not modify original one
+    this.calenderDay = { // Create new object to not modify original one
       date: day.date,
       morning: {
         id: day.morning.id,
@@ -67,8 +67,8 @@ export class VorlesungEintragenComponent {
         vorlesungsID: day.afternoon.vorlesungsID,
         morningOrAfternoon: day.afternoon.morningOrAfternoon
       }
-    } as CalenderDay;;
-    console.log("Dialog übergebene Daten", day);
+    } as CalenderDay;
+    console.log('Dialog übergebene Daten', day);
   }
 
   public kursChanged() {
@@ -80,7 +80,7 @@ export class VorlesungEintragenComponent {
       return kurs.name == this.currentKurs;
     });
     if (!kurs) {
-      this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
+      this.toastService.addError('Fehler aufgetreten, Kurs wurde nicht gefunden');
       return;
     }
 
@@ -88,23 +88,23 @@ export class VorlesungEintragenComponent {
   }
 
   addVorlesung(): void {
-    try{
+    try {
       const termin1 = this.calenderDay.morning;
-      //Check if termin has had an id and if vorlesungsID was changed
+      // Check if termin has had an id and if vorlesungsID was changed
       if (termin1.id && termin1.vorlesungsID != this.oldCalenderDay.morning.vorlesungsID) {
-        //TODO: Check if updated kursListe (see controller) makes problems on comming operations
-        this.terminController.deleteTermin(termin1.id)
+        // TODO: Check if updated kursListe (see controller) makes problems on comming operations
+        this.terminController.deleteTermin(termin1.id);
         delete termin1.id; // Delete id as the termin has to be recreated for the new Vorlesung
       }
       this.terminController.saveTermine(termin1.vorlesungsID, [termin1]);
 
       const termin2 = this.calenderDay.afternoon;
       if (termin2.id && termin2.vorlesungsID != this.oldCalenderDay.afternoon.vorlesungsID) {
-        this.terminController.deleteTermin(termin2.id)
+        this.terminController.deleteTermin(termin2.id);
         delete termin2.id; // Delete id as the termin has to be recreated for the new Vorlesung
       }
       this.terminController.saveTermine(termin2.vorlesungsID, [termin2]);
-      this.toastService.addSuccess("Vorlesung erfolgreich angelegt");
+      this.toastService.addSuccess('Vorlesung erfolgreich angelegt');
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         console.error(err);
@@ -113,34 +113,16 @@ export class VorlesungEintragenComponent {
         this.toastService.addError(error.msg);
       } else {
         console.error(err);
-        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
-      }
-    }
-      this.dialogRef.close(this.calenderDay);
-  }
-  deleteTerminMorning(){
-    const termin1 = this.calenderDay.morning;
-    try{
-      this.terminController.deleteTermin(termin1.id);
-      this.toastService.addSuccess("Vorlesung erfolgreich gelöscht");
-    } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        console.error(err);
-        const error = err.error as BackendErrorResponse;
-        this.error = error.msg;
-        this.toastService.addError(error.msg);
-      } else {
-        console.error(err);
-        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+        this.toastService.addError('Ein unbekannter Fehler ist aufgetreten');
       }
     }
     this.dialogRef.close(this.calenderDay);
   }
-  deleteTerminAfternoon(){
-    const termin2 = this.calenderDay.afternoon;
+  deleteTerminMorning() {
+    const termin1 = this.calenderDay.morning;
     try {
-      this.terminController.deleteTermin(termin2.id)
-      this.toastService.addSuccess("Vorlesung erfolgreich gelöscht");
+      this.terminController.deleteTermin(termin1.id);
+      this.toastService.addSuccess('Vorlesung erfolgreich gelöscht');
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         console.error(err);
@@ -149,7 +131,25 @@ export class VorlesungEintragenComponent {
         this.toastService.addError(error.msg);
       } else {
         console.error(err);
-        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+        this.toastService.addError('Ein unbekannter Fehler ist aufgetreten');
+      }
+    }
+    this.dialogRef.close(this.calenderDay);
+  }
+  deleteTerminAfternoon() {
+    const termin2 = this.calenderDay.afternoon;
+    try {
+      this.terminController.deleteTermin(termin2.id);
+      this.toastService.addSuccess('Vorlesung erfolgreich gelöscht');
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        console.error(err);
+        const error = err.error as BackendErrorResponse;
+        this.error = error.msg;
+        this.toastService.addError(error.msg);
+      } else {
+        console.error(err);
+        this.toastService.addError('Ein unbekannter Fehler ist aufgetreten');
       }
     }
     this.dialogRef.close(this.calenderDay);
@@ -160,19 +160,19 @@ export class VorlesungEintragenComponent {
   }
 
   handleTimeStartMorning(date) {
-    var array = date.split(":")
+    let array = date.split(':');
     this.calenderDay.morning.startDate.setHours(array[0], array[1]);
   }
   handleTimeEndMorning(date) {
-    var array = date.split(":")
+    let array = date.split(':');
     this.calenderDay.morning.endDate.setHours(array[0], array[1]);
   }
   handleTimeStartAfternoon(date) {
-    var array = date.split(":")
+    let array = date.split(':');
     this.calenderDay.afternoon.startDate.setHours(array[0], array[1]);
   }
   handleTimeEndAfternoon(date) {
-    var array = date.split(":")
+    let array = date.split(':');
     this.calenderDay.afternoon.endDate.setHours(array[0], array[1]);
   }
 }

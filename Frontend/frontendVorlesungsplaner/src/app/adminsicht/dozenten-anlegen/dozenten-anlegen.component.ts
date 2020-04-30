@@ -26,26 +26,26 @@ export class DozentenanlegenComponent {
     error = '';
 
     constructor(private fb: FormBuilder,
-        public dozentenController: DozentenController,
-        private kursController: KursController,
-        private toastService: ToastService
+                public dozentenController: DozentenController,
+                private kursController: KursController,
+                private toastService: ToastService
     ) {
         this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
             this.kursListe = kurse;
             this.loadDozenten();
         });
-        
+
         this.dozentenController.dozentenListe.subscribe((dozenten: Dozent[]) => {
             this.dozentenListe = dozenten;
             this.loadDozenten();
         });
     }
 
-    public loadDozenten() {  
+    public loadDozenten() {
         this.formDozenten = this.fb.group({
             dozentenDaten: this.fb.array([])
         });
-        if (!this.dozentenListe){
+        if (!this.dozentenListe) {
             return;
         }
         console.log(this.dozentenListe);
@@ -59,7 +59,7 @@ export class DozentenanlegenComponent {
                 role: dozent.role,
                 password: undefined
               } as Dozent)
-            )
+            );
           }
     }
     public get dozentenDaten(): FormArray {
@@ -67,7 +67,7 @@ export class DozentenanlegenComponent {
     }
 
     public addInput() {
-        //const data = this.formDozenten.controls.dozentenDaten as FormArray;
+        // const data = this.formDozenten.controls.dozentenDaten as FormArray;
         this.dozentenDaten.push(this.fb.group({
             titel: undefined,
             vorname: undefined,
@@ -75,24 +75,24 @@ export class DozentenanlegenComponent {
             mail: undefined,
             role: 'dozent',
             password: undefined
-        } as DozentRequest))
+        } as DozentRequest));
     }
 
     public async onSubmit() {
-        var dozentenValue: Dozent;
+        let dozentenValue: Dozent;
         this.formDozenten.value.dozentenDaten.forEach(dozent => {
             dozentenValue = dozent;
             this.dozenten.push(dozent);
-        })
+        });
         console.log(this.dozenten);
         try {
             // this.formDozenten.value.dozentenDaten.forEach(async dozent => {
                 const response = await this.dozentenController.saveDozent(dozentenValue);
                 // this.dozenten.push(dozent);
-                // console.log(dozent);            
+                // console.log(dozent);
             // });
-            console.log(this.dozenten);
-            this.toastService.addSuccess("Erfolgreich gespeichert");
+                console.log(this.dozenten);
+                this.toastService.addSuccess('Erfolgreich gespeichert');
         } catch (err) {
             if (err instanceof HttpErrorResponse) {
                 console.error(err);
@@ -101,18 +101,18 @@ export class DozentenanlegenComponent {
                 this.toastService.addError(error.msg);
             } else {
                 console.error(err);
-                this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+                this.toastService.addError('Ein unbekannter Fehler ist aufgetreten');
             }
         }
     }
 
     deleteDozent(index) {
         this.formDozenten.controls.dozentenDaten["controls"].splice(index, 1);
-        const dozent = this.formDozenten["controls"].dozentenDaten.value;
+        const dozent = this.formDozenten.controls.dozentenDaten.value;
         const dozentMail = dozent[index].mail;
-        try{
+        try {
           this.dozentenController.deleteDozent(dozentMail);
-          this.toastService.addSuccess("Kurs erfolgreich gelöscht");
+          this.toastService.addSuccess('Dozent erfolgreich gelöscht');
         } catch (err) {
           if (err instanceof HttpErrorResponse) {
             console.error(err);
@@ -121,7 +121,7 @@ export class DozentenanlegenComponent {
             this.toastService.addError(error.msg);
           } else {
             console.error(err);
-            this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+            this.toastService.addError('Ein unbekannter Fehler ist aufgetreten');
           }
         }
         this.loadDozenten();

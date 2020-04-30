@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         });
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     }
 
     // convenience getter for easy access to form fields
@@ -62,14 +62,14 @@ export class LoginComponent implements OnInit {
 
             this.router.navigate([this.returnUrl]);
             console.log(this.returnUrl);
-            console.log("Login erfolgreich");
+            console.log('Login erfolgreich');
         } catch (err) {
             if (err instanceof HttpErrorResponse) {
                 console.error(err);
                 const error = err.error as BackendErrorResponse;
                 this.error = error.msg;
             } else {
-                console.error("Unknown error occured");
+                console.error('Unknown error occured');
                 console.error(err);
             }
             this.loading = false;

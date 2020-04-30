@@ -1,11 +1,11 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 import { User } from '../models/user';
 
-const users: User[] = [{ id: 1, mail: 'it-girls@dhbw.de', titel: '', password: 'girls', vorname: 'Test', nachname: 'User', role: "admin" }];
+const users: User[] = [{ id: 1, mail: 'it-girls@dhbw.de', titel: '', password: 'girls', vorname: 'Test', nachname: 'User', role: 'admin' }];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -22,14 +22,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function handleRoute() {
             switch (true) {
                 case url.endsWith('/users/authenticate') && method === 'POST':
-                    //POST request containing mail+password in body
-                    return authenticate(); //if mail+pw are correct, then jwt token is returned
+                    // POST request containing mail+password in body
+                    return authenticate(); // if mail+pw are correct, then jwt token is returned
                 case url.endsWith('/users') && method === 'GET':
-                    return getUsers(); //returns list of all users with valid jwt token
+                    return getUsers(); // returns list of all users with valid jwt token
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
-            }    
+            }
         }
 
         // route functions
@@ -37,25 +37,25 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function authenticate() {
             const { mail, password } = body;
             const user = users.find(x => x.mail === mail && x.password === password);
-            if (!user) return error('Benutzername oder Passwort sind nicht korrekt');
+            if (!user) { return error('Benutzername oder Passwort sind nicht korrekt'); }
             return ok({
                 id: user.id,
                 mail: user.mail,
                 firstName: user.vorname,
                 lastName: user.nachname,
                 token: 'fake-jwt-token'
-            })
+            });
         }
 
         function getUsers() {
-            if (!isLoggedIn()) return unauthorized();
+            if (!isLoggedIn()) { return unauthorized(); }
             return ok(users);
         }
 
         // helper functions
 
         function ok(body?) {
-            return of(new HttpResponse({ status: 200, body }))
+            return of(new HttpResponse({ status: 200, body }));
         }
 
         function error(message) {

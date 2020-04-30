@@ -2,11 +2,11 @@ import { Vorlesung } from './vorlesungen-models';
 import { Termin } from './termin-models';
 
 export interface CalenderDay {
-    date: Date; //Startdatum mit Startuhrzeit
+    date: Date; // Startdatum mit Startuhrzeit
     morning: Termin;
     afternoon: Termin;
-    //public vorlesung: Vorlesung[];
-    //Array Vorlesungen
+    // public vorlesung: Vorlesung[];
+    // Array Vorlesungen
     // constructor (date: Date){
     //     this.date = date;
     //     date = new Date()

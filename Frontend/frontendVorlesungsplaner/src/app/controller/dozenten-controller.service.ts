@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
-import { BehaviorSubject } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Dozent, DozentenResponse, DozentResponse, DozentenRequest } from '@app/models/dozenten-models';
 import { RestService } from './rest.service';
 import { KursController } from './kurs-controller.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class DozentenController {
   public dozentenListe: BehaviorSubject<Dozent[]>;
@@ -26,7 +26,7 @@ export class DozentenController {
     this.dozentenListe.next(response.dozenten);
   }
 
-  public async saveDozenten(dozenten: Dozent[]): Promise<DozentenResponse>{
+  public async saveDozenten(dozenten: Dozent[]): Promise<DozentenResponse> {
     const response = await this.restService.saveDozenten(dozenten);
     this.dozentenListe.next(response.dozenten);
     console.log(response);

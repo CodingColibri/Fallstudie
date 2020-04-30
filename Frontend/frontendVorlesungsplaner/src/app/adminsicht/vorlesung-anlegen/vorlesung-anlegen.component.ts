@@ -22,9 +22,9 @@ import { BackendErrorResponse } from '@app/models/user';
 
 export class VorlesunganlegenComponent {
 
-  kurse: Kurs[]= [];
-  dozenten: Dozent[]= [];
-  
+  kurse: Kurs[] = [];
+  dozenten: Dozent[] = [];
+
   public currentKurs: string;
   private kursListe: Kurs[];
   public formKurs: FormGroup;
@@ -32,15 +32,15 @@ export class VorlesunganlegenComponent {
   formVorlesungen: FormGroup;
 
   constructor(private fb: FormBuilder,
-    public kursController: KursController,
-    public dozentenController: DozentenController,
-    public vorlesungenController: VorlesungenController,
-    private toastService: ToastService) {
+              public kursController: KursController,
+              public dozentenController: DozentenController,
+              public vorlesungenController: VorlesungenController,
+              private toastService: ToastService) {
       this.kursController.currentKurs.subscribe(kurs => {
         this.currentKurs = kurs;
         this.kursChanged();
       });
-  
+
       this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
         this.kursListe = kurse;
         this.kursChanged();
@@ -48,13 +48,13 @@ export class VorlesunganlegenComponent {
       this.dozentenController.dozentenListe.subscribe(dozent => {
         this.dozenten = dozent;
         this.kursChanged();
-      }); 
+      });
   }
 
   private kursChanged() {
     this.formVorlesungen = this.fb.group({
       vorlesungenStunden: this.fb.array([])
-    })
+    });
 
     if (!this.kursListe || !this.currentKurs) {
       return;
@@ -64,7 +64,7 @@ export class VorlesunganlegenComponent {
       return kurs.name == this.currentKurs;
     });
     if (!kurs) {
-      this.toastService.addError("Fehler aufgetreten, Kurs wurde nicht gefunden");
+      this.toastService.addError('Fehler aufgetreten, Kurs wurde nicht gefunden');
       return;
     }
     for (const vorlesung of kurs.vorlesungen) {
@@ -75,7 +75,7 @@ export class VorlesunganlegenComponent {
         std_anzahl: vorlesung.std_anzahl,
         dozent: vorlesung.dozenten[0].mail
         } as Vorlesung)
-      )
+      );
     }
   }
 
@@ -89,7 +89,7 @@ export class VorlesunganlegenComponent {
       name: undefined,
       std_anzahl: undefined,
       dozent: []
-    } as Vorlesung))
+    } as Vorlesung));
   }
 
   public async onSubmit() {
@@ -101,7 +101,7 @@ export class VorlesunganlegenComponent {
     console.log(vorlesungen);
     try {
       const response = await this.vorlesungenController.saveVorlesungen(this.currentKurs, vorlesungen);
-      this.toastService.addSuccess("Vorlesung erfolgreich gespeichert");
+      this.toastService.addSuccess('Vorlesung erfolgreich gespeichert');
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         console.error(err);
@@ -110,7 +110,7 @@ export class VorlesunganlegenComponent {
         this.toastService.addError(error.msg);
       } else {
         console.error(err);
-        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+        this.toastService.addError('Ein unbekannter Fehler ist aufgetreten');
       }
     }
   }
@@ -118,12 +118,12 @@ export class VorlesunganlegenComponent {
   deleteVorlesung(index) {
     this.formVorlesungen.controls.vorlesungenStunden["controls"].splice(index, 1);
 
-    const vorlesung = this.formVorlesungen["controls"].vorlesungenStunden.value;
+    const vorlesung = this.formVorlesungen.controls.vorlesungenStunden.value;
     console.log(vorlesung);
     const vorlesungID = vorlesung[index].id;
-    try{
+    try {
       this.vorlesungenController.deleteVorlesung(vorlesungID);
-      this.toastService.addSuccess("Kurs erfolgreich gelöscht");
+      this.toastService.addSuccess('Kurs erfolgreich gelöscht');
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         console.error(err);
@@ -132,7 +132,7 @@ export class VorlesunganlegenComponent {
         this.toastService.addError(error.msg);
       } else {
         console.error(err);
-        this.toastService.addError("Ein unbekannter Fehler ist aufgetreten");
+        this.toastService.addError('Ein unbekannter Fehler ist aufgetreten');
       }
     }
     this.kursController.loadData();

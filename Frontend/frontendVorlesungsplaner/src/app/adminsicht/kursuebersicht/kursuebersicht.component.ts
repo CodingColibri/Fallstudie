@@ -9,10 +9,10 @@ import { KursController } from '@app/controller/kurs-controller.service';
 })
 export class KursuebersichtComponent {
 
-  kurse: Kurs[]= [];
-  
+  kurse: Kurs[] = [];
+
   constructor(public kursController: KursController) {
-    this.kursController.kursListe.subscribe((data: Kurs[])=> {
+    this.kursController.kursListe.subscribe((data: Kurs[]) => {
       this.kurse = data;
     });
     this.kursController.loadData();

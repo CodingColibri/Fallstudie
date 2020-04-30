@@ -16,9 +16,9 @@ export class RestService {
   private endpoint = `${environment.backendUrl}`;
   private httpOptions = {
     headers: new HttpHeaders({
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     })
-  }
+  };
 
   constructor(private http: HttpClient) { }
 
@@ -38,7 +38,7 @@ export class RestService {
       semester.ende = new Date(semester.ende as any * 1000);
     }
     for (const vorlesung of kurs.vorlesungen) {
-      this.deserializeVorlesungen(vorlesung)
+      this.deserializeVorlesungen(vorlesung);
     }
     return kurs;
   }
@@ -46,7 +46,7 @@ export class RestService {
   public async getKurse(): Promise<KurseResponse> {
     return await this.http.get<KurseResponse>(`${this.endpoint}/kurs`).pipe(
       map(resp => {
-        for (let kurs of resp.kurse) {
+        for (const kurs of resp.kurse) {
           this.deserializeKurs(kurs);
         }
         return resp;
@@ -93,7 +93,7 @@ export class RestService {
         semesterID: semester.semesterID,
         ende: semester.ende.getTime() / 1000,
         start: semester.start.getTime() / 1000,
-      })
+      });
     }
     return await this.http.post<SemestersResponse>(`${environment.backendUrl}/kurs/${kurs_name}/semester`, body).toPromise();
   }
@@ -126,7 +126,7 @@ export class RestService {
     const body = {
       dozenten: []
     } as DozentenRequest;
-    debugger
+    debugger;
     for (const dozent of dozenten) {
       body.dozenten.push({
         titel: dozent.titel,
@@ -140,7 +140,7 @@ export class RestService {
       return await this.http.post<DozentenResponse>(`${environment.backendUrl}/dozenten`, body).pipe(
         map(resp => {
           console.log(resp);
-          for (let dozent of resp.dozenten) {
+          for (const dozent of resp.dozenten) {
             this.deserializeDozenten(dozent);
           }
           return resp;
@@ -152,7 +152,7 @@ export class RestService {
   public async getDozenten(): Promise<DozentenResponse> {
     return await this.http.get<DozentenResponse>(`${environment.backendUrl}/dozent`).pipe(
       map(resp => {
-        for (let dozent of resp.dozenten) {
+        for (const dozent of resp.dozenten) {
           this.deserializeDozenten(dozent);
         }
         return resp;
@@ -172,9 +172,9 @@ export class RestService {
       termin.endDate = new Date(termin.endDate as any * 1000);
       termin.vorlesungsID = vorlesung.id;
       if (termin.startDate < new Date(new Date(termin.startDate).setHours(12))) {
-        termin.morningOrAfternoon = 'morning'
+        termin.morningOrAfternoon = 'morning';
       } else {
-        termin.morningOrAfternoon = 'afternoon'
+        termin.morningOrAfternoon = 'afternoon';
       }
 
     }
@@ -193,7 +193,7 @@ export class RestService {
         name: vorlesung.name,
         std_anzahl: vorlesung.std_anzahl,
         dozenten: vorlesung.dozenten
-      })
+      });
     }
     return await this.http.post<VorlesungResponse>(`${environment.backendUrl}/kurs/${kurs_name}/vorlesung`, body).toPromise();
   }
@@ -201,7 +201,7 @@ export class RestService {
   public async getVorlesungenByKurs(kurs_name: string): Promise<VorlesungResponse> {
     return await this.http.get<VorlesungResponse>(`${environment.backendUrl}/kurs/${kurs_name}/vorlesungen`).pipe(
       map(resp => {
-        for (let vorlesung of resp.vorlesungen) {
+        for (const vorlesung of resp.vorlesungen) {
           this.deserializeVorlesungen(vorlesung);
         }
         return resp;
@@ -216,7 +216,7 @@ export class RestService {
   /**********************************************
   /* Termine Requests
   /**********************************************/
-  //mitgetVorlesungenByKurs() die ID auslesen und hier mitgeben
+  // mitgetVorlesungenByKurs() die ID auslesen und hier mitgeben
   public async saveTermine(vorlesung_id: number, termine: Termin[]): Promise<TermineResponse> {
     const body = {
       termine: []

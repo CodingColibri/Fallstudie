@@ -33,7 +33,7 @@ export class VorlesungenService {
   //     startDate: new Date(2020,3,25,9,0),
   //     endDate: new Date(2020,3,25,12,15),
     // }
-  ]
+  ];
 
   constructor() { }
 

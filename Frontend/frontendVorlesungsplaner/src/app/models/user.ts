@@ -15,8 +15,8 @@ export const UserRoleEnum = {
 };
 
 export interface UserTokenData {
-    access_token: string,
-    user: User
+    access_token: string;
+    user: User;
 }
 
 export interface User {

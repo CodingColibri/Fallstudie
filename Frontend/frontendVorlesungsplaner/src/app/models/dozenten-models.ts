@@ -6,7 +6,7 @@ export interface Dozent {
     role: string;
     password: string;
   }
-  export interface DozentRequest {
+export interface DozentRequest {
     titel?: string;
     vorname: string;
     nachname: string;
@@ -14,14 +14,14 @@ export interface Dozent {
     role: string;
     password: string;
   }
-  export interface DozentResponse {
+export interface DozentResponse {
     dozent: Dozent;
   }
-  export interface DozentenRequest {
+export interface DozentenRequest {
     dozenten: DozentRequest[];
   }
 
-  export interface DozentenResponse {
+export interface DozentenResponse {
     dozenten: Dozent[];
   }
 

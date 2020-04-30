@@ -3,14 +3,14 @@ import { Kurs } from './kurse-models';
 import { Termin } from './termin-models';
 
 export interface Vorlesung {
-    //date?: Date; //Delete => ist in Termin (Kalender muss angepasst werden)
+    // date?: Date; //Delete => ist in Termin (Kalender muss angepasst werden)
     id?: number;
     name?: String;
     std_anzahl?: number;
-    //stunden?: number; //Delete => ist in Termin (Kalender muss angepasst werden)
-    //startDate?: Date; // Delete => ist in Termin (Kalender muss angepasst werden)
-    //endDate?: Date; // Delete => ist in Termin (Kalender muss angepasst werden)
-    //morningOrAfternoon?: String //Delete => ist in Termin (Kalender muss angepasst werden)
+    // stunden?: number; //Delete => ist in Termin (Kalender muss angepasst werden)
+    // startDate?: Date; // Delete => ist in Termin (Kalender muss angepasst werden)
+    // endDate?: Date; // Delete => ist in Termin (Kalender muss angepasst werden)
+    // morningOrAfternoon?: String //Delete => ist in Termin (Kalender muss angepasst werden)
     kurs?: Kurs[];
     dozenten?: Dozent[];
     termine?: Termin[];

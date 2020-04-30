@@ -29,7 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KalenderComponent } from './calendar/calendar.component';
 // used to create fake backend
-//Import Komponenten Vorlesungsplaner
+// Import Komponenten Vorlesungsplaner
 import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
 import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
 import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
@@ -82,8 +82,8 @@ registerLocaleData(localeDe, 'de-DE');
     MatFormFieldModule,
     MatSlideToggleModule,
     MatInputModule,
-    MatDialogModule, 
-    MatCheckboxModule, 
+    MatDialogModule,
+    MatCheckboxModule,
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -92,12 +92,12 @@ registerLocaleData(localeDe, 'de-DE');
     HttpClientModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "de-DE" },
+    { provide: LOCALE_ID, useValue: 'de-DE' },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend
-    fakeBackendProvider //TODO Für echte API auskommentieren
+    fakeBackendProvider // TODO Für echte API auskommentieren
   ],
   bootstrap: [AppComponent],
   schemas: [
