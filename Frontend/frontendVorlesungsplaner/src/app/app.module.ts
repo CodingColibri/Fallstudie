@@ -27,8 +27,8 @@ import { VorlesunganlegenComponent } from './adminsicht/vorlesung-anlegen/vorles
 import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { KalenderComponent } from './calendar/calendar.component';
-// used to create fake backend
 // Import Komponenten Vorlesungsplaner
 import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
 import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
@@ -89,7 +89,8 @@ registerLocaleData(localeDe, 'de-DE');
     MatNativeDateModule,
     MatRippleModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    FlexLayoutModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-DE' },

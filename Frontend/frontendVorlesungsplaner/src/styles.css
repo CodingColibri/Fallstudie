@@ -97,7 +97,7 @@ h3 {
     padding-left: 45px;
     height: 43px;
     display: block;
-    max-width: 100%;
+    /* max-width: 100%; */
     /* float: left;
     clear:left; */
 }

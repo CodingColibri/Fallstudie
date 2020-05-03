@@ -9,21 +9,21 @@
 </div>
 <div class="background-image">
     
-    <div class="login-main-box">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <input type="text" placeholder="Mail" formControlName="mail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mail.errors }" />
+    <div fxFlex="40%" fxFlex.xs="90%" fxLayout="row" class="login-main-box">
+    <form fxFlex="100%" fxLayout="row wrap" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- <div class="form-group"> -->
+            <input fxFlex="100" type="text" placeholder="Mail" formControlName="mail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mail.errors }" />
             <div *ngIf="submitted && f.mail.errors" class="invalid-feedback">
                 <div *ngIf="f.mail.errors.required">Mail is required</div>
             </div>
-        </div>
-        <div class="form-group">
-            <input type="password" placeholder="Passwort" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <!-- </div> -->
+        <!-- <div class="form-group"> -->
+            <input fxFlex="100" type="password" placeholder="Passwort" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
             <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                 <div *ngIf="f.password.errors.required">Password is required</div>
             </div>
-        </div>
-        <button [disabled]="loading" class="btn btn-primary">
+        <!-- </div> -->
+        <button fxFlex="100" [disabled]="loading" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Login
         </button>

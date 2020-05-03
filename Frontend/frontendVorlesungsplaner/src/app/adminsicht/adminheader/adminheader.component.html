@@ -1,4 +1,4 @@
-<div class="header-wrapper">
+<div fxLayout="row" class="header-wrapper">
 <div> 
     <a routerLink="/willkommen" routerLinkActive="active">
         <img src="../../assets/img/dh-logo.png" id="header-logo">
@@ -16,7 +16,7 @@
             </mat-select>
     </mat-form-field>  
 
-    <label class="admin">{{currentUser.titel}} {{currentUser.vorname}} {{currentUser.nachname}}</label>
+    <label fxShow fxHide.sm="true" fxHide.xs="true" class="admin">{{currentUser.titel}} {{currentUser.vorname}} {{currentUser.nachname}}</label>
     <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">
 
 </div>

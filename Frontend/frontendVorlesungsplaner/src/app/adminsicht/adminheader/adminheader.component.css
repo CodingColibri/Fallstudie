@@ -4,9 +4,6 @@
     align-items: center;
     justify-content: space-between;
 }
-.user-kurse{
-    margin-left: 380px;
-}
 .user-kurse mat-form-field{
     padding-left: 20px;
 }
