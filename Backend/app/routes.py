@@ -48,7 +48,7 @@ def login():
 """ Liefert alle Termine für einen bestimmten Zeitraum für einen Kurs, wobei nur bei den Kursen, worauf der Requester Zugriff hat, der
     Vorlesungsname angezeigt wird. Ein Admin kann somit alle Termine sehen.
 """
-
+# Depricated 
 # Best practice would be GET with URL args ?kurs=XXX&start=XXX&end=XXX
 @app.route('/termin/fortimeandkurs', methods=['POST'])
 @jwt_required
@@ -524,26 +524,18 @@ def dozentgibtvorlesung():
     Return:     True if the user "gibt" all the vorlesungen
 """
 #TODO: Rework for Admin and testing
-def check_privileges(current_user, pCheck):
-    print(type(pCheck))
-    if (type(pCheck) is int):
-        check = []
-        check.append(check)
-    elif (type(pCheck) is list):
-        check = pCheck
-    else:
-        raise ValueError("Check has to be a list or an integer")
+def check_privileges(current_user, check):
+    if type(check) is not list:
+        raise ValueError("Check has to be a list")
 
+    print(check)
     user = Dozent.query.filter_by(mail=current_user).first()
     if user is None:
         return False
-    vorlesungen = user.vorlesungen.all()
-    vorlesung_id = []
-    for lesung in vorlesungen:
-        vorlesung_id.append(lesung.id)
-    if 1 in vorlesung_id:
+    if user.role == "admin":
         return True
-    return set(check).issubset(set(vorlesung_id))
+    vorlesungen = user.vorlesungen.all()
+    return set(check).issubset(set(vorlesungen))
 
 
 """
@@ -561,8 +553,8 @@ def termin_helper(id, obj, jwt_token):
         abort(400, {'message' : 'No Vorlesung found for id '+ str(id)})
     if not is_period_free(str(vorlesung.kurs), startDate, endDate):
         abort(400, {'message' : 'timeframe is occupied: ' + startDate+" - "+endDate})
-    """if not check_privileges(jwt_token, [vorlesung]):
-        abort(403, {'message': 'No permissions to create Termin for ' + str(vorlesung.name)})"""
+    if not check_privileges(jwt_token, [vorlesung]):
+        abort(403, {'message': 'No permissions to create Termin for ' + str(vorlesung.name)})
     
     return Termin(start=startDate, ende=endDate, vorlesung_id = id)
 
