@@ -38,8 +38,9 @@ h3 {
     opacity: 0.85;
     box-sizing: border-box;
     float: left;
-    margin-left: 40px;
-    margin-right: 40px;
+    margin: 15px 40px 15px 40px;
+    /* margin-left: 40px;
+    margin-right: 40px; */
     display: flex;
     flex-wrap: wrap;
     align-items: center;

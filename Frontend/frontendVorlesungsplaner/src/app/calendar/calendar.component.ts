@@ -125,12 +125,14 @@ export class KalenderComponent {
                 const initialCalenderDay = {
                     date: new Date(currentDay),
                     morning: {
+                        vorlesungName: 'test',
                         morningOrAfternoon: 'morning',
                         startDate: morningDateStart,
                         endDate: morningDateEnd,
                         vorlesungsID: 0
                     } as Termin,
                     afternoon: {
+                        vorlesungName: 'test',
                         morningOrAfternoon: 'afternoon',
                         startDate: afternoonDateStart,
                         endDate: afternoonDateEnd,

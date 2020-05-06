@@ -15,21 +15,43 @@
     </mat-card-content>
 </mat-card>
 <div class="background-image-calendar" *ngIf="currentKurs != null">
-    <div class="kalender-container">
-
+    <div class="kalender-container" fxShow fxHide.sm="true" fxHide.xs="true">
         <table class="monats-tabelle">
-            <tr>
+            <tr *ngIf="currentKurs != null">
                 <th *ngFor="let weekDayName of weekDayNames">{{ weekDayName }}</th>
             </tr>
             <tr *ngFor="let week of calenderData.weeks">
                 <td *ngFor="let day of week.days" [ngClass]="{'outdated': !isDayInMonth(day)}"
                     (click)="openDialog(day)">
                     <div [ngClass]="{'tdRed': day.morning.vorlesungsID != 0 }">
-                        <span class="tdContent">{{ day.date | date: 'd'}}</span>
+                        <span class="tdContent">{{ day.date | date: 'd'}}<br></span>
+                        <span class="tdContentVLName">{{day.morning.vorlesungName}}</span>
                     </div>
-                    <div [ngClass]="{'tdRed': day.afternoon.vorlesungsID != 0 }"></div>
+                    <div [ngClass]="{'tdRed': day.afternoon.vorlesungsID != 0 }">
+                        <span class="tdContentVLname">{{day.afternoon.vorlesungName}}</span>
+                    </div>
                 </td>
             </tr>
         </table>
+    </div>
+    <div class="kalender-container" fxLayout="row" fxShow fxHide.md="true" fxHide.lg="true">
+        <div class="day-view">
+            <!-- <tr *ngIf="currentKurs != null">
+                <th *ngFor="let weekDayName of weekDayNames">{{ weekDayName }}</th>
+            </tr> -->
+            <div *ngFor="let week of calenderData.weeks">
+                <div *ngFor="let day of week.days" [ngClass]="{'outdated': !isDayInMonth(day), 'weekDay': isDayInMonth(day)}"
+                    (click)="openDialog(day)">
+                    <div [ngClass]="{'tdRed': day.morning.vorlesungsID != 0, 'tdNull': day.morning.vorlesungsID == 0}">
+                        <span class="tdContent">{{ day.date | date: 'EEEE'}}, {{ day.date | date: 'd'}}. 
+                            {{ day.date | date: 'MMMM'}}<br></span>
+                            <span class="tdContentVLName">{{day.morning.vorlesungName}}</span>
+                    </div>
+                    <div [ngClass]="{'tdRed': day.afternoon.vorlesungsID != 0 }">
+                        <span class="tdContentVLName">{{day.afternoon.vorlesungName}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

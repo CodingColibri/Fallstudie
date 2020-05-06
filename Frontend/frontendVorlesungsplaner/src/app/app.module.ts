@@ -13,6 +13,20 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { fakeBackendProvider } from './helpers/fake-backend';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+// Import Komponenten Vorlesungsplaner
+import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
+import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
+import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
+import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
+import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersicht/vorlesungsuebersicht.component';
 import { AdminheaderComponent } from './adminsicht/adminheader/adminheader.component';
 import { AdministrationComponent } from './adminsicht/administration/administration.component';
 import { AdminKalenderComponent } from './adminsicht/adminkalender/adminkalender.component';
@@ -25,26 +39,13 @@ import { SemesteranlegenComponent } from './adminsicht/semester-anlegen/semester
 import { SemesteruebersichtComponent } from './adminsicht/semesteruebersicht/semesteruebersicht.component';
 import { VorlesunganlegenComponent } from './adminsicht/vorlesung-anlegen/vorlesung-anlegen.component';
 import { WelcomebuttonsComponent } from './adminsicht/welcome-buttons/welcome-buttons.component';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { KalenderComponent } from './calendar/calendar.component';
-// Import Komponenten Vorlesungsplaner
-import { DozentenheaderComponent } from './dozentensicht/dozentenheader/dozentenheader.component';
-import { DozentenKalenderComponent } from './dozentensicht/dozentenkalender/dozentenkalender.component';
-import { DwelcomebuttonsComponent } from './dozentensicht/dwelcome-buttons/dwelcome-buttons.component';
-import { VorlesungEintragenComponent } from './dozentensicht/vorlesung-eintragen/vorlesung-eintragen.compontent';
-import { VorlesungsuebersichtComponent } from './dozentensicht/vorlesungsuebersicht/vorlesungsuebersicht.component';
-import { ErrorInterceptor } from './helpers/error.interceptor';
-import { fakeBackendProvider } from './helpers/fake-backend';
-import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { LoginViewsComponent } from './login-views/login-views.component';
 import { LoginComponent } from './login/login.component';
 import { ToastComponent } from './toast/toast.component';
-
+import { KalenderComponent } from './calendar/calendar.component';
+//set DateObject to DE
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
-
 registerLocaleData(localeDe, 'de-DE');
 
 @NgModule({
@@ -90,7 +91,9 @@ registerLocaleData(localeDe, 'de-DE');
     MatRippleModule,
     MatCardModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatSidenavModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-DE' },
