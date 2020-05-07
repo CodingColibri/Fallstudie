@@ -1,0 +1,19 @@
+.logo img {
+    max-width: 150px;
+}
+
+.login-main-box {
+    width:350px;
+    height: 180px;
+    padding: 50px 50px 50px 50px;
+    border-radius: 20px;
+    background: white;
+    opacity: 0.85;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: auto;
+}
+.text {
+    font-weight: normal;
+}
