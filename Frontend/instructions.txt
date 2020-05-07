@@ -1,0 +1,15 @@
+Einrichten:
+
+1. Install Angular CLI
+    - open cmd
+    - Enter: "npm install –g @angular/cli"
+2. Install necessary modules
+    - Enter "npm install @angular/flex-layout @angular/cdk –save"
+    - Enter "npm install angular/flex-layout-builds angular/cdk-builds --save"
+3. To run the project
+    - Clone the repo or download the zip-file
+    - Change the directory to “frontendVorlesungsplaner”
+    - Enter "npm install"
+    - Enter "ng serve"
+
+Go to http//localhost:4200 in your browser
