@@ -370,29 +370,43 @@ def create_vorlesung_by_kurs(kurs_name):
     if jwt_claims['role'] != 'admin':
         return jsonify({"msg": "Permission denied"}), 403
 
-    std_anzahl = request.json.get("std_anzahl", None)
-    name = request.json.get("name", None)
-    dozenten = request.json.get("dozenten", None)
-
     kurs = Kurs.query.filter_by(name=kurs_name).first()
     if kurs is None:
         return jsonify({"msg": 'The kurs '+kurs_name+' does not exist'}), 400
 
-    if Vorlesung.query.filter(and_(Vorlesung.name==name, Vorlesung.kurs_name==kurs_name)).first() is not None:
-        return jsonify({"msg": "Vorlesung with this name for this kurs already exists"}), 400
+    for obj in request.json.get("vorlesungen", []):
+        std_anzahl = obj.get("std_anzahl")
+        name = obj.get("name")
+        dozenten = obj.get("dozenten")
+        id = obj.get("id", None)
 
-    vorlesung = Vorlesung(std_anzahl=std_anzahl, name=name,kurs_name=kurs_name)
+        dozenten_objs = []
+        for dozent_identify in dozenten:
+            dozent = Dozent.query.get(dozent_identify)
+            if not dozent:
+                db.session.rollback()
+                return jsonify({"msg": 'Dozent with mail '+dozent_identify+' does not exist. Request was rolled back'}), 400
+            dozenten_objs.append(dozent)
+                
+        """if Vorlesung.query.filter(and_(Vorlesung.name==name, Vorlesung.kurs_name==kurs_name)).first() is not None:
+            return jsonify({"msg": "Vorlesung with this name for this kurs already exists"}), 400"""
 
-    for dozent_identify in dozenten:
-        dozent = Dozent.query.get(dozent_identify)
-        if not dozent:
-            return jsonify({"msg": 'Dozent with mail '+dozent_identify+' does not exist'}), 400
-        vorlesung.dozenten.append(dozent)
-
-    db.session.add(vorlesung)
+        if id is not None:
+            vorlesung = Vorlesung.query.get(id)
+            if vorlesung is None:
+                jsonify({"msg": 'Vorlesung with id '+id+' does not exist yet'}), 400
+            vorlesung.update({"std_anzahl": std_anzahl, "name":name, "dozenten":dozenten_objs})
+        else:
+            vorlesung = Vorlesung(std_anzahl=std_anzahl, name=name,kurs_name=kurs_name, dozenten=dozenten_objs)
+            db.session.add(vorlesung)
     db.session.commit()
+
+    vorlesungen_out = []
+    vorlesungen = Vorlesung.query.filter(Vorlesung.kurs_name == kurs.name).all()
+    for vorlesung in vorlesungen:
+        vorlesungen_out.append(vorlesung.to_public())
         
-    return jsonify({"msg": "Vorlesung created", "vorlesung": vorlesung.to_public()}), 201
+    return jsonify({"msg": "Vorlesungen saved", "vorlesungen": vorlesungen_out}), 201
 
 #Delete
 ###########################################

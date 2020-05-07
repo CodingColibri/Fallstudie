@@ -24,7 +24,7 @@ class Vorlesung(db.Model):
         out['id'] = self.id
         out['name'] = self.name
         out['std_anzahl'] = self.std_anzahl
-        # out['kurs_name'] = self.kurs_name
+        #out['kurs_name'] = self.kurs_name
 
         dozenten = []
         for dozent in self.dozenten:
