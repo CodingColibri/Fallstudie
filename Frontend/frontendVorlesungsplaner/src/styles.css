@@ -10,12 +10,22 @@ body {
 
 body {
     margin: 0;
-    /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
 }
 /*Titel auf jeder Unterseite*/
 .title h1 {
     height: 15vh;
     vertical-align: middle;
+    display: table-cell;
+    padding-left: 40px;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    color: #2c2c2c;
+    font-size: 1.6em;
+}
+.titleMobile h1 {
+    height: 6vh;
+    vertical-align: bottom;
     display: table-cell;
     padding-left: 40px;
     width: 100%;
@@ -38,9 +48,7 @@ h3 {
     opacity: 0.85;
     box-sizing: border-box;
     float: left;
-    margin: 15px 40px 15px 40px;
-    /* margin-left: 40px;
-    margin-right: 40px; */
+    margin: 10px 40px 10px 40px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -58,7 +66,6 @@ h3 {
     font-weight: bold;
     color: black;
     text-decoration: none;
-    /* display: table-cell; */
     margin: auto;
 }
 .main-box-button h3:hover{
@@ -71,8 +78,6 @@ h3 {
     color: black;
     text-decoration: none;
     margin: 0px;
-    /* display: table-cell; */
-    /* margin: auto; */
 }
 .main-box-button h4:hover{
     text-decoration: underline;
@@ -84,7 +89,6 @@ h3 {
     color: #df0019;
 }
 
-
 /*Background der Seiten*/
 .background-image {
     background-image: url('src/assets/img/dhbw_forschung.jpg');
@@ -92,21 +96,24 @@ h3 {
     height: 70vh;
     display: flex;
     align-items: center;
+    overflow-y: auto;
 }
 /*Logo Header auf jeder Unterseite*/
 #header-logo {
     padding-left: 45px;
     height: 43px;
     display: block;
-    /* max-width: 100%; */
-    /* float: left;
-    clear:left; */
 }
 /*Menü-Leiste dunkelgrau als Navigation*/
 .menu-content {
     background-color: #505050;
     height: 32px;
     padding-left: 42px;
+}
+.menu-content-mobile {
+    background-color: #505050;
+    height: 32px;
+    padding-left: 42px; 
 }
 
 .navi {
@@ -116,25 +123,25 @@ h3 {
     padding-top: 7px;
     float: left;
     margin-right: 100px;
-
+}
+.navi-mobile {
+    color:white;
+    padding-right: .6rem;
+    padding-left: .2rem; 
+    padding-top: 7px;
+    float: left;
+    margin-right: 50px;
+}
+.navi-mobile a {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
 }
 .navi a {
     text-decoration: none;
     display: inline-block;
     color: white;
 }
-/*"Username or password is incorrect*/
-/* .alert alert-danger mt-3 mb-0 {
-    background-color: #333;
-    height: 34px;
-    width: 432px;
-    padding: 10px 10px 0px 10px;
-    text-align: center;
-    border-radius: 0px 0px 6px 6px;
-    margin-top: 11px;
-    margin-left: -51px;
-    color: white;
-} */
 /*Buttons "xy anlegen" mit dhbw-next-icon*/
 .formular-buttons {
     margin-top: 30px;

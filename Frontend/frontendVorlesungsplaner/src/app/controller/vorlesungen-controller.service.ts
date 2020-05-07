@@ -27,8 +27,6 @@ export class VorlesungenController {
 
   loadData() {
     const temp: Vorlesung[] = [
-        // new Vorlesung("Wirtschaftsinformatik",20),
-        // new Vorlesung("Wirtschaftsinformatik",20),
     ];
     this.vorlesungenListe.next(temp); // pusht in Beh. Subject
   }

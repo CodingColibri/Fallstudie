@@ -10,7 +10,17 @@
         </p>
     </mat-card-content>
 </mat-card>
-<div class="kursliste" *ngIf="currentKurs != null">
+<div fxShow fxHide.xs="true" class="semesterliste" *ngIf="currentKurs != null">
+    <div *ngFor="let semester of kurs.semester">
+        <tr>
+            <td class="semesterNr">{{semester.semesterID}}. Semester</td>
+            <td class="zeitraum">{{semester.start |date:'dd.MM.yyyy'}} - {{semester.ende |date:'dd.MM.yyyy'}}
+            </td>
+
+        </tr>
+    </div>
+</div>
+<div fxShow fxHide.xl="true" fxHide.lg="true" fxHide.md="true" fxHide.sm="true" class="semesterlisteMobile" *ngIf="currentKurs != null">
     <div *ngFor="let semester of kurs.semester">
         <tr>
             <td class="semesterNr">{{semester.semesterID}}. Semester</td>

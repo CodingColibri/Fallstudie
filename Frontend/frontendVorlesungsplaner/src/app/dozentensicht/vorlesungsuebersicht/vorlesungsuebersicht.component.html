@@ -10,15 +10,27 @@
         </p>
     </mat-card-content>
 </mat-card>
-<div class="vorlesungsliste" *ngIf="currentKurs != null">
+<div fxShow fxHide.xs="true" fxHide.sm="true" class="vorlesungsliste" *ngIf="currentKurs != null">
     <div *ngFor="let vorlesung of currentKursObject.vorlesungen">
         <div *ngFor="let termin of vorlesung.termine">
-        <tr>
-            <!-- TODO Nachfragen Termine aufsteigend sortieren? -->
-            <td class="tdDate">{{termin.startDate|date: 'EEEE, dd.MM.y'}}</td>
-            <td class="tdTimeframe">{{termin.startDate|date: 'HH:mm'}} - {{termin.endDate|date: 'HH:mm'}}</td>
-            <td class="tdNameVorlesung">{{vorlesung.name}}</td>
-        </tr>
-        <p> </p>
+            <tr>
+                <td class="tdDate">{{termin.startDate|date: 'EEEE, dd.MM.y'}}</td>
+                <td class="tdTimeframe">{{termin.startDate|date: 'HH:mm'}} - {{termin.endDate|date: 'HH:mm'}}</td>
+                <td class="tdNameVorlesung">{{vorlesung.name}}</td>
+            </tr>
+            <p> </p>
+        </div>
+    </div>
+</div>
+<div fxShow fxHide.xl="true" fxHide.lg="true" fxHide.md="true" class="vorlesungsliste-mobile" *ngIf="currentKurs != null">
+    <div *ngFor="let vorlesung of currentKursObject.vorlesungen">
+        <div *ngFor="let termin of vorlesung.termine">
+            <tr>
+                <td class="tdDate">{{termin.startDate|date: 'EEEE, dd.MM.y'}}</td>
+                <td class="tdTimeframe">{{termin.startDate|date: 'HH:mm'}} - {{termin.endDate|date: 'HH:mm'}}</td>
+                <td class="tdNameVorlesung">{{vorlesung.name}}</td>
+            </tr>
+            <p> </p>
+        </div>
     </div>
 </div>

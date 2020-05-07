@@ -1,6 +1,9 @@
 .kursliste {
     margin-left: 250px;
 }
+.kurslisteMobile {
+    padding-left: 40px;
+}
 th {
     width: 100px;
     text-align: left;

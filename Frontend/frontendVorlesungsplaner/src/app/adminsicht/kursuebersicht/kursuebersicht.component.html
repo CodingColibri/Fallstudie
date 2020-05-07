@@ -3,7 +3,7 @@
     <h1>Kursübersicht</h1>
 </div>
 
-<div class="kursliste">
+<div fxShow fxHide.xs="true" class="kursliste">
     <tr>
         <th>Kursname</th>
         <th class="kursSGL">Studiengangsleiter</th>
@@ -13,8 +13,17 @@
             <td>{{kurs.name}}</td>
             <td class="kursSGL">{{kurs.studiengangsleiter}}</td>
         </tr>
-        
     </div>
-
-
+</div>
+<div fxShow fxHide.xl="true" fxHide.lg="true" fxHide.md="true" fxHide.sm="true" class="kurslisteMobile">
+    <tr>
+        <th>Kursname</th>
+        <th class="kursSGL">Studiengangsleiter</th>
+    </tr>
+    <div *ngFor="let kurs of kurse">
+        <tr>
+            <td>{{kurs.name}}</td>
+            <td class="kursSGL">{{kurs.studiengangsleiter}}</td>
+        </tr>
+    </div>
 </div>

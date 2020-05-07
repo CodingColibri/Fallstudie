@@ -26,9 +26,9 @@ export class SemesteranlegenComponent {
   public currentKurs: string;
   private kursListe: Kurs[];
   constructor(private fb: FormBuilder,
-              private kursController: KursController,
-              private semesterController: SemesterController,
-              private toastService: ToastService
+    private kursController: KursController,
+    private semesterController: SemesterController,
+    private toastService: ToastService
   ) {
     this.kursController.currentKurs.subscribe(kurs => {
       this.currentKurs = kurs;
@@ -57,6 +57,17 @@ export class SemesteranlegenComponent {
       this.toastService.addError('Fehler aufgetreten, Kurs wurde nicht gefunden');
       return;
     }
+    
+    kurs.semester.sort((obj1, obj2) => {
+      if (obj1.semesterID > obj2.semesterID) {
+        return 1
+      }
+      if (obj1.semesterID < obj2.semesterID) {
+        return -1
+      }
+      return 0;
+    }
+    )
 
     for (const semester of kurs.semester) {
       this.semesterData.push(
@@ -84,7 +95,6 @@ export class SemesteranlegenComponent {
   }
 
   public async onSubmit() {
-    // TODO Abfrage: Nachfragen: Wollen Sie die Semester für alle Studiengänge WWI2018 aktualisieren?
     const semesters: Semester[] = [];
     this.formSemester.value.semesterData.forEach(semester => {
       semesters.push(semester);

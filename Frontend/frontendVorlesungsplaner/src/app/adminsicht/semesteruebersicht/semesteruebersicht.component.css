@@ -1,5 +1,8 @@
-.kursliste {
+.semesterliste {
     margin-left: 250px;
+}
+.semesterlisteMobile {
+    padding-left: 40px;
 }
 th {
     width: 100px;

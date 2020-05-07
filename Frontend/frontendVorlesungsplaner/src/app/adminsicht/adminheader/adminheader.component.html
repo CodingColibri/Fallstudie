@@ -1,38 +1,54 @@
 <div fxLayout="row" class="header-wrapper">
-<div> 
-    <a routerLink="/willkommen" routerLinkActive="active">
-        <img src="../../assets/img/dh-logo.png" id="header-logo">
-    </a>
-
-</div>
-<div class="user-kurse">
-    <mat-form-field> 
-
-        <mat-label class="wählen">  Kurs auswählen </mat-label>
-            <mat-select (selectionChange)="changeKurs($event)"> 
-                <mat-option *ngFor="let kurs of kurse" [value]="kurs.name"> 
+    <div fxShow fxHide.xs="true">
+        <a routerLink="/willkommen" routerLinkActive="active">
+            <img src="../../assets/img/dh-logo.png" id="header-logo">
+        </a>
+    </div>
+    <div fxShow fxHide.lg="true" fxHide.xl="true" fxHide.md="true" fxHide.sm="true">
+        <a routerLink="/willkommen" routerLinkActive="active">
+            <img src="../../assets/img/dh-logo_ohneStgt.png" id="header-logo">
+        </a>
+    </div>
+    <div fxShow fxHide.xs="true" class="user-kurse">
+        <mat-form-field>
+            <mat-label class="wählen">Kurs auswählen</mat-label>
+            <mat-select (selectionChange)="changeKurs($event)">
+                <mat-option *ngFor="let kurs of kurse" [value]="kurs.name">
                     {{kurs.name}}
                 </mat-option>
             </mat-select>
-    </mat-form-field>  
-
-    <label fxShow fxHide.sm="true" fxHide.xs="true" class="admin">{{currentUser.titel}} {{currentUser.vorname}} {{currentUser.nachname}}</label>
-    <img fxShow fxHide.sm="true" fxHide.xs="true" src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">
-
-</div>
-    <div class="logout">
+        </mat-form-field>
+        <label fxShow fxHide.sm="true" fxHide.xs="true" class="admin">{{currentUser.titel}} {{currentUser.vorname}}
+            {{currentUser.nachname}}</label>
+        <img fxShow fxHide.sm="true" fxHide.xs="true"
+            src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">
+    </div>
+    <div fxShow fxHide.lg="true" fxHide.xl="true" fxHide.md="true" fxHide.sm="true"class="user-kurse-mobile">
+        <mat-form-field>
+            <mat-label class="wählen">Kurs auswählen</mat-label>
+            <mat-select (selectionChange)="changeKurs($event)">
+                <mat-option *ngFor="let kurs of kurse" [value]="kurs.name">
+                    {{kurs.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <label fxShow fxHide.sm="true" fxHide.xs="true" class="admin">{{currentUser.titel}} {{currentUser.vorname}}
+            {{currentUser.nachname}}</label>
+        <img fxShow fxHide.sm="true" fxHide.xs="true"
+            src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">
+    </div>
+    <div fxHide.xs="true" class="logout">
         <a (click)="logout()">Logout<img src="../../assets/img/logout.png"></a>
     </div>
 
 
-</div>  
-    
-<div class="menu-content">
+</div>
+
+<div fxShow fxHide.xs="true" class="menu-content">
     <div class="navi"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></div>
-    <!-- TODO (Esra?): Drop-down Menü einfügen: (1) Registrierung - Semester, Kurse, Dozenten 
-    (2) Administration - Vorlesungen anlegen, Kursübersicht -->
     <div class="navi"><a routerLink="/adminkalender" routerLinkActive="active">Kalenderansicht</a></div>
- </div>
- 
-    
-    
+</div>
+<div fxShow fxHide.lg="true" fxHide.xl="true" fxHide.md="true" fxHide.sm="true" class="menu-content-mobile">
+    <div class="navi-mobile"><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></div>
+    <div class="navi-mobile"><a routerLink="/adminkalender" routerLinkActive="active">Kalenderansicht</a></div>
+</div>

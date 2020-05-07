@@ -190,6 +190,7 @@ export class RestService {
     } as VorlesungRequest;
     for (const vorlesung of vorlesungen) {
       body.vorlesungen.push({
+        id: vorlesung.id,
         name: vorlesung.name,
         std_anzahl: vorlesung.std_anzahl,
         dozenten: vorlesung.dozenten

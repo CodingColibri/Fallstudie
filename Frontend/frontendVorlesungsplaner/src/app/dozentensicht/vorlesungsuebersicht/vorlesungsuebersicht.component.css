@@ -1,7 +1,9 @@
 .vorlesungsliste {
     margin-left: 250px;
 }
-
+.vorlesungsliste-mobile{
+    padding-left: 40px;
+}
 .tdDate {
     width: 165px;
     border-right: 2px solid #df0019;

@@ -25,8 +25,12 @@ export class LoginComponent implements OnInit {
         private authenticationService: AuthenticationService
     ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
-            this.router.navigate(['/']);
+        if (this.authenticationService.currentUserValue != null) {
+            if (this.authenticationService.currentUserValue.role == 'admin') {
+                this.router.navigate(['/']);
+            } else if (this.authenticationService.currentUserValue.role == 'dozent') {
+                this.router.navigate(['/dwelcome']);
+            }
         }
     }
 
@@ -37,7 +41,7 @@ export class LoginComponent implements OnInit {
         });
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+        this.returnUrl = this.route.snapshot.queryParams.returnUrl || null;
     }
 
     // convenience getter for easy access to form fields
@@ -59,7 +63,15 @@ export class LoginComponent implements OnInit {
                 password: this.f.password.value
             } as LoginRequest;
             const response = await this.authenticationService.login(body);
-
+            if (this.returnUrl == null) {
+                if (this.authenticationService.currentUserValue.role == 'admin') {
+                    this.returnUrl = '/';
+                } else if (this.authenticationService.currentUserValue.role == 'dozent') {
+                    this.returnUrl = '/dwelcome';
+                }
+            } else if (this.returnUrl == '/' && this.authenticationService.currentUserValue.role == 'dozent') {
+                this.returnUrl = '/dwelcome';
+            }
             this.router.navigate([this.returnUrl]);
             console.log(this.returnUrl);
             console.log('Login erfolgreich');

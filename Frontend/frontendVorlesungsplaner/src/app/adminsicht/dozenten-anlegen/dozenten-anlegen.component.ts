@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AppComponent } from '../../app.component';
 import { FormGroup, FormBuilder, Validators, NgForm, FormArray } from '@angular/forms';
 import { Vorlesung } from '@app/models/vorlesungen-models';
 import { DozentenController } from '@app/controller/dozenten-controller.service';
@@ -20,9 +19,7 @@ export class DozentenanlegenComponent {
 
     public formDozenten: FormGroup;
     public currentKurs: string;
-    private kursListe: Kurs[];
     private dozentenListe: Dozent[];
-    dozenten: Dozent[] = [];
     error = '';
 
     constructor(private fb: FormBuilder,
@@ -30,11 +27,6 @@ export class DozentenanlegenComponent {
                 private kursController: KursController,
                 private toastService: ToastService
     ) {
-        this.kursController.kursListe.subscribe((kurse: Kurs[]) => {
-            this.kursListe = kurse;
-            this.loadDozenten();
-        });
-
         this.dozentenController.dozentenListe.subscribe((dozenten: Dozent[]) => {
             this.dozentenListe = dozenten;
             this.loadDozenten();
@@ -67,7 +59,6 @@ export class DozentenanlegenComponent {
     }
 
     public addInput() {
-        // const data = this.formDozenten.controls.dozentenDaten as FormArray;
         this.dozentenDaten.push(this.fb.group({
             titel: undefined,
             vorname: undefined,
@@ -82,16 +73,14 @@ export class DozentenanlegenComponent {
         let dozentenValue: Dozent;
         this.formDozenten.value.dozentenDaten.forEach(dozent => {
             dozentenValue = dozent;
-            this.dozenten.push(dozent);
+            // this.dozenten.push(dozent);
         });
-        console.log(this.dozenten);
         try {
             // this.formDozenten.value.dozentenDaten.forEach(async dozent => {
                 const response = await this.dozentenController.saveDozent(dozentenValue);
                 // this.dozenten.push(dozent);
                 // console.log(dozent);
             // });
-                console.log(this.dozenten);
                 this.toastService.addSuccess('Erfolgreich gespeichert');
         } catch (err) {
             if (err instanceof HttpErrorResponse) {

@@ -7,6 +7,9 @@ import { MONTHS, WEEKDAYNAMES, YEARS } from '../utils/constants';
 import { ToastService } from '@app/services/toast.service';
 import { Kurs } from '@app/models/kurse-models';
 import { Termin } from '@app/models/termin-models';
+import { AuthenticationService } from '@app/services/authentication.service';
+import { User } from '@app/models/user';
+import { Vorlesung } from '@app/models/vorlesungen-models';
 
 @Component({
     selector: 'calendar',
@@ -16,7 +19,7 @@ import { Termin } from '@app/models/termin-models';
 
 export class KalenderComponent {
     public selectedDate: Date; // aktueller Tag/ aktuelles Datum als Date-Objekt
-
+    public currentUser: User;
     // Konstanten
     weekDayNames = WEEKDAYNAMES; // Konstante weekday-Names
     months = MONTHS; // Konstante months (Array Monatsnr., Monatsname)
@@ -33,7 +36,8 @@ export class KalenderComponent {
     constructor(
         public dialog: MatDialog,
         private kursController: KursController,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private authenticationService: AuthenticationService
     ) {
         this.selectedDate = new Date(); // aktuelles Datum
 
@@ -46,6 +50,40 @@ export class KalenderComponent {
             this.kursListe = kurse;
             this.kursChanged();
         });
+    }
+    ngOnInit() {
+        this.currentUser = this.authenticationService.currentUserValue;
+    }
+
+    public getDozentVL(calenderDay: CalenderDay, morning: boolean) {
+        let vorlesung: Vorlesung[] = [];
+        if(morning) {
+            vorlesung = this.currentKursObject.vorlesungen.filter(x => x.id == calenderDay.morning.vorlesungsID)
+        } else {
+            vorlesung = this.currentKursObject.vorlesungen.filter(x => x.id == calenderDay.afternoon.vorlesungsID)
+        }
+        if(vorlesung.length != 0) {
+            for(let dozent of vorlesung[0].dozenten) {
+                if(this.currentUser.mail == dozent.mail) {
+                    return true
+                }
+            }
+        }
+        return false;
+       
+    }
+    public getVorlesung(calenderDay: CalenderDay, morning: boolean) {
+        for (let vorlesung of this.currentKursObject.vorlesungen) {
+            if (morning) {
+                if (vorlesung.id == calenderDay.morning.vorlesungsID) {
+                    return vorlesung.name;
+                }
+            } else {
+                if (vorlesung.id == calenderDay.afternoon.vorlesungsID) {
+                    return vorlesung.name;
+                }
+            }
+        }
     }
 
     public kursChanged() {
@@ -125,14 +163,12 @@ export class KalenderComponent {
                 const initialCalenderDay = {
                     date: new Date(currentDay),
                     morning: {
-                        vorlesungName: 'test',
                         morningOrAfternoon: 'morning',
                         startDate: morningDateStart,
                         endDate: morningDateEnd,
                         vorlesungsID: 0
                     } as Termin,
                     afternoon: {
-                        vorlesungName: 'test',
                         morningOrAfternoon: 'afternoon',
                         startDate: afternoonDateStart,
                         endDate: afternoonDateEnd,

@@ -6,6 +6,12 @@
 }
 .user-kurse mat-form-field{
     padding-left: 20px;
+    margin-right: 15px;
+}
+.user-kurse-mobile mat-form-field{
+    padding-left: 20px;
+    margin-right: 15px;
+    width: 100px;   
 }
 .user-kurse img {
     height: 45px;

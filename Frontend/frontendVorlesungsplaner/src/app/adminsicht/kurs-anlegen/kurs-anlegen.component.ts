@@ -66,14 +66,12 @@ export class KursanlegenComponent {
   }
 
   public async onSubmit() {
-    // console.log(this.formKurs.value.kursData);
     let kursValue: KursRequest;
     this.formKurs.value.kursData.forEach(kurs => {
       kursValue = kurs;
       this.kurse.push(kurs);
     });
     console.log(this.kurse);
-    // TODO Nachfragen: Error 500? Studienjahrgang wird nicht mit übergeben?
     try {
 
         console.log(kursValue);

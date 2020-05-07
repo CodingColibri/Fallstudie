@@ -36,8 +36,6 @@ export class DozentenController {
   public async saveDozent(dozent: Dozent) {
     const response = await this.restService.saveDozent(dozent);
     const dozentenListe = this.dozentenListe.getValue();
-    dozentenListe.push(response.dozent);
-    this.dozentenListe.next(dozentenListe);
     this.loadData();
   }
 

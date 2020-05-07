@@ -92,7 +92,6 @@ export class VorlesungEintragenComponent {
       const termin1 = this.calenderDay.morning;
       // Check if termin has had an id and if vorlesungsID was changed
       if (termin1.id && termin1.vorlesungsID != this.oldCalenderDay.morning.vorlesungsID) {
-        // TODO: Check if updated kursListe (see controller) makes problems on comming operations
         this.terminController.deleteTermin(termin1.id);
         delete termin1.id; // Delete id as the termin has to be recreated for the new Vorlesung
       }

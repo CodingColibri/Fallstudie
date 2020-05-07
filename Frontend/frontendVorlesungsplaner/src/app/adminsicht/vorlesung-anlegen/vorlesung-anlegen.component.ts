@@ -123,7 +123,7 @@ export class VorlesunganlegenComponent {
     const vorlesungID = vorlesung[index].id;
     try {
       this.vorlesungenController.deleteVorlesung(vorlesungID);
-      this.toastService.addSuccess('Kurs erfolgreich gelöscht');
+      this.toastService.addSuccess('Vorlesung erfolgreich gelöscht');
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         console.error(err);

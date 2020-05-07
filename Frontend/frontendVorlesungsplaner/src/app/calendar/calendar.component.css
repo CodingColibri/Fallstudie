@@ -45,6 +45,11 @@ th:hover {
     background-color: #df0019;
     color: white;
 }
+.tdGrey {
+    background-color: #505050;
+    color:white;
+    height: 50%;
+}
 
 .highlight-today {
     background-color: #df0019;
@@ -61,6 +66,9 @@ th:hover {
     float: right;
     margin-right: 265px;
     margin-top: -50px;
+}
+.previous-monat-next-mobile{
+    padding-left: 25px;
 }
 .switch-month-year {
     float: right;
@@ -171,6 +179,7 @@ td:hover {
 }
 .day-view .outdated{
     margin: 0;
+    height: 10px;
     visibility: hidden;
 }
 .weekDay {
@@ -195,4 +204,5 @@ td:hover {
 }
 .day-view .tdContentVLName {
     padding-left: 8px;
+    font-size: 120%;
 }

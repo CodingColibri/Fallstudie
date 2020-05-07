@@ -2,7 +2,6 @@ import { Dozent } from './dozenten-models';
 import { Vorlesung } from './vorlesungen-models';
 
 export interface Termin {
-    vorlesungName?: Vorlesung['name'];
     id?: number;
     startDate: Date;
     endDate: Date;
