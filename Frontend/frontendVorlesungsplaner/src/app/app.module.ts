@@ -43,7 +43,7 @@ import { LoginViewsComponent } from './login-views/login-views.component';
 import { LoginComponent } from './login/login.component';
 import { ToastComponent } from './toast/toast.component';
 import { KalenderComponent } from './calendar/calendar.component';
-//set DateObject to DE
+// set DateObject to DE
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 registerLocaleData(localeDe, 'de-DE');

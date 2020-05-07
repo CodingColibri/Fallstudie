@@ -4,10 +4,10 @@ import { Vorlesung } from './vorlesungen-models';
 
 export class Semester {
   id: number;
-  studienjahr?: number; 
-  semesterID: number; 
-  start?: Date; 
-  ende?: Date; 
+  studienjahr?: number;
+  semesterID: number;
+  start?: Date;
+  ende?: Date;
 
   constructor(id: number, semesterID: number, start: Date, ende: Date) {
     this.id = id;

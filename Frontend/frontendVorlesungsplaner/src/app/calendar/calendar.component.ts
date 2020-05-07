@@ -57,23 +57,23 @@ export class KalenderComponent {
 
     public getDozentVL(calenderDay: CalenderDay, morning: boolean) {
         let vorlesung: Vorlesung[] = [];
-        if(morning) {
-            vorlesung = this.currentKursObject.vorlesungen.filter(x => x.id == calenderDay.morning.vorlesungsID)
+        if (morning) {
+            vorlesung = this.currentKursObject.vorlesungen.filter(x => x.id == calenderDay.morning.vorlesungsID);
         } else {
-            vorlesung = this.currentKursObject.vorlesungen.filter(x => x.id == calenderDay.afternoon.vorlesungsID)
+            vorlesung = this.currentKursObject.vorlesungen.filter(x => x.id == calenderDay.afternoon.vorlesungsID);
         }
-        if(vorlesung.length != 0) {
-            for(let dozent of vorlesung[0].dozenten) {
-                if(this.currentUser.mail == dozent.mail) {
-                    return true
+        if (vorlesung.length != 0) {
+            for (let dozent of vorlesung[0].dozenten) {
+                if (this.currentUser.mail == dozent.mail) {
+                    return true;
                 }
             }
         }
         return false;
-       
+
     }
     public getVorlesung(calenderDay: CalenderDay, morning: boolean) {
-        for (let vorlesung of this.currentKursObject.vorlesungen) {
+        for (const vorlesung of this.currentKursObject.vorlesungen) {
             if (morning) {
                 if (vorlesung.id == calenderDay.morning.vorlesungsID) {
                     return vorlesung.name;

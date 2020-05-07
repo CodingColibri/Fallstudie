@@ -20,13 +20,10 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { UserRoleEnum } from './models/user';
 
-// TODO Routes je nach Login anpassen => Admin-/ Dozentensicht => data: { roles: [UserRoleEnum.Admin] }
 const routes: Routes = [
   { path: '', component: WelcomebuttonsComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'login-views', component: LoginViewsComponent },
-  // otherwise redirect to home
-  // { path: '**', redirectTo: ''},
   // ADMIN-VIEW
   { path: 'willkommen', component: WelcomebuttonsComponent, data: { roles: [UserRoleEnum.Admin] }},
   { path: 'dashboard', component: AdminDashboardComponent },
@@ -46,7 +43,6 @@ const routes: Routes = [
 // SHARED
 { path: 'kalenderansicht', component: KalenderComponent },
 
-  // [canActivate => Implementieren, Prüfung Admin/ Berechtigung]
 ];
 export const appRoutingModule = RouterModule.forRoot(routes);
 
