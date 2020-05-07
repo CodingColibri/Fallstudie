@@ -42,13 +42,32 @@ except Exception as e:
     print(e)
 
 
-"""@app.before_first_request
+@app.before_first_request
 def create_admin_Vorlesung():
     try:
         db.create_all()
     except Exception as e:
         print("Fehler beim erstellen der Datenbank?")
     try:
+        inital_content = [None]*4
+        inital_content[0] = Kurs(name="WWI2018A", studienjahrgang=2018, studiengangsleiter="Richter")
+        inital_content[1] = Kurs(name="WWI2018H", studienjahrgang=2018, studiengangsleiter="Richter")
+        inital_content[2] = Dozent(mail="raymond.bimazubute@lehre.dhbw-stuttgart.de",role="admin", titel="Prof. Dr.", vorname="Raymond", nachname="Bimazubute")
+        inital_content[2].set_password("ChangeMe")
+        inital_content[3] = Dozent(mail="erich.heumueller@lehre.dhbw-stuttgart.de", role="dozent", titel="Dr.", vorname="Erich", nachname="Heumüller")
+        inital_content[3].set_password("ChangeMeToo")
+        for obj in inital_content:
+            db.session.add(obj)
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+                print(str(obj) + "already exists")
+        print("Initial content created")
+    except Exception as e:
+        db.session.rollback()
+        print(e)
+    """try:
         kurs1 = Kurs(name="WWI2018A", studienjahrgang=2018, studiengangsleiter="Richter")
         kurs2 = Kurs(name="WWI2018H", studienjahrgang=2018, studiengangsleiter="Richter")
         vorlesung = Vorlesung(id=1,std_anzahl=0,name="admin",kurs_name="admin")
