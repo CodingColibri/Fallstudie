@@ -20,6 +20,7 @@ try:
     db.create_all()
 except Exception as e:
     print("Fehler beim erstellen der Datenbank?")
+    print(e)
 try:
     inital_content = [None]*4
     inital_content[0] = Kurs(name="WWI2018A", studienjahrgang=2018, studiengangsleiter="Richter")

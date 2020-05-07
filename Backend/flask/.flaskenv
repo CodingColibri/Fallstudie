@@ -1,0 +1,2 @@
+FLASK_APP=vorlesungsplaner.py
+FLASK_ENV=development
