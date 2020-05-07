@@ -157,9 +157,9 @@ def get_dozent(dozent_identity=None):
 @app.route('/kurs', methods=['GET'])
 @jwt_required
 def get_alle_kurse():
-    jwt_claims = get_jwt_claims()
+    """jwt_claims = get_jwt_claims()
     if jwt_claims['role'] != 'admin':
-        return jsonify({"msg": "Permission denied"}), 403
+        return jsonify({"msg": "Permission denied"}), 403"""
 
     kurse = Kurs.query.all()
     if not kurse:
