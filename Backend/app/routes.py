@@ -392,10 +392,13 @@ def create_vorlesung_by_kurs(kurs_name):
             return jsonify({"msg": "Vorlesung with this name for this kurs already exists"}), 400"""
 
         if id is not None:
-            vorlesung = Vorlesung.query.get(id)
+            vorlesung = Vorlesung.query.filter(Vorlesung.id == id)
+            print(type(dozenten_objs))
             if vorlesung is None:
                 jsonify({"msg": 'Vorlesung with id '+id+' does not exist yet'}), 400
-            vorlesung.update({"std_anzahl": std_anzahl, "name":name, "dozenten":dozenten_objs})
+            vorlesung.update({"std_anzahl": std_anzahl, "name":name})
+            vorlesung1 = Vorlesung.query.get(id)
+            vorlesung1.dozenten = dozenten_objs
         else:
             vorlesung = Vorlesung(std_anzahl=std_anzahl, name=name,kurs_name=kurs_name, dozenten=dozenten_objs)
             db.session.add(vorlesung)
