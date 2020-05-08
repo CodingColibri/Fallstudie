@@ -1,32 +1,48 @@
-<div class="header-wrapper">
-
-<div> 
-    <a routerLink="/dwelcome" routerLinkActive="active">
-        <img src="../../assets/img/dh-logo.png" id="header-logo">
-    </a>
+<div fxLayout="row" class="header-wrapper">
+    <div fxShow fxHide.xs="true">
+        <a routerLink="/willkommen" routerLinkActive="active">
+            <img src="../../assets/img/dh-logo.png" id="header-logo">
+        </a>
+    </div>
+    <div fxShow fxHide.lg="true" fxHide.xl="true" fxHide.md="true" fxHide.sm="true">
+        <a routerLink="/willkommen" routerLinkActive="active">
+            <img src="../../assets/img/dh-logo_ohneStgt.png" id="header-logo">
+        </a>
+    </div>
+    <div fxShow fxHide.xs="true" class="user-kurse">
+        <mat-form-field>
+            <mat-label class="wählen">Kurs auswählen</mat-label>
+            <mat-select (selectionChange)="changeKurs($event)">
+                <mat-option *ngFor="let kurs of kurse" [value]="kurs.name">
+                    {{kurs.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <label fxShow fxHide.sm="true" fxHide.xs="true" class="admin">{{currentUser.titel}} {{currentUser.vorname}}
+            {{currentUser.nachname}}</label>
+        <img fxShow fxHide.sm="true" fxHide.xs="true"
+            src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">
+    </div>
+    <div fxShow fxHide.lg="true" fxHide.xl="true" fxHide.md="true" fxHide.sm="true" class="user-kurse-mobile">
+        <mat-form-field>
+            <mat-label class="wählen">Kurs auswählen</mat-label>
+            <mat-select (selectionChange)="changeKurs($event)">
+                <mat-option *ngFor="let kurs of kurse" [value]="kurs.name">
+                    {{kurs.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <label fxShow fxHide.sm="true" fxHide.xs="true" class="admin">{{currentUser.titel}} {{currentUser.vorname}}
+            {{currentUser.nachname}}</label>
+        <img fxShow fxHide.sm="true" fxHide.xs="true"
+            src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">
+    </div>
+    <div fxHide.xs="true" class="logout">
+        <a (click)="logout()">Logout<img src="../../assets/img/logout.png"></a>
+    </div>
 </div>
-
-<div class="user-kurse">
-    <mat-form-field> 
-    <mat-label class="wählen">  Kurs auswählen </mat-label>
-    <mat-select (selectionChange)="changeKurs($event)">  
-        <mat-option *ngFor="let kurs of kurse" [value]="kurs.name"> 
-            {{kurs.name}}
-        </mat-option>
-    </mat-select>
-    </mat-form-field>
-    <label class="admin">{{currentUser.titel}} {{currentUser.vorname}} {{currentUser.nachname}}</label>
-    <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png">
-</div>
-<div class="logout">
-    <a (click)="logout()">Logout<img src="../../assets/img/logout.png"></a>
-</div>
-</div> 
 
 <div class="menu-content">
     <div class="navi"><a routerLink="/vorlesungsuebersicht" routerLinkActive="active">Meine Vorlesungen</a></div>
     <div class="navi"><a routerLink="/dozentenkalender" routerLinkActive="active">Kalenderansicht</a></div>
 </div>
-
-
-      
